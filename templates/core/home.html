@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+<body>
+  <main class="first-page">
+  <div class="star" >
+    <img class="decor-star" src="{% static 'core/asset/star.png' %}" alt="" />
+  </div>
+ <div class="container">
+  <div class="highway-page">
+    <h1 class="heading">Highway To Alcher</h1>
+    <p  class="para">Highway to Alcher is your direct route to the spotlight at Alcheringa, IIT Guwahati's annual cultural fest! This pan-India competition series unearths the nation's brightest talents, giving them a chance to perform on the grand stage. Get ready to showcase your skills and kickstart your journey to stardom!</p>
+  </div>
+    <a class="register-btn" href="#">Register</a>
+</div>
+
+<div class="image-container">
+<div class="image-1" data-images='["{% static "core/asset/hero.png" %}","{% static "core/asset/hero1.png" %}","{% static "core/asset/hero2.png" %}","{% static "core/asset/hero3.png" %}","{% static "core/asset/hero4.png" %}","{% static "core/asset/hero5.png" %}"]' data-start-index="0">
+  
+  <img src="{% static 'core/asset/hero.png' %}" alt="Crowd enjoying event" class="image" />
+</div>
+<img class="flower" src="{% static 'core/asset/flower.png' %}" alt="" />
+
+<div class="image-nav">
+  <div>
+  <button class="slidebtn" aria-label="Previous">&#8592;</button>
+  <button class="slidebtn" aria-label="Next">&#8594;</button>
+</div>
+  <div class="slide-dots" aria-hidden="true"></div>
+</div>
+</div>
+</main>
+  
+  <section class="competition-page">
+    <div class="competition-header">
+      <h2 class="heading">FIND COMPETITIONS IN</h2>
+      <div class="city-select">
+        <span class="location-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
+          <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+          <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/></span>
+          <span class="location">Choose a location</span>
+        <button id="competitionsCityButton" class="city-button" type="button" aria-haspopup="listbox" aria-expanded="false">
+          
+          <img src="{% static 'core/asset/icon.png' %}" alt="arrow" class="" /> 
+        </button>
+        <ul id="competitionsCityList" class="city-dropdown" role="listbox" aria-labelledby="competitionsCityButton" hidden>
+          <li role="option" data-value="all" class="is-active">All</li>
+          {% for city in cities %}
+          <li role="option" data-value="city-{{ city.name|slugify }}">{{ city.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- All competitions aggregated grid -->
+    <section class="city-competitions" id="city-all">
+      <div class="cards-grid">
+        {% for city in cities %}
+          {% for event in city.events.all %}
+            <article class="comp-card">
+              <div class="card-media">
+                <img src="{% static 'core/asset/hero.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{ event.name }}</h3>
+                <ul class="card-details">
+                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-calendar4" viewBox="0 0 16 16">
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                  </svg></span> <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span></li>
+                  {% if city.venue %}
+                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                  </svg></span> <span class="detail-value">{{ city.venue }}</span></li>
+                  {% endif %}
+                </ul>
+                <div class="card-actions">
+                  <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
+                  <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                  <a class="register-btn" href="{% url 'registrationpage' city.name event.name %}">Register</a>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </section>
+
+    {% for city in cities %}
+      <section class="city-competitions is-hidden" id="city-{{ city.name|slugify }}">
+        
+        <div class="cards-grid">
+          {% for event in city.events.all %}
+            <article class="comp-card">
+              <div class="card-media">
+                <img src="{% static 'core/asset/hero.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{ event.name }}</h3>
+                <ul class="card-details">
+                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-calendar4" viewBox="0 0 16 16">
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                  </svg></span> <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span></li>
+                  {% if city.venue %}
+                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                  </svg></span> <span class="detail-value">{{ city.venue }}</span></li>
+                  {% endif %}
+                </ul>
+                <div class="card-actions">
+                  <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
+                  <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                  <a class="register-btn" href="{% url 'registrationpage' city.name event.name %}">Register</a>
+                </div>
+              </div>
+            </article>
+          {% empty %}
+            <p>No competitions found for {{ city.name }}.</p>
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  </section>
+  
+  <script src="{% static 'core/script.js' %}"></script>
+  
+</body>
+</html>
+
+
