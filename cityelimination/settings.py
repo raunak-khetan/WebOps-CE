@@ -170,8 +170,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('email')
-EMAIL_HOST_PASSWORD = os.environ.get('password')
+EMAIL_HOST_USER = "raunakkhetan470@gmail.com"
+EMAIL_HOST_PASSWORD = "jksl jodn ahxc mzxq"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"

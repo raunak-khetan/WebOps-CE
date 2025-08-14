@@ -59,6 +59,9 @@ def has_registered(email, event):
     """ Helper function to check if a user has already registered for the event. """
     return Head.objects.filter(email=email, event=event).exists()
 
+
+
+
 def registrationpage(request, city_name, event_name):
     city = get_object_or_404(City, name=city_name)
     event = get_object_or_404(Event, name=event_name)
@@ -138,7 +141,7 @@ def registrationpage(request, city_name, event_name):
             team_form = None
             member_formset = None
 
-    return render(request, 'core/register.html', {
+    return render(request, 'core/register_form.html', {
         'form': form if event.event_type == 'solo' else team_form,
         'team_name_form': team_name_form,
         'event': event,
@@ -146,4 +149,13 @@ def registrationpage(request, city_name, event_name):
         'member_formset': member_formset,
         'min_participants': event.min_participants,
         'max_participants': event.max_participants,
+    })
+
+def detailspage(request, city_name, event_name):
+    city = get_object_or_404(City, name=city_name)
+    event = get_object_or_404(Event, name=event_name)
+
+    return render(request, 'core/register.html', {
+        'event': event,
+        'city': city,
     })

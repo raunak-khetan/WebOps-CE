@@ -84,7 +84,7 @@
                 <div class="card-actions">
                   <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
                   <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
-                  <a class="register-btn" href="{% url 'registrationpage' city.name event.name %}">Register</a>
+                  <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Register</a>
                 </div>
               </div>
             </article>
@@ -119,7 +119,7 @@
                 <div class="card-actions">
                   <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
                   <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
-                  <a class="register-btn" href="{% url 'registrationpage' city.name event.name %}">Register</a>
+                  <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Register</a>
                 </div>
               </div>
             </article>

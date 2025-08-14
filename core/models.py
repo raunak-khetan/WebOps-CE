@@ -29,6 +29,9 @@ class Event(models.Model):
     max_participants = models.PositiveIntegerField(null=True, blank=True)
     description = models.TextField(default= "none")
 
+    deadline = models.DateField(null=True, blank=True)
+    event_date = models.DateField(null=True, blank=True)
+
     def clean(self):
         if self.event_type == 'team':
             if self.min_participants is None or self.max_participants is None:
