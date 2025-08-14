@@ -13,6 +13,7 @@ class City(models.Model):
     guidelines = models.TextField(default="None")
     image = models.ImageField(
         upload_to="image_uploads/city_pic/", default='ropar.png')
+    state = models.CharField(max_length=100,default='None')
 
     def __str__(self):
         return self.name

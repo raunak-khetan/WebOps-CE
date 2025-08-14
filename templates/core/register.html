@@ -26,37 +26,30 @@
     </div>
     <div class="event-container">
       <h1 class="event-title">{{ event.name }}</h1>
-      <p class="event-subtitle">The ultimate dance challenge</p>
+      <p class="event-subtitle">{{ event.type }}</p>
       <div class="event-details">
         <div class="left-info">
           <p class="event-date">
-            <img src="{%static 'core/asset/calendar.png' %}" alt="calendar" /> Monday, 24 August 2025
+            <img src="{%static 'core/asset/calendar.png' %}" alt="calendar" />{{ event.event_date }}
           </p>
           <p class="event-location">
-            <img src="{%static 'core/asset/marker-pin-01.png' %}" alt="pin" /> Bhupen Hazarika, IIT
-            Guwahati
+            <img src="{%static 'core/asset/marker-pin-01.png' %}" alt="pin" /> {{ city.venue }}
           </p>
 
           <h3 class="about-the-event">About the Event</h3>
           <p class="event-description">
-            This highly anticipated competition showcases diverse dance forms,
-            from street styles to classical fusion, drawing participants and
-            spectators with its vibrant energy and fierce talent. As a key event
-            leading up to Alcheringa, Electric Heels not only provides a
-            platform for incredible performers but also amplifies the excitement
-            and artistic spirit that defines IIT Guwahati's annual cultural
-            festival.
+            {{ event.description }}
           </p>
         </div>
         <div class="right-info">
-          <h3 class="event-state">ASSAM</h3>
+          <h3 class="event-state">{{ city.state }}</h3>
           <div class="info-box">
             <div class="info-icon">
               <img src="{%static 'core/asset/users-01.png' %}" alt="users" />
             </div>
             <div class="info-text">
               <span class="info-label">Team Size</span>
-              <span class="info-value">5-7 members</span>
+              <span class="info-value">{{ event.min_participants }}-{{ event.max_participants }} members</span>
             </div>
           </div>
 
@@ -66,7 +59,7 @@
             </div>
             <div class="info-text">
               <span class="info-label">Registration Deadline</span>
-              <span class="info-value">Sunday, 15 July</span>
+              <span class="info-value">{{ event.deadline }}</span>
             </div>
           </div>
 
