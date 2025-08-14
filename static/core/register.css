@@ -1,0 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap");
+@font-face {
+  font-family: "Sao Torpes";
+  src: url("fonts/SaoTorpes.woff2") format("woff2"),
+    url("fonts/SaoTorpes.woff") format("woff"),
+    url("fonts/SaoTorpes.ttf") format("truetype"),
+    url("fonts/SaoTorpes.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #141414;
+  font-family: "Lexend", sans-serif;
+  color: white;
+  overflow-x: hidden;
+}
+.top-section {
+  height: 428px;
+  width: 100%;
+  background-color: #373737;
+  position: relative; 
+}
+
+.event-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 10px;
+  position: relative;
+}
+
+.event-banner {
+  position: absolute;
+  left: 50%;
+  top: 114px;
+  transform: translateX(-50%);
+  width: 90%; 
+  max-width: 710px; 
+}
+
+.event-banner img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 710/473;
+  border-radius: 10px;
+  display: block;
+  object-fit: cover;
+}
+
+.event-title {
+  font-family: "Sao Torpes";
+  text-align: center;
+  color: #bdf522;
+  font-size: 40px;
+  font-weight: 400;
+  margin-top: 125px;
+  font-style: normal;
+}
+
+.event-subtitle {
+  font-family: "Lexend";
+  text-align: center;
+  color: #bdf522;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 30px;
+}
+
+.event-details {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+}
+
+.left-info,
+.right-info {
+  background-color: #202020;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.left-info {
+  max-width: 686px;
+  padding: 47px 42px;
+  min-width: 300px;
+  flex: 1; 
+}
+.right-info{
+  max-width: 336px; 
+  padding: 38px 22px;
+  min-width: 280px;
+  flex: 0 1 336px;
+}
+
+.event-date {
+  font-family: "Lexend";
+  font-weight: 500;
+  font-size: 26px;
+  padding-bottom: 12px;
+  color: #bdf522;
+}
+.event-location {
+  font-family: "Lexend";
+  font-weight: 500;
+  font-size: 26px;
+  padding-bottom: 32px;
+  color: #bdf522;
+}
+.about-the-event {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 18px;
+  padding-bottom: 17px;
+}
+.event-description {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 18px;
+  color: #ffffff99;
+}
+
+.event-state {
+  font-family: "Sao Torpes";
+  font-size: 28px;
+  font-weight: 400;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #f5f5f599;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.info-box {
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  margin-bottom: 24px;
+}
+
+.info-icon {
+  background-color: #bdf5220a;
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 14px;
+  color: #f5f5f599;
+  font-family: "Lexend";
+  font-weight: 400;
+}
+
+.info-value {
+  font-size: 18px;
+  color: #f5f5f5;
+  font-family: "Lexend";
+  font-weight: 400;
+}
+
+.register-btn {
+  margin-top: 12px;
+  background: #bdf522;
+  color: #000000;
+  padding: 16px 24px;
+  border-radius: 8px;
+  display: block;
+  text-decoration: none;
+  font-family: "Lexend";
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.copy-btn {
+  background-color: #202020;
+  border: 1px solid #bdf5225c;
+  color: #bdf522;
+  padding: 16px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 292px;
+  text-align: center;
+  font-family: "Lexend";
+  font-weight: 500;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .event-container {
+    padding: 0 15px;
+  }
+  .event-banner {
+    top: 80px;
+    width: 95%;
+  }
+  .event-title {
+    margin-top: 100px;
+  }
+  .event-details {
+    flex-direction: column;
+    align-items: center;
+  }
+  .left-info,
+  .right-info {
+    padding: 30px 25px;
+    max-width: 100%;
+  }
+  .event-date,
+  .event-location {
+    flex-wrap: wrap;
+  }
+  .copy-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-section {
+    height: 300px;
+  }
+  .event-container {
+    padding: 0 10px;
+  }
+  .event-banner{
+    top: 90px;
+    width: 100%;
+  }
+  .event-title{
+    margin-top: 50px;
+    font-size: 28px;
+  }
+  .left-info, .right-info{
+    padding: 20px 15px;
+  }
+  .info-icon{
+    padding: 10px;
+  }
+  .register-btn, .copy-btn{
+    padding: 14px 20px;
+  }
+  .event-date , .event-location{
+    font-size: 18px;
+  }
+
+}
