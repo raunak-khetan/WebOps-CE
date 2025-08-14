@@ -1,3 +1,4 @@
+// raunak start
 //home.html script
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -191,3 +192,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   updateTeamSize();
 })();
+// raunak end
