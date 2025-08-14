@@ -100,3 +100,33 @@ class TeamMember(models.Model):
     def __str__(self):
         return f"{self.name} ({self.head.team.team_name} - {self.head.event.name})"
 
+
+# core/models.py (Append at the bottom), done by ASHISH
+
+class CFARegistration(models.Model):
+    # Step 1
+    full_name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
+    alternate_phone = models.CharField(max_length=20, blank=True, null=True)
+    college_id_card_link = models.URLField()
+
+    # Step 2
+    college_name = models.CharField(max_length=200)
+    college_designation = models.CharField(max_length=100)
+    fest_name = models.CharField(max_length=200)
+    fest_address = models.TextField()
+    fest_dates = models.CharField(max_length=100)
+    number_of_days = models.CharField(max_length=50)
+    expected_footfall = models.CharField(max_length=100)
+    social_links = models.TextField()
+
+    # Step 3
+    accommodation_required = models.BooleanField(default=False)
+    event_preferences = models.TextField(blank=True, null=True)
+
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name
