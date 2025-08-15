@@ -123,7 +123,7 @@ def registrationpage(request, city_name, event_name):
                     fail_silently=False,
                  )
 
-                return redirect('citypage', city_name=city.name)
+                return render(request, 'core/thank_you.html')
 
         else:  # Handle solo registration
             form = RegistrationForm(request.POST)
@@ -143,7 +143,7 @@ def registrationpage(request, city_name, event_name):
                     fail_silently=False,
                 )
                 
-                return redirect('citypage', city_name=city.name)
+                return render(request, 'core/thank_you.html')
 
     else:
         if event.event_type == 'team':

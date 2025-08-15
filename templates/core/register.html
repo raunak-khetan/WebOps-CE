@@ -10,7 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/2cdfdf2a91.js" crossorigin="anonymous"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'core/styles.css' %}">
+   <link rel="stylesheet" href="{% static 'core/combined.css' %}" />
    <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+    <link rel="stylesheet" href="{% static 'core/landing/landing.css' %}">
+   <link rel="stylesheet" href="{% static 'core/landing/cfa.css' %}" />
     <link rel="icon" type="image/x-icon" href="{% static 'core/favicon.ico' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -19,6 +22,28 @@
 
 <!-- Competition landing starts-->
 <body>
+
+    <header class="navbar">
+        <div class="navbar-header">
+          <div class="navbar-left">
+            <img src="{% static 'core/landing/logo.png' %}" class="logo" alt="Logo" />
+            <span>ALCHERINGA</span>
+          </div>
+      
+          <div class="hamburger">&#9776;</div>
+        </div>
+      
+        <div class="navbar-right" id="nav-menu">
+          <a href="#about">About Alcher</a>
+          <a href="#">FAQ</a>
+          <img src="{% static 'core/landing/search.svg' %}" class="search-icon" alt="Search" />
+          <input type="text" id="navbar-search" placeholder="Search..." style="display: none;" />
+        </div>
+      </header>
+
+
+
+
     <div class="top-section">
       <div class="event-banner">
         <img src="{%static 'core/asset/CompetitionPhoto.png' %}" alt="{{ event.name }}" />
@@ -73,7 +98,103 @@
         </div>
       </div>
     </div>
+
+    <div class="alcher-blocks">
+    <section class="footer-block">
+      <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Left Section - Main Message -->
+          <div class="main-message">
+            <h2 class="main-title">
+              THE JOURNEY<br>
+              CONTINUES,<br>
+              SEE YOU AT<br>
+              ALCHERINGA!
+            </h2>
+            <button class="register-btn">Register</button>
+          </div>
+  
+          <!-- Middle Section - Useful Links -->
+          <div class="section-container">
+            <h3 class="section-title">Useful Links</h3>
+            <nav class="links-nav">
+              <ul class="nav-list">
+                <li><a href="#" class="nav-link">
+                  <span>About Us</span>
+                  <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
+                </a></li>
+                <li><a href="#" class="nav-link">
+                  <span>Schedule</span>
+                  <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
+                </a></li>
+                <li><a href="#" class="nav-link">
+                  <span>Sponsors</span>
+                  <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
+                </a></li>
+              </ul>
+            </nav>
+          </div>
+  
+          <!-- Right Section - Contact -->
+          <div class="section-container">
+            <h3 class="section-title">Contact Us</h3>
+            <div class="contacts">
+              <ul class="contact-list">
+                <li class="contact-item">
+                  <div class="contact-name">Sudhanshu Raj</div>
+                  <div class="contact-phone">+91 82929 67325</div>
+                </li>
+                <li class="contact-item">
+                  <div class="contact-name">Sidharth Shukla</div>
+                  <div class="contact-phone">+91 73546 47811</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Bottom Section -->
+        <div class="footer-bottom">
+          <div class="bottom-content">
+            <!-- Copyright -->
+            <div class="copyright">
+              © 2025 Alcheringa, IIT Guwahati. All rights reserved.
+            </div>
+  
+            <!-- Social Links -->
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="Instagram">
+                <img src="{% static 'core/asset/insta.svg' %}" alt="Instagram" class="social-icon">
+              </a>
+              <a href="#" class="social-link" aria-label="YouTube">
+                <img src="{% static 'core/asset/youtube.svg' %}" alt="Youtube" class="social-icon">
+              </a>
+              <a href="#" class="social-link" aria-label="LinkedIn">
+                <img src="{% static 'core/asset/linkedin.svg' %}" alt="LinkedIn" class="social-icon">
+              </a>
+              <a href="#" class="social-link" aria-label="X">
+                <img src="{% static 'core/asset/x.svg' %}" alt="X" class="social-icon">
+              </a>
+              <a href="#" class="social-link" aria-label="Facebook">
+                <img src="{% static 'core/asset/facebook.svg' %}" alt="Facebook" class="social-icon">
+              </a>
+            </div>
+  
+            <!-- Credits -->
+            <div class="credits">
+              Website by Team Alcher
+            </div>
+          </div>
+        </div>
+           </div>
+     </footer>
+    </section>
+    </div>
+
+
     <script src="{%static 'core/register.js' %}"></script>
+    <script src="{% static 'core/combined.js' %}"></script>
 
     <!-- Competition landing end-->
 </body>

@@ -12,6 +12,8 @@
       <script src="https://kit.fontawesome.com/2cdfdf2a91.js" crossorigin="anonymous"></script>
      <link rel="stylesheet" type="text/css" href="{% static 'core/styles.css' %}">
      <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+      <link rel="stylesheet" href="{% static 'core/landing/landing.css' %}">
+  <link rel="stylesheet" href="{% static 'core/landing/cfa.css' %}" />
       <link rel="icon" type="image/x-icon" href="{% static 'core/favicon.ico' %}">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
       <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -19,6 +21,25 @@
   </head>
   <html>
     <body>
+
+        <header class="navbar">
+        <div class="navbar-header">
+          <div class="navbar-left">
+            <img src="{% static 'core/landing/logo.png' %}" class="logo" alt="Logo" />
+            <span>ALCHERINGA</span>
+          </div>
+      
+          <div class="hamburger">&#9776;</div>
+        </div>
+      
+        <div class="navbar-right" id="nav-menu">
+          <a href="#about">About Alcher</a>
+          <a href="#">FAQ</a>
+          <img src="{% static 'core/landing/search.svg' %}" class="search-icon" alt="Search" />
+          <input type="text" id="navbar-search" placeholder="Search..." style="display: none;" />
+        </div>
+      </header>
+
       
     
   <div class="page-wrap">
