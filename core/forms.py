@@ -1,7 +1,7 @@
-
 from django import forms
 from .models import Head, Team, TeamMember, YEAR_CHOICES
 from django.forms import modelformset_factory
+from .models import CFARegistration
 
 
 # Using YEAR_CHOICES from models to keep a single source of truth
@@ -89,3 +89,17 @@ class MemberForm(forms.ModelForm):
         self.fields['year_of_passing'].widget = forms.RadioSelect()
         self.fields['year_of_passing'].choices = YEAR_CHOICES
 
+
+class CFARegistrationStep1Form(forms.ModelForm):
+    class Meta:
+        model = CFARegistration
+        fields = ['full_name', 'age', 'email', 'phone_number', 'alternate_phone', 'college_id_card_link']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'placeholder': 'Enter full name'}),
+            'age': forms.NumberInput(attrs={'placeholder': 'Enter age'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email address'}),
+
+            'phone_number': forms.TextInput(attrs={'placeholder': '+91 |'}),
+            'alternate_phone': forms.TextInput(attrs={'placeholder': '+91 |'}),
+            'college_id_card_link': forms.URLInput(attrs={'placeholder': 'Google Drive link'}),
+        }

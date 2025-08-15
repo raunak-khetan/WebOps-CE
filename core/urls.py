@@ -1,7 +1,10 @@
 from django.urls import path
-from .import views
+from . import views
 
 urlpatterns = [
+    path('cfa/register/step1/', views.cfa_register_step1, name='cfa_step1'),  # use cfa_register_step1, not cfa_step1_view
+    path('cfa/register/step2/', views.cfa_step2_view, name='cfa_step2'),
+    path('cfa/step-3/', views.cfa_step3, name='cfa_step3'),
     path('', views.prelimspage, name='prelimspage'),
     path('competitions/<str:city_name>/', views.citypage, name='citypage'),
     path('competitions/<str:city_name>/<str:event_name>/', views.detailspage, name='detailspage'),

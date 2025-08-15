@@ -17,6 +17,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Environment mode
+PROD = os.environ.get('prod') == 'true'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "core",
     "minio_storage",
+    "formtools"
 ]
 
 MIDDLEWARE = [
@@ -100,8 +104,6 @@ else:
         }
     }
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -148,17 +150,26 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Minio Storage
-if not PROD:
+if PROD:
+    # Production - MinIO storage
     DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
     STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+
     MINIO_STORAGE_ENDPOINT = os.environ.get('minio_endpoint')
     MINIO_STORAGE_ACCESS_KEY = os.environ.get('minio_access')
     MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
     MINIO_STORAGE_USE_HTTPS = True
+
     MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce25media'
     MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
     MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce25static'
     MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+else:
+    # Development - local storage
+    STATICFILES_DIRS = [BASE_DIR / "static"]
+    STATIC_ROOT = BASE_DIR / "staticfiles"
+    MEDIA_ROOT = BASE_DIR / "media"
+
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
@@ -176,8 +187,12 @@ EMAIL_HOST_PASSWORD = "jksl jodn ahxc mzxq"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
-if not PROD:  
-    CSRF_TRUSTED_ORIGINS = ['https://prelims.alcheringa.in','https://testprelims.alcheringa.in']
-else :
-    CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']
 
+# CSRF Trusted Origins
+if PROD:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://prelims.alcheringa.in',
+        'https://testprelims.alcheringa.in'
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']

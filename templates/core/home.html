@@ -6,8 +6,133 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static 'core/style.css' %}">
+  <link rel="stylesheet" href="{% static 'core/landing/landing.css' %}">
+  <link rel="stylesheet" href="{% static 'core/landing/cfa.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+        @font-face {
+            font-family: 'Sao Torpes';
+            src: url("{% static 'core/fonts/SaoTorpes.otf' %}") format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
 </head>
 <body>
+
+<!-- ashish start -->
+
+  <header class="navbar">
+        <div class="navbar-header">
+          <div class="navbar-left">
+            <img src="{% static 'core/landing/logo.png' %}" class="logo" alt="Logo" />
+            <span>ALCHERINGA</span>
+          </div>
+      
+          <div class="hamburger">&#9776;</div>
+        </div>
+      
+        <div class="navbar-right" id="nav-menu">
+          <a href="#about">About Alcher</a>
+          <a href="#">FAQ</a>
+          <img src="{% static 'core/landing/search.svg' %}" class="search-icon" alt="Search" />
+          <input type="text" id="navbar-search" placeholder="Search..." style="display: none;" />
+        </div>
+      </header>
+
+
+  
+   <!-- Hero Section -->
+<section class="hero">
+    <div class="hero-line">
+        <span class="hero-word">HIGHWAY</span>
+        <img src="{% static 'core/landing/shape-purple.svg' %}" alt="shape-purple" class="hero-shape">
+    </div>
+
+    <div class="hero-line compact">
+        <img src="{% static 'core/landing/shape-pink.svg' %}" alt="shape-pink" class="hero-shape">
+        <img src="{% static 'core/landing/shape-orange.svg' %}" alt="shape-orange" class="hero-shape">
+        <img src="{% static 'core/landing/shape-green.svg' %}" alt="shape-green" class="hero-shape">
+        <span class="hero-word">TO</span>
+    </div>
+
+    <div class="hero-line">
+        <span class="hero-word">ALCHER</span>
+        <img src="{% static 'core/landing/shape-green2.svg' %}" alt="shape-green2" class="hero-shape">
+        <img src="{% static 'core/landing/shape-orange2.png' %}" alt="shape-orange2" class="hero-shape">
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat-item">
+      <div class="number-plus">
+        <span class="counter" data-target="21">0</span><span class="plus">+</span>
+      </div>
+      <p class="label">Cities</p>
+    </div>
+    <div class="stat-item">
+      <div class="number-plus">
+        <span class="counter" data-target="36">0</span><span class="plus">+</span>
+      </div>
+      <p class="label">Colleges</p>
+    </div>
+    <div class="stat-item">
+      <div class="number-plus">
+        <span class="counter" data-target="50">0</span><span class="plus">+</span>
+      </div>
+      <p class="label">Competitions</p>
+    </div>
+  </section>
+
+
+   <!-- About Section -->
+    <section id="about" class="about-section" style="position: relative;">
+        <img src="{% static 'core/landing/Star.svg' %}" alt="Star" class="about-star">
+        <div class="about-container">
+            <div class="about-image-wrapper">
+                <!-- Yellow blob -->
+                <img src="{% static 'core/landing/Vector.svg' %}" alt="Yellow Shape" class="about-vector">
+                
+                <!-- Main image -->
+                <div class="about-carousel">
+                    <img src="{% static 'core/landing/about-image.png' %}" class="about-slide active">
+                    <img src="{% static 'core/landing/about-image2.png' %}" class="about-slide">
+                    
+                  </div>
+                  <div class="slider-controls">
+                  <div class="about-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <!-- Add more dots if more slides -->
+                  </div>
+                  
+                  
+                
+                <!-- Star on top-right -->
+                
+                <!-- Arrows -->
+                <div class="slider-nav">
+                    <div class="nav-circle dark about-prev">&#8592;</div>
+                    <div class="nav-circle pink about-next">&#8594;</div>
+                  </div>
+                  </div>
+            </div>
+    
+            <div class="about-text">
+                <h2>ALCHERINGA -- NORTH <br> EAST INDIA'S BIGGEST FEST</h2>
+                <p>
+                    Alcheringa is the annual cultural festival of IIT Guwahati, an electrifying celebration of art, music, dance, and drama. Join us for an unforgettable experience where talent converges and creativity knows no bounds.
+                </p>
+            </div>
+        </div>
+    </section>
+
+<!-- ashish end -->
+
+<!-- raunak start -->
+
   <main class="first-page">
   <div class="star" >
     <img class="decor-star" src="{% static 'core/asset/star.png' %}" alt="" />
@@ -132,9 +257,38 @@
   </section>
   
   <script src="{% static 'core/script.js' %}"></script>
+
+  <!-- raunak end -->
+
+  <!-- ashish start -->
+   <div class="cfa-container">
+    <!-- Shapes -->
+    <img src="{% static 'core/landing/shape1.svg' %}" class="shape shape1" />
+    <img src="{% static 'core/landing/shape2.svg' %}" class="shape shape2" />
+    <img src="{% static 'core/landing/shape3.svg' %}" class="shape shape3" />
+    <img src="{% static 'core/landing/shape4.svg' %}" class="shape shape4" />
+    <img src="{% static 'core/landing/shape5.svg' %}" class="shape shape5" />
+    <img src="{% static 'core/landing/shape6.svg' %}" class="shape shape6" />
+    <img src="{% static 'core/landing/shape7.svg' %}" class="shape shape7" />
+    <img src="{% static 'core/landing/shape8.svg' %}" class="shape shape8" />
+
+    <!-- Main Content -->
+    <div class="cfa-content">
+      <h1>PARTICIPATE IN CFA</h1>
+      <p>
+        For the first time, IIT Guwahati is partnering with Mood Indigo’s College Fest Association (CFA) —
+        a platform that connects vibrant college fests across India. Through this collaboration, our campus
+        will host Mood Indigo’s signature competitions, preliminary (Multicities) rounds, and pre-fest events,
+        bringing India’s largest cultural festival closer to you.
+      </p>
+      <button class="register-btn" onclick="location.href='{% url 'cfa_step1' %}'">Register</button>
+
+    </div>
+  </div>
+  <!-- ashish end -->
   
 </body>
 </html>
 
 
-<!-- raunak end -->
+

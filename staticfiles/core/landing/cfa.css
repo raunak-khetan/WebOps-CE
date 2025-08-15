@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    font-family: 'Lexend', sans-serif;
+  }
+  
+  .cfa-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 3rem 1rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cfa-content {
+    max-width: 700px;
+    text-align: center;
+    color: white;
+    z-index: 2;
+    position: relative;
+  }
+  
+  .cfa-content h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cfa-content p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .register-btn {
+    background-color: #c4f800;
+    color: black;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-btn:hover {
+    background-color: #aee600;
+  }
+  
+  /* === Shape styles === */
+  .shape {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+  }
+  
+  .shape1 { top: 0; left: 0; }
+  .shape2 { top: 0; right: 0; }
+  .shape3 { right: 0; top: 30%; }
+  .shape4 { right: 0; bottom: 0; }
+  .shape5 { bottom: 0; left: 0; }
+  .shape6 { left: 0; top: 30%; }
+  .shape7 { bottom: 0; left: 30%; }
+  .shape8 { top: 0; left: 30%; }
+  
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .shape {
+      width: 70px;
+      height: 70px;
+    }
+  
+    .cfa-content h1 {
+      font-size: 1.5rem;
+    }
+  
+    .cfa-content p {
+      font-size: 0.95rem;
+    }
+  }
+  
