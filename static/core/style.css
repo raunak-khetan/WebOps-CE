@@ -321,6 +321,10 @@ body {
   padding: 12px 14px 6px; /* reduce bottom padding to shrink bottom gap */
 }
 
+.about-the-event{
+  color:white;
+}
+
 .card-title {
   margin: 0 0 18px; /* add more space before date/venue */
   font-size: 20px;
@@ -441,6 +445,9 @@ aside.sidebar {
   font-family: Lexend;
   color: rgba(255, 255, 255, 0.6);
 }
+.team-detail{
+  height:50px;
+}
 
 .field label {
   color: rgba(255, 255, 255, 0.6);
@@ -449,6 +456,7 @@ aside.sidebar {
   display: block;
   font-size: 14px;
   letter-spacing: 1px;
+  font-family: Lexend;
 }
 
 input,
