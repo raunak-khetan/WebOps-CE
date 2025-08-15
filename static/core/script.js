@@ -1,239 +1,294 @@
-document.addEventListener('DOMContentLoaded', function () {
-	const formContainer = document.getElementById('team-members-container');
-	const addMemberButton = document.getElementById('add-member-button');
-	const deleteLastMemberButton = document.getElementById(
-		'delete-last-member-button'
-	);
+// raunak start
+//home.html script
 
-	const registrationForm = document.getElementById('registration-form');
-	console.log(registrationForm);
+document.addEventListener("DOMContentLoaded", function () {
+  // Hero slider
+  const imageWrap = document.querySelector(".image-1");
+  const prevBtn = document.querySelector(".image-nav .slidebtn:first-of-type");
+  const nextBtn = document.querySelector(".image-nav .slidebtn:last-of-type");
+  const dotsWrap = document.querySelector(".image-nav .slide-dots");
 
-	registrationForm.addEventListener('submit', function (e) {
-		const totalForms = document.getElementById('id_members-TOTAL_FORMS');
-		const currentMemberCount = parseInt(totalForms.value, 10) + 1; // +1 to include the head
+  if (imageWrap && prevBtn && nextBtn && dotsWrap) {
+    const imgsAttr = imageWrap.getAttribute("data-images");
+    let sources = [];
+    try {
+      sources = JSON.parse(imgsAttr || "[]");
+    } catch {}
+    if (!Array.isArray(sources) || sources.length === 0) return;
 
-		let isValid = true; // Flag to check overall form validity
-		let errorMessages = [];
+    let index = Number(imageWrap.getAttribute("data-start-index") || 0);
+    index = isNaN(index) ? 0 : Math.max(0, Math.min(index, sources.length - 1));
 
-		if (currentMemberCount < minParticipants) {
-			isValid = false;
-			errorMessages.push(`Minimum ${minParticipants} members required.`);
-		}
+    // Build track/slides
+    const track = document.createElement("div");
+    track.className = "slider-track";
+    track.style.transform = `translateX(-${index * 100}%)`;
+    sources.forEach((src) => {
+      const slide = document.createElement("div");
+      slide.className = "slider-slide";
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "";
+      slide.appendChild(img);
+      track.appendChild(slide);
+    });
+    // Clear existing and inject
+    imageWrap.innerHTML = "";
+    imageWrap.appendChild(track);
 
-		const phoneFields = document.querySelectorAll('input[name$="phone_no"]');
-		console.log(phoneFields[0].value);
+    function renderDots() {
+      dotsWrap.innerHTML = sources
+        .map(
+          (_, i) =>
+            `<span class="slide-dot${i === index ? " is-active" : ""}"></span>`
+        )
+        .join("");
+    }
+    function show(i) {
+      index = (i + sources.length) % sources.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      renderDots();
+    }
+    function next() {
+      show(index + 1);
+    }
+    function prev() {
+      show(index - 1);
+    }
 
-		function validatePhoneNumber(phoneNumber) {
-			const phoneRegex = /^\d{10}$/;
-			return phoneRegex.test(phoneNumber);
-		}
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+    dotsWrap.addEventListener("click", (e) => {
+      const all = Array.from(dotsWrap.querySelectorAll(".slide-dot"));
+      const idx = all.indexOf(e.target.closest(".slide-dot"));
+      if (idx >= 0) show(idx);
+    });
 
-		phoneFields.forEach(function (field) {
-			const phoneValue = field.value.trim();
-			if (!validatePhoneNumber(phoneValue)) {
-				isValid = false;
-				errorMessages.push(`Phone number "${phoneValue}" is invalid.`);
-			}
-		});
+    // init
+    renderDots();
+    show(index);
+  }
 
-		// After all checks, only show toast if form is invalid
-		if (!isValid) {
-			e.preventDefault(); // Prevent form submission
-			const errorContainer = document.createElement('div');
+  const button = document.getElementById("competitionsCityButton");
+  const list = document.getElementById("competitionsCityList");
+  const sections = document.querySelectorAll(".city-competitions");
+  const allSection = document.getElementById("city-all");
 
-			errorMessages.forEach(function (message) {
-				const messageDiv = document.createElement('div');
-				messageDiv.textContent = message;
-				errorContainer.appendChild(messageDiv);
-			});
+  function showList(show) {
+    if (!list) return;
+    list.hidden = !show;
+    button.setAttribute("aria-expanded", String(show));
+  }
 
-			// Display all error messages using Toastify
-			Toastify({
-				node: errorContainer,
-				duration: 5000,
-				gravity: 'top',
-				position: 'right',
-				backgroundColor: 'linear-gradient(to right, #ff5f6d, #ffc371)',
-				escapeMarkup: false, // Allow line breaks
-			}).showToast();
-		}
-	});
+  function updateVisibleCity(value) {
+    const targetId = value || "all";
+    if (targetId === "all") {
+      sections.forEach((sec) => sec.classList.add("is-hidden"));
+      if (allSection) allSection.classList.remove("is-hidden");
+      return;
+    }
+    sections.forEach((sec) => {
+      if (sec.id === targetId) sec.classList.remove("is-hidden");
+      else sec.classList.add("is-hidden");
+    });
+    if (allSection) allSection.classList.add("is-hidden");
+  }
 
-	function updateFormCount() {
-		const totalForms = document.getElementById('id_members-TOTAL_FORMS');
-		const numForms = formContainer.querySelectorAll('.team-member-form').length;
-		const heading = document.querySelector('#teamMembersHead');
-
-		totalForms.value = numForms;
-
-		deleteLastMemberButton.style.display =
-			numForms > 0 ? 'inline-block' : 'none';
-		heading.style.display = numForms > 0 ? 'inline-block' : 'none';
-
-		manageDeleteButtons();
-		updateMemberNumbers();
-		updateAddMemberButton(); // Ensure "Add Member" button is updated each time
-	}
-
-	function updateMemberNumbers() {
-		const memberForms = formContainer.querySelectorAll('.team-member-form');
-		memberForms.forEach((form, index) => {
-			const header = form.querySelector('.index');
-			if (header) {
-				header.textContent = `${index + 1}`;
-			}
-		});
-	}
-
-	function manageDeleteButtons() {
-		const memberForms = formContainer.querySelectorAll('.team-member-form');
-		memberForms.forEach((form, index) => {
-			const deleteButton = form.querySelector('#deletebtn');
-			if (index === memberForms.length - 1) {
-				deleteButton.style.display = 'none';
-			} else {
-				deleteButton.style.display = 'inline-block';
-			}
-		});
-	}
-
-	function updateAddMemberButton() {
-		const totalForms = document.getElementById('id_members-TOTAL_FORMS');
-		const currentMemberCount = parseInt(totalForms.value, 10) + 1; // +1 to include the head
-
-		// Reset the button if the count is below maxParticipants
-		if (currentMemberCount >= maxParticipants) {
-			addMemberButton.disabled = true;
-			addMemberButton.textContent = 'Limit reached';
-		} else {
-			addMemberButton.disabled = false;
-			addMemberButton.innerHTML = `<i class="fa-solid fa-user-plus" style="color: #583400;"></i> Add Member`;
-		}
-	}
-
-	deleteLastMemberButton.addEventListener('click', function () {
-		const lastMemberForm = formContainer.querySelector(
-			'.team-member-form:last-child'
-		);
-		if (lastMemberForm) {
-			lastMemberForm.remove();
-			updateFormCount(); // Update after deletion to check "Add Member" button status
-		}
-	});
-
-	window.removeMember = function (button) {
-		const memberForm = button.closest('.team-member-form');
-		if (memberForm) {
-			memberForm.remove();
-			updateFormCount(); // Update after deletion
-		}
-	};
-
-	addMemberButton?.addEventListener('click', function () {
-		const totalForms = document.getElementById('id_members-TOTAL_FORMS');
-		const currentMemberCount = parseInt(totalForms.value, 10) + 1; // +1 to include the head
-
-		if (currentMemberCount >= maxParticipants) {
-			Toastify({
-				text: `Maximum ${maxParticipants} members allowed.`,
-				duration: 3000,
-				gravity: 'top',
-				position: 'right',
-				backgroundColor: 'linear-gradient(to right, #ff5f6d, #ffc371)',
-			}).showToast();
-			return;
-		}
-
-		const newMemberForm = document.createElement('div');
-		newMemberForm.classList.add('team-member-form');
-		newMemberForm.innerHTML =
-			buildMemberFormHtml(currentMemberCount - 1) + dltbtn();
-
-		formContainer.appendChild(newMemberForm);
-		updateFormCount(); // Update after addition to check "Add Member" button status
-	});
-
-	window.copyField = function (source, target) {
-		const sourceField = document.getElementById(source);
-		const targetField = document.getElementById(target);
-		if (sourceField && targetField) {
-			targetField.value = sourceField.value;
-		}
-	};
-
-	function dltbtn() {
-		return `
-            <button type="button" class="btn btn-danger" id="deletebtn" onclick="removeMember(this)">
-                <i class="fa-solid fa-user-minus" style="color: #583400;"></i> Delete Member
-            </button>
-        `;
-	}
-
-	function buildMemberFormHtml(index) {
-		return `
-            <div class="form-header">
-                <h3>Member's Data</h3>
-                <span><span class="preindex">Member no.</span> <span class="index">${
-									index + 1
-								}</span></span>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Member's Name <span class="astrick">*</span></label>
-                    <div class="input-group">
-                        <input type="text" name="members-${index}-name" id="id_members-${index}-name" class="form-control" required/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Gender <span class="astrick">*</span></label>
-                    <select name="members-${index}-gender" id="id_members-${index}-gender" class="form-control" required>
-                        <option value="">Select</option>
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        <option value="O">Other</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Member's Contact Number <span class="astrick">*</span></label>
-                    <div class="input-group">
-                        <input type="text" name="members-${index}-phone_no" id="id_members-${index}-phone_no" class="form-control" required />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>E-Mail <span class="astrick">*</span></label>
-                    <div class="input-group">
-                        <input type="email" name="members-${index}-email" id="id_members-${index}-email" class="form-control" required />
-                        <button type="button" class="btn-input-append" onclick="copyField('id_email', 'id_members-${index}-email')">Same as leader</button>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Program Enrolled <span class="astrick">*</span></label>
-                    <div class="input-group">
-                        <input type="text" name="members-${index}-program_enrolled" id="id_members-${index}-program_enrolled" class="form-control" required />
-                        <button type="button" class="btn-input-append" onclick="copyField('id_program_enrolled', 'id_members-${index}-program_enrolled')">Same as leader</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Institute Name <span class="astrick">*</span></label>
-                    <div class="input-group">
-                        <input type="text" name="members-${index}-institute_name" id="id_members-${index}-institute_name" class="form-control" required/>
-                        <button type="button" class="btn-input-append" onclick="copyField('id_institute_name', 'id_members-${index}-institute_name')">Same as leader</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Year of Passing <span class="astrick">*</span></label>
-                    <div class="input-group">
-                        <input type="text" name="members-${index}-year_of_passing" id="id_members-${index}-year_of_passing" class="form-control" required/>
-                        <button type="button" class="btn-input-append" onclick="copyField('id_year_of_passing', 'id_members-${index}-year_of_passing')">Same as leader</button>
-                    </div>
-                </div>
-            </div>
-        `;
-	}
-
-	updateFormCount(); // Initialize form count
+  if (button && list) {
+    button.addEventListener("click", () => showList(list.hidden));
+    list.addEventListener("click", (e) => {
+      const li = e.target.closest('li[role="option"]');
+      if (!li) return;
+      list
+        .querySelectorAll("li")
+        .forEach((el) => el.classList.remove("is-active"));
+      li.classList.add("is-active");
+      const value = li.getAttribute("data-value");
+      button.textContent = li.textContent + " ▾";
+      showList(false);
+      updateVisibleCity(value);
+    });
+    // Initialize
+    updateVisibleCity("all");
+  }
 });
+
+//register.html script
+(function () {
+  const membersContainer = document.getElementById("members-container");
+  const addBtn = document.getElementById("add-member");
+  const teamSizeInput = document.getElementById("team-size");
+
+  // Only run on register page where these elements exist
+  if (!membersContainer || !addBtn || !teamSizeInput) return;
+
+  // Detect Django formset management inputs without needing a prefix from template
+  const totalFormsInput = document.querySelector('input[name$="-TOTAL_FORMS"]');
+  const maxFormsInput = document.querySelector('input[name$="-MAX_NUM_FORMS"]');
+  const minFormsInput = document.querySelector('input[name$="-MIN_NUM_FORMS"]');
+
+  const maxParticipants = Number(maxFormsInput?.value || 100);
+  const minParticipants = Number(minFormsInput?.value || 0);
+
+  function currentMemberCount() {
+    // Head counts as 1; extra members are number of visible member cards
+    return 1 + membersContainer.querySelectorAll(".member-card").length;
+  }
+
+  function updateTeamSize() {
+    teamSizeInput.value = currentMemberCount();
+    // Disable add button if we reached max
+    addBtn.disabled = currentMemberCount() >= maxParticipants;
+  }
+
+  function renumberMembers() {
+    const cards = membersContainer.querySelectorAll(".member-card");
+    cards.forEach((card, idx) => {
+      const num = idx + 2; // Member 2..N
+      const title = card.querySelector("h3");
+      if (title) title.textContent = `Member ${num}`;
+    });
+  }
+
+  function addMember() {
+    if (currentMemberCount() >= maxParticipants) return;
+    const tmpl = document.getElementById("empty-member-template").innerHTML;
+    const formIndex = Number(totalFormsInput?.value || 0);
+    const html = tmpl
+      .replaceAll("__NUM__", formIndex + 2)
+      .replaceAll("__prefix__", String(formIndex))
+      .replaceAll("__name__", String(formIndex));
+
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = html.trim();
+    const card = wrapper.firstElementChild;
+
+    // Ensure field ids/names are updated from empty_form
+    card.querySelectorAll("[name]").forEach((el) => {
+      if (el.name.includes("-__prefix__-")) {
+        el.name = el.name.replace("-__prefix__-", `-${formIndex}-`);
+      }
+    });
+    card.querySelectorAll("[id]").forEach((el) => {
+      if (el.id.includes("__prefix__")) {
+        el.id = el.id.replace("__prefix__", String(formIndex));
+      }
+    });
+
+    card.addEventListener("click", function (e) {
+      if (e.target && e.target.matches("[data-remove]")) {
+        card.remove();
+        // We do not decrement TOTAL_FORMS to keep indexes unique; it's acceptable for model formsets
+        renumberMembers();
+        updateTeamSize();
+      }
+    });
+
+    membersContainer.appendChild(card);
+    if (totalFormsInput) totalFormsInput.value = String(formIndex + 1);
+    renumberMembers();
+    updateTeamSize();
+  }
+
+  addBtn.addEventListener("click", addMember);
+  membersContainer.addEventListener("click", function (e) {
+    if (e.target && e.target.matches("[data-remove]")) {
+      const card = e.target.closest(".member-card");
+      if (card) {
+        card.remove();
+        renumberMembers();
+        updateTeamSize();
+      }
+    }
+  });
+
+  updateTeamSize();
+})();
+// raunak end
+
+//ashsih start
+document.querySelector(".hamburger").addEventListener("click", function () {
+  const menu = document.getElementById("nav-menu");
+  menu.classList.toggle("show");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".counter");
+
+  counters.forEach((counter) => {
+    const updateCount = () => {
+      const target = +counter.getAttribute("data-target");
+      const current = +counter.innerText;
+      const increment = Math.ceil(target / 100); // speed of counting
+
+      if (current < target) {
+        counter.innerText = current + increment;
+        setTimeout(updateCount, 30); // adjust for speed
+      } else {
+        counter.innerText = target;
+      }
+    };
+
+    updateCount();
+  });
+});
+
+let slideIndex = 0;
+const slides = document.querySelectorAll(".about-slide");
+const dots = document.querySelectorAll(".dot");
+const totalSlides = slides.length;
+const prevBtn = document.querySelector(".about-prev");
+const nextBtn = document.querySelector(".about-next");
+
+function showSlide(index) {
+  slideIndex = index;
+
+  slides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === index);
+  });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === index);
+  });
+}
+
+function nextSlide() {
+  slideIndex = (slideIndex + 1) % totalSlides;
+  showSlide(slideIndex);
+}
+
+function prevSlide() {
+  slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+  showSlide(slideIndex);
+}
+
+// Button click listeners
+nextBtn.addEventListener("click", () => {
+  nextSlide();
+  resetAutoSlide();
+});
+
+prevBtn.addEventListener("click", () => {
+  prevSlide();
+  resetAutoSlide();
+});
+
+// Dot click listeners
+dots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    const index = parseInt(dot.getAttribute("data-index"));
+    showSlide(index);
+    resetAutoSlide();
+  });
+});
+
+// Auto slide with reset on manual interaction
+let autoSlideInterval = setInterval(nextSlide, 4000);
+
+function resetAutoSlide() {
+  clearInterval(autoSlideInterval);
+  autoSlideInterval = setInterval(nextSlide, 4000);
+}
+
+// Initialize
+showSlide(slideIndex);

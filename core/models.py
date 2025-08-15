@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 
+# Centralized choices for graduating year
+YEAR_CHOICES = [(y, str(y)) for y in range(2025, 2032)]  # 2025..2031
 class City(models.Model):
     name = models.CharField(max_length=100, unique=True)
     events = models.ManyToManyField('Event', related_name='cities')
@@ -11,6 +13,7 @@ class City(models.Model):
     guidelines = models.TextField(default="None")
     image = models.ImageField(
         upload_to="image_uploads/city_pic/", default='ropar.png')
+    state = models.CharField(max_length=100,default='None')
 
     def __str__(self):
         return self.name
@@ -26,6 +29,9 @@ class Event(models.Model):
     min_participants = models.PositiveIntegerField(null=True, blank=True)
     max_participants = models.PositiveIntegerField(null=True, blank=True)
     description = models.TextField(default= "none")
+
+    deadline = models.DateField(null=True, blank=True)
+    event_date = models.DateField(null=True, blank=True)
 
     def clean(self):
         if self.event_type == 'team':
@@ -48,6 +54,7 @@ class Head(models.Model):
         ('M', 'Male'),
         ('F', 'Female'),
         ('O', 'Others'),
+        ('P', 'Prefer not to say')
     ]
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
@@ -55,9 +62,14 @@ class Head(models.Model):
     phone_no = models.CharField(max_length=15)
     email = models.EmailField()
     institute_name = models.CharField(max_length=200)
-    year_of_passing = models.IntegerField()
+    year_of_passing = models.IntegerField(choices=YEAR_CHOICES)
     program_enrolled = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    DISABILITY_CHOICES = [
+        ('Y', 'Yes'),
+        ('N', 'No'),
+    ]
+    is_disabled = models.CharField(max_length=1, choices=DISABILITY_CHOICES, default='N')
  
     solo = models.BooleanField(default=True)
 
@@ -93,9 +105,14 @@ class TeamMember(models.Model):
     phone_no = models.CharField(max_length=15)
     email = models.EmailField()
     institute_name = models.CharField(max_length=200)
-    year_of_passing = models.IntegerField()
+    year_of_passing = models.IntegerField(choices=YEAR_CHOICES)
     program_enrolled = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    DISABILITY_CHOICES = [
+        ('Y', 'Yes'),
+        ('N', 'No'),
+    ]
+    is_disabled = models.CharField(max_length=1, choices=DISABILITY_CHOICES, default='N')
     
     def __str__(self):
         return f"{self.name} ({self.head.team.team_name} - {self.head.event.name})"
