@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import CFARegistrationStep1Form
 from .models import CFARegistration
+from .models import City, Event
+from django.http import HttpResponse
+
 
 def landing_page(request):
     return render(request, 'core/landing.html')
@@ -57,40 +60,30 @@ def cfa_step3(request):
 
     return render(request, 'core/cfa_step3.html')
 
-def comp_page(request):
-    competitions = [
-        {
-            "title": "Electric Heels",
-            "subtitle": "Solo dance comp",
-            "date": "Tues, 15.08.",
-            "venue": "Mini Audi, IIT Guwahati",
-            "image": "core/landing/frame.png",
-            "type": "Solo"
-        },
-        {
-            "title": "This is Pop",
-            "subtitle": "Pop dance",
-            "date": "Wed, 16.08.",
-            "venue": "Audi, IIT Guwahati",
-            "image": "core/landing/frame.png",
-            "type": "Solo"
-        },
-        {
-            "title": "SA RE GA MA",
-            "subtitle": "Singing competition",
-            "date": "Wed, 16.08.",
-            "venue": "Audi, IIT Guwahati",
-            "image": "core/landing/frame.png",
-            "type": "Group"
-        },
-        {
-            "title": "Footloose",
-            "subtitle": "Group dance",
-            "date": "Thu, 17.08.",
-            "venue": "Main Stage, IIT Guwahati",
-            "image": "core/landing/frame.png",
-            "type": "Group"
-        },
-    ]
 
-    return render(request, 'core/comp_page.html', {"competitions": competitions})
+
+def comp_page(request):
+    print("comp_page view called")  # DEBUG
+
+    competitions = []
+
+    cities = City.objects.prefetch_related('events').all()
+    print(f"Fetched {cities.count()} cities")  # DEBUG
+
+    for city in cities:
+        print(f"City: {city.name}, Events: {city.events.count()}")  # DEBUG
+        for event in city.events.all():
+            competitions.append({
+                "city": city.name,
+                "title": event.name,
+                "subtitle": event.description,
+                "date": city.time.strftime("%a, %d.%m.") if city.time else "No date",
+                "venue": city.venue,
+                "image": city.image.url if city.image else '',
+                "type": event.event_type.capitalize() if event.event_type else "N/A"
+            })
+
+    print(f"Competitions list length: {len(competitions)}")  # DEBUG
+    return render(request, 'core/comp_page.html', {"cities": cities})
+
+

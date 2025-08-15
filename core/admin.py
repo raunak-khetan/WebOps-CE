@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import City, Event, Head, Team, TeamMember
+from .models import CFARegistration
 
 class TeamMemberInline(admin.TabularInline):
     model = TeamMember
@@ -48,3 +49,9 @@ class TeamMemberAdmin(admin.ModelAdmin):
     list_filter = ('gender', 'year_of_passing')
     search_fields = ('name', 'phone_no', 'email', 'head__name')
     raw_id_fields = ('head',)
+
+@admin.register(CFARegistration)
+class CFARegistrationAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'phone_number', 'college_name', 'submitted_at')
+    search_fields = ('full_name', 'email', 'college_name')
+    list_filter = ('college_designation', 'accommodation_required')

@@ -17,116 +17,111 @@
   </style>
 </head>
 <body>
-  <section class="competitions-section">
-    <h2 class="section-title">Upcoming Competitions</h2>
+<section class="competitions-section">
+  <h2 class="section-title">Upcoming Competitions</h2>
 
-    <div class="carousel">
-      {% for comp in competitions %}
-      <div class="competition-card">
-        <div class="image-container">
-          <img src="{% static 'core/landing/frame.png' %}" alt="{{ comp.title }}">
-          <span class="badge">{{ comp.type }}</span>
-        </div>
-        <div class="card-content">
-          <h3 class="event-title">{{ comp.title }}</h3>
-          <p class="event-subtitle">{{ comp.subtitle }}</p>
-          <div class="event-info">
-            <p>📅 {{ comp.date }}</p>
-            <p>📍 {{ comp.venue }}</p>
+  <div class="carousel">
+    {% for city in cities %}
+      {% for event in city.events.all %}
+        <div class="competition-card">
+          <div class="image-container">
+            <img src="{{ city.image.url }}" alt="{{ event.name }}">
+            <span class="badge">{{ event.event_type|upper }}</span>
           </div>
-          <div class="card-footer">
-            <div class="shapes">
-              <img src="{% static 'core/landing/small2.svg' %}" alt="">
-              <img src="{% static 'core/landing/small.svg' %}" alt="">
+          <div class="card-content">
+            <h3 class="event-title">{{ event.name }}</h3>
+            <p class="event-subtitle">{{ event.description }}</p>
+            <div class="event-info">
+              <p>📅 {{ city.time|date:"D, d.m" }}</p>
+              <p>📍 {{ city.venue }}</p>
             </div>
-            <button class="register-button" onclick="window.location.href='#'">Register</button>
-
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-
-      <!-- Duplicate the cards manually below -->
-      {% for i in "12345678" %}
-      <div class="competition-card">
-        <div class="image-container">
-          <img src="{% static 'core/landing/frame.png' %}" alt="Extra Comp {{ i }}">
-          <span class="badge">Solo</span>
-        </div>
-        <div class="card-content">
-          <h3 class="event-title">Extra Event {{ i }}</h3>
-          <p class="event-subtitle">Bonus dance comp</p>
-          <div class="event-info">
-            <p>📅 Thu, 18.08.</p>
-            <p>📍 Open Ground, IIT Guwahati</p>
-          </div>
-          <div class="card-footer">
-            <div class="shapes">
-              <img src="{% static 'core/landing/small2.svg' %}" alt="">
-              <img src="{% static 'core/landing/small.svg' %}" alt="">
+            <div class="card-footer">
+              <div class="shapes">
+                <img src="{% static 'core/landing/small2.svg' %}" alt="">
+                <img src="{% static 'core/landing/small.svg' %}" alt="">
+              </div>
+              <button class="register-button">Register</button>
             </div>
-            <button class="register-button">Register</button>
           </div>
         </div>
-      </div>
       {% endfor %}
+    {% endfor %}
+  </div>
+  
+
+  <div class="pagination-arrows">
+    <div class="pagination"></div>
+    <div class="nav-arrows">
+      <button class="nav-btn left">←</button>
+      <button class="nav-btn right">→</button>
     </div>
-
-   <!-- ... (rest of the HTML remains same) -->
-   <div class="pagination-arrows">
-   <div class="pagination">
-    <!-- Dots will be generated dynamically by JS -->
   </div>
-
-  <div class="nav-arrows">
-    <button class="nav-btn left">←</button>
-    <button class="nav-btn right">→</button>
-  </div>
-</div>
+  
 </section>
 
 <script>
-  const carousel = document.querySelector('.carousel');
-  const leftArrow = document.querySelector('.nav-btn.left');
-  const rightArrow = document.querySelector('.nav-btn.right');
-  const pagination = document.querySelector('.pagination');
-  const card = document.querySelector('.competition-card');
-  const cardWidth = card.offsetWidth + 20; // card + gap
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.carousel');
+    const leftArrow = document.querySelector('.nav-btn.left');
+    const rightArrow = document.querySelector('.nav-btn.right');
+    const pagination = document.querySelector('.pagination');
+    const cards = document.querySelectorAll('.competition-card');
 
-  const totalCards = document.querySelectorAll('.competition-card').length;
-  const visibleCards = Math.floor(carousel.offsetWidth / cardWidth);
-  const totalPages = Math.ceil(totalCards / visibleCards);
+    if (!carousel || cards.length === 0) return;
 
-  let currentPage = 0;
+    const cardStyle = window.getComputedStyle(cards[0]);
+    const gap = parseInt(cardStyle.marginRight || 20);
+    const cardWidth = cards[0].offsetWidth + gap;
+    const carouselWidth = carousel.clientWidth;
 
-  // Generate dots
-  for (let i = 0; i < totalPages; i++) {
-    const dot = document.createElement('span');
-    dot.classList.add('dot');
-    if (i === 0) dot.classList.add('active');
-    pagination.appendChild(dot);
-  }
+    const visibleCards = Math.floor(carouselWidth / cardWidth);
+    const totalPages = Math.ceil(cards.length / visibleCards);
+    let currentPage = 0;
 
-  const updateDots = () => {
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentPage);
+    // Clear any previous dots (important if this re-runs)
+    pagination.innerHTML = '';
+
+    // Generate pagination dots
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        currentPage = i;
+        scrollToPage();
+      });
+      pagination.appendChild(dot);
+    }
+
+    const updateDots = () => {
+      document.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentPage);
+      });
+    };
+
+    function scrollToPage() {
+      carousel.scrollTo({
+        left: currentPage * cardWidth * visibleCards,
+        behavior: 'smooth'
+      });
+      updateDots();
+    }
+
+    leftArrow.addEventListener('click', () => {
+      if (currentPage > 0) {
+        currentPage--;
+        scrollToPage();
+      }
     });
-  };
 
-  function scrollCarousel(direction) {
-    currentPage = Math.max(0, Math.min(currentPage + direction, totalPages - 1));
-    carousel.scrollTo({
-      left: currentPage * visibleCards * cardWidth,
-      behavior: 'smooth'
+    rightArrow.addEventListener('click', () => {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        scrollToPage();
+      }
     });
-    updateDots();
-  }
-
-  leftArrow.addEventListener('click', () => scrollCarousel(-1));
-  rightArrow.addEventListener('click', () => scrollCarousel(1));
+  });
 </script>
-</body>
-</html>
 
 </body>
 </html>
