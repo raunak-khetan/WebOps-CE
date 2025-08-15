@@ -56,3 +56,41 @@ def cfa_step3(request):
         return render(request, 'core/thank_you.html')  # or use redirect()
 
     return render(request, 'core/cfa_step3.html')
+
+def comp_page(request):
+    competitions = [
+        {
+            "title": "Electric Heels",
+            "subtitle": "Solo dance comp",
+            "date": "Tues, 15.08.",
+            "venue": "Mini Audi, IIT Guwahati",
+            "image": "core/landing/frame.png",
+            "type": "Solo"
+        },
+        {
+            "title": "This is Pop",
+            "subtitle": "Pop dance",
+            "date": "Wed, 16.08.",
+            "venue": "Audi, IIT Guwahati",
+            "image": "core/landing/frame.png",
+            "type": "Solo"
+        },
+        {
+            "title": "SA RE GA MA",
+            "subtitle": "Singing competition",
+            "date": "Wed, 16.08.",
+            "venue": "Audi, IIT Guwahati",
+            "image": "core/landing/frame.png",
+            "type": "Group"
+        },
+        {
+            "title": "Footloose",
+            "subtitle": "Group dance",
+            "date": "Thu, 17.08.",
+            "venue": "Main Stage, IIT Guwahati",
+            "image": "core/landing/frame.png",
+            "type": "Group"
+        },
+    ]
+
+    return render(request, 'core/comp_page.html', {"competitions": competitions})

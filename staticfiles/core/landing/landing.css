@@ -13,58 +13,128 @@ body {
     margin: 0;
     font-family: 'Sao Torpes', sans-serif; /* Updated font */
 }
+* {
+    box-sizing: border-box;
+  }
 
-/* Navbar */
+/* === Navbar === */
+/* ====== Navbar ====== */
+/* === Navbar Styles === */
 .navbar {
+    width: 100%;
+    padding: 20px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    background-color: #0d0d0d;
+    position: relative;
   }
   
-  .logo-container {
+  .navbar-left {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 10px;
   }
-.logo-text {
-    font-family: 'Lexend', sans-serif;
-    font-size: 1.2rem;
+  
+  .logo {
+    height: 32px;
+  }
+  
+  .navbar-left span {
+    font-size: 18px;
     font-weight: 600;
+    letter-spacing: 1px;
     color: white;
-}
-
-.logo {
-    height: 40px;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem; /* space between links and search */
     font-family: 'Lexend', sans-serif;
   }
   
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #ffcc00;
-}
-.search-container {
+  .navbar-right {
     display: flex;
     align-items: center;
-}
-.search {
+    gap: 25px;
+  }
+  
+  .navbar-right a {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'Lexend', sans-serif;
+  }
+  
+  .navbar-right a:hover {
+    color: #ffcc00;
+  }
+  
+  .search-icon {
+    width: 18px;
     height: 18px;
     cursor: pointer;
-}
-
+  }
+  
+  #navbar-search {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+  }
+  
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* === Mobile Styles === */
+  @media (max-width: 768px) {
+    .navbar {
+        position: relative; /* Make positioning context for hamburger */
+      }
+    
+      .hamburger {
+        position: absolute;
+        top: 20px;           /* Align vertically with logo (adjust if needed) */
+        right: 20px;         /* Align to the right edge */
+        display: block;
+        cursor: pointer;
+      }
+    
+      .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+  
+    .navbar-right {
+      display: none;
+      flex-direction: column;
+      align-items: flex-end; /* Aligns children to the right */
+      width: 100%;
+      gap: 12px;
+      margin-top: 10px;
+      background-color: #0d0d0d;
+      padding: 10px 20px 0 20px; /* Add horizontal padding */
+    }
+  
+    .navbar-right.show {
+      display: flex;
+    }
+  
+    .navbar-right a {
+      text-align: right;
+      width: auto;
+    }
+  
+    #navbar-search {
+      width: auto;
+      margin-top: 10px;
+      align-self: flex-end;
+    }
+  }
+  
+  
 /* Hero Section */
 .hero {
     text-align: center;

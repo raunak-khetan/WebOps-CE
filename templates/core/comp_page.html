@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upcoming Competitions</title>
+  <link rel="stylesheet" href="{% static 'core/landing/comp.css' %}" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Saotorpes';
+      src: url("{% static 'core/fonts/SaoTorpes.otf' %}") format('opentype');
+    }
+  </style>
+</head>
+<body>
+  <section class="competitions-section">
+    <h2 class="section-title">Upcoming Competitions</h2>
+
+    <div class="carousel">
+      {% for comp in competitions %}
+      <div class="competition-card">
+        <div class="image-container">
+          <img src="{% static 'core/landing/frame.png' %}" alt="{{ comp.title }}">
+          <span class="badge">{{ comp.type }}</span>
+        </div>
+        <div class="card-content">
+          <h3 class="event-title">{{ comp.title }}</h3>
+          <p class="event-subtitle">{{ comp.subtitle }}</p>
+          <div class="event-info">
+            <p>📅 {{ comp.date }}</p>
+            <p>📍 {{ comp.venue }}</p>
+          </div>
+          <div class="card-footer">
+            <div class="shapes">
+              <img src="{% static 'core/landing/small2.svg' %}" alt="">
+              <img src="{% static 'core/landing/small.svg' %}" alt="">
+            </div>
+            <button class="register-button" onclick="window.location.href='#'">Register</button>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Duplicate the cards manually below -->
+      {% for i in "12345678" %}
+      <div class="competition-card">
+        <div class="image-container">
+          <img src="{% static 'core/landing/frame.png' %}" alt="Extra Comp {{ i }}">
+          <span class="badge">Solo</span>
+        </div>
+        <div class="card-content">
+          <h3 class="event-title">Extra Event {{ i }}</h3>
+          <p class="event-subtitle">Bonus dance comp</p>
+          <div class="event-info">
+            <p>📅 Thu, 18.08.</p>
+            <p>📍 Open Ground, IIT Guwahati</p>
+          </div>
+          <div class="card-footer">
+            <div class="shapes">
+              <img src="{% static 'core/landing/small2.svg' %}" alt="">
+              <img src="{% static 'core/landing/small.svg' %}" alt="">
+            </div>
+            <button class="register-button">Register</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+   <!-- ... (rest of the HTML remains same) -->
+   <div class="pagination-arrows">
+   <div class="pagination">
+    <!-- Dots will be generated dynamically by JS -->
+  </div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn left">←</button>
+    <button class="nav-btn right">→</button>
+  </div>
+</div>
+</section>
+
+<script>
+  const carousel = document.querySelector('.carousel');
+  const leftArrow = document.querySelector('.nav-btn.left');
+  const rightArrow = document.querySelector('.nav-btn.right');
+  const pagination = document.querySelector('.pagination');
+  const card = document.querySelector('.competition-card');
+  const cardWidth = card.offsetWidth + 20; // card + gap
+
+  const totalCards = document.querySelectorAll('.competition-card').length;
+  const visibleCards = Math.floor(carousel.offsetWidth / cardWidth);
+  const totalPages = Math.ceil(totalCards / visibleCards);
+
+  let currentPage = 0;
+
+  // Generate dots
+  for (let i = 0; i < totalPages; i++) {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    if (i === 0) dot.classList.add('active');
+    pagination.appendChild(dot);
+  }
+
+  const updateDots = () => {
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentPage);
+    });
+  };
+
+  function scrollCarousel(direction) {
+    currentPage = Math.max(0, Math.min(currentPage + direction, totalPages - 1));
+    carousel.scrollTo({
+      left: currentPage * visibleCards * cardWidth,
+      behavior: 'smooth'
+    });
+    updateDots();
+  }
+
+  leftArrow.addEventListener('click', () => scrollCarousel(-1));
+  rightArrow.addEventListener('click', () => scrollCarousel(1));
+</script>
+</body>
+</html>
+
+</body>
+</html>
