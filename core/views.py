@@ -108,6 +108,12 @@ def registrationpage(request, city_name, event_name):
         extra=0
     )  # Use custom form to ensure radio gender without blank option
 
+    # Always define these variables
+    team_name_form = None
+    team_form = None
+    member_formset = None
+    form = None
+
     if request.method == 'POST':
         if event.event_type == 'team':
             team_name_form = TeamName(request.POST)
@@ -116,7 +122,6 @@ def registrationpage(request, city_name, event_name):
             print(member_formset)
 
             if team_name_form.is_valid() and team_form.is_valid() and member_formset.is_valid():
-                # Check if the team has already registered for this event
                 # Save the team registration
                 team_head = team_form.save(commit=False)
                 team_head.event = event
@@ -128,9 +133,9 @@ def registrationpage(request, city_name, event_name):
                 team_name.save()
 
                 # Save each team member
-                for form in member_formset:
-                    if form.cleaned_data:  # Save only if the form has data
-                        member = form.save(commit=False)
+                for formset_form in member_formset:
+                    if formset_form.cleaned_data:
+                        member = formset_form.save(commit=False)
                         member.head = team_head
                         member.team = team_name
                         member.save()
@@ -141,15 +146,12 @@ def registrationpage(request, city_name, event_name):
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[team_head.email],
                     fail_silently=False,
-                 )
+                )
 
                 return render(request, 'core/thank_you.html')
-
-        else:  # Handle solo registration
+        else:
             form = RegistrationForm(request.POST)
             if form.is_valid():
-    
-                # Save the solo registration
                 registration = form.save(commit=False)
                 registration.event = event
                 registration.city = city
@@ -162,9 +164,7 @@ def registrationpage(request, city_name, event_name):
                     recipient_list=[registration.email],
                     fail_silently=False,
                 )
-                
                 return render(request, 'core/thank_you.html')
-
     else:
         if event.event_type == 'team':
             team_name_form = TeamName()
@@ -172,9 +172,6 @@ def registrationpage(request, city_name, event_name):
             member_formset = MemberFormSet(queryset=TeamMember.objects.none(), prefix='members')
         else:
             form = RegistrationForm()
-            team_name_form = None
-            team_form = None
-            member_formset = None
 
     return render(request, 'core/register_form.html', {
         'form': form if event.event_type == 'solo' else team_form,

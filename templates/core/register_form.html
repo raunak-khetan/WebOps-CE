@@ -47,6 +47,16 @@
       <form method="post" action="{% url 'registrationpage' city.name event.name %}" novalidate>
         {% csrf_token %}
 
+    {% if form.non_field_errors %}
+    <div class="form-errors">
+      <ul>
+      {% for error in form.non_field_errors %}
+        <li style="color: red;">{{ error }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
         {% if event.event_type == 'team' %}
         <div class="card">
           <h2 class="section-title">Team Details</h2>
@@ -68,8 +78,17 @@
           <div class="member-card">
             <h3 style="margin:0 0 8px; font-size:14px; color:#BDF522;">Member 1</h3>
             <div class="field"> <label>Name</label> {{ form.name }} </div>
+            {% if form.name.errors %}
+            <div class="field-error" style="color: red;">{{ form.name.errors }}</div>
+            {% endif %}
             <div class="field"> <label>Email</label> {{ form.email }} </div>
+            {% if form.email.errors %}
+            <div class="field-error" style="color: red;">{{ form.email.errors }}</div>
+            {% endif %}
             <div class="field"> <label>Phone number</label> {{ form.phone_no }} </div>
+            {% if form.phone_no.errors %}
+            <div class="field-error" style="color: red;">{{ form.phone_no.errors }}</div>
+            {% endif %}
             <div class="field gender">
               <label>Gender</label>
               <div class="gender-group">
@@ -82,8 +101,17 @@
               </div>
             </div>
             <div class="field"> <label>College/Institute Name</label> {{ form.institute_name }} </div>
+            {% if form.institute_name.errors %}
+            <div class="field-error" style="color: red;">{{ form.institute_name.errors }}</div>
+            {% endif %}
             <div class="field"> <label>Course Enrolled</label> {{ form.program_enrolled }} </div>
+            {% if form.program_enrolled.errors %}
+            <div class="field-error" style="color: red;">{{ form.program_enrolled.errors }}</div>
+            {% endif %}
             <div class="field disability">
+            {% if form.is_disabled.errors %}
+            <div class="field-error" style="color: red;">{{ form.is_disabled.errors }}</div>
+            {% endif %}
               <label>Are you a person with disability (PwD)?</label>
               <div class="disability-group">
                 {% for radio in form.is_disabled %}
@@ -95,6 +123,15 @@
               </div>
             </div>
             <div class="field year">
+            {% if form.year_of_passing.errors %}
+            <div class="field-error" style="color: red;">{{ form.year_of_passing.errors }}</div>
+            {% endif %}
+            {% if team_name_form and team_name_form.team_name.errors %}
+            <div class="field-error" style="color: red;">{{ team_name_form.team_name.errors }}</div>
+            {% endif %}
+            {% if member_formset and member_formset.management_form.errors %}
+            <div class="field-error" style="color: red;">{{ member_formset.management_form.errors }}</div>
+            {% endif %}
               <label>Graduating Year</label>
               <div class="year-group">
                 {% for radio in form.year_of_passing %}
@@ -117,8 +154,17 @@
                   <button type="button" class="btn btn-danger" data-remove>Remove</button>
                 </div>
                 <div class="field"> <label>Name</label> {{ mform.name }} </div>
+                {% if mform.name.errors %}
+                <div class="field-error" style="color: red;">{{ mform.name.errors }}</div>
+                {% endif %}
                 <div class="field"> <label>Email</label> {{ mform.email }} </div>
+                {% if mform.email.errors %}
+                <div class="field-error" style="color: red;">{{ mform.email.errors }}</div>
+                {% endif %}
                 <div class="field"> <label>Phone number</label> {{ mform.phone_no }} </div>
+                {% if mform.phone_no.errors %}
+                <div class="field-error" style="color: red;">{{ mform.phone_no.errors }}</div>
+                {% endif %}
                 <div class="field gender">
                   <label>Gender</label>
                   <div class="gender-group">
@@ -131,7 +177,19 @@
                   </div>
                 </div>
                 <div class="field"> <label>College/Institute Name</label> {{ mform.institute_name }} </div>
+                {% if mform.institute_name.errors %}
+                <div class="field-error" style="color: red;">{{ mform.institute_name.errors }}</div>
+                {% endif %}
                 <div class="field"> <label>Course Enrolled</label> {{ mform.program_enrolled }} </div>
+                {% if mform.program_enrolled.errors %}
+                <div class="field-error" style="color: red;">{{ mform.program_enrolled.errors }}</div>
+                {% endif %}
+                {% if mform.is_disabled.errors %}
+                <div class="field-error" style="color: red;">{{ mform.is_disabled.errors }}</div>
+                {% endif %}
+                {% if mform.year_of_passing.errors %}
+                <div class="field-error" style="color: red;">{{ mform.year_of_passing.errors }}</div>
+                {% endif %}
                 <div class="field disability">
                   <label>PwD</label>
                   <div class="disability-group">
