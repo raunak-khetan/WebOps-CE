@@ -2,25 +2,44 @@ from django.contrib import admin
 from .models import City, Event, Head, Team, TeamMember
 from .models import CFARegistration
 
+
 class TeamMemberInline(admin.TabularInline):
     model = TeamMember
     extra = 1  # Number of extra empty forms to show by default
     raw_id_fields = ('head',)  # Use raw_id fields for large databases
 
+
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
+    list_display = ('name', 'venue', 'time', 'state')
+    search_fields = ('name', 'venue', 'state')
+    list_filter = ('state', 'time')
     filter_horizontal = ('events',)
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'venue', 'state', 'time', 'image')
+        }),
+        ('Details', {
+            'fields': ('guidelines', 'events'),
+            'classes': ('collapse',)
+        }),
+    )
+
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'event_type', 'min_participants', 'max_participants', 'description')
-    list_filter = ('event_type',)
-    search_fields = ('name',)
+    list_display = ('name', 'event_type', 'min_participants', 'max_participants', 'deadline', 'event_date')
+    list_filter = ('event_type', 'deadline', 'event_date')
+    search_fields = ('name', 'description')
     fieldsets = (
         (None, {
-            'fields': ('name', 'event_type', 'min_participants', 'max_participants', 'description')
+            'fields': ('name', 'event_type', 'description')
+        }),
+        ('Participants', {
+            'fields': ('min_participants', 'max_participants')
+        }),
+        ('Important Dates', {
+            'fields': ('deadline', 'event_date')
         }),
     )
 
@@ -29,26 +48,53 @@ class EventAdmin(admin.ModelAdmin):
             return ['min_participants', 'max_participants']
         return []
 
+
 @admin.register(Head)
 class HeadAdmin(admin.ModelAdmin):
-    list_display = ('name', 'event', 'city', 'email', 'phone_no', 'solo')
-    list_filter = ('gender', 'city', 'event')
-    search_fields = ('name', 'email', 'phone_no')
+    list_display = ('name', 'event', 'city', 'email', 'phone_no', 'institute_name', 'year_of_passing', 'solo')
+    list_filter = ('gender', 'city', 'event', 'year_of_passing', 'is_disabled', 'solo')
+    search_fields = ('name', 'email', 'phone_no', 'institute_name')
     raw_id_fields = ('event', 'city')
+    fieldsets = (
+        ('Personal Information', {
+            'fields': ('name', 'email', 'phone_no', 'gender', 'is_disabled')
+        }),
+        ('Academic Information', {
+            'fields': ('institute_name', 'year_of_passing', 'program_enrolled')
+        }),
+        ('Event Information', {
+            'fields': ('event', 'city', 'solo')
+        }),
+    )
+
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('team_name', 'head', 'created_at')
     search_fields = ('team_name', 'head__name')
+    list_filter = ('created_at',)
     raw_id_fields = ('head',)
     inlines = [TeamMemberInline]
 
+
 @admin.register(TeamMember)
 class TeamMemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'head', 'phone_no', 'email', 'gender', 'institute_name', 'year_of_passing')
-    list_filter = ('gender', 'year_of_passing')
-    search_fields = ('name', 'phone_no', 'email', 'head__name')
-    raw_id_fields = ('head',)
+    list_display = ('name', 'head', 'team', 'phone_no', 'email', 'gender', 'institute_name', 'year_of_passing', 'program_enrolled', 'is_disabled')
+    list_filter = ('gender', 'year_of_passing', 'is_disabled')
+    search_fields = ('name', 'phone_no', 'email', 'head__name', 'team__team_name', 'institute_name')
+    raw_id_fields = ('head', 'team')
+    fieldsets = (
+        ('Personal Information', {
+            'fields': ('name', 'email', 'phone_no', 'gender', 'is_disabled')
+        }),
+        ('Academic Information', {
+            'fields': ('institute_name', 'year_of_passing', 'program_enrolled')
+        }),
+        ('Team Information', {
+            'fields': ('head', 'team')
+        }),
+    )
+
 
 @admin.register(CFARegistration)
 class CFARegistrationAdmin(admin.ModelAdmin):

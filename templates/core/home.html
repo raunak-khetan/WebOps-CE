@@ -162,7 +162,7 @@
     <h1 class="heading">Highway To Alcher</h1>
     <p  class="para">Highway to Alcher is your direct route to the spotlight at Alcheringa, IIT Guwahati's annual cultural fest! This pan-India competition series unearths the nation's brightest talents, giving them a chance to perform on the grand stage. Get ready to showcase your skills and kickstart your journey to stardom!</p>
   </div>
-    <a class="register-btn" href="#">Register</a>
+    <a class="register-btn" href="#competition-section">Register</a>
 </div>
 
 <div class="image-container">
@@ -182,7 +182,7 @@
 </div>
 </main>
   
-  <section class="competition-page">
+  <section id="competition-section" class="competition-page">
     <div class="competition-header">
       <h2 class="heading">FIND COMPETITIONS IN</h2>
       <div class="city-select">
@@ -209,8 +209,10 @@
         {% for city in cities %}
           {% for event in city.events.all %}
             <article class="comp-card">
+      
               <div class="card-media">
                 <img src="{{ city.image.url }}" alt="{{ event.name }} " class="comp-img"/>
+                
                 <span class="badge">{{ event.event_type|upper }}</span>
                 <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
               </div>
@@ -229,7 +231,7 @@
                 </ul>
                 <div class="card-actions">
                   <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
-                  <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                  <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comps-img"/>
                   <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Details</a>
                 </div>
               </div>
@@ -351,7 +353,7 @@
     </section>
   
     <!-- Sponsors Block -->
-    <section class="sponsors-block">
+    <section id="sponsors-section" class="sponsors-block">
       <div class="sponsors-container">
         <h1 class="sponsors-title">SPONSORS</h1>
         
@@ -406,15 +408,15 @@
             <h3 class="section-title">Useful Links</h3>
             <nav class="links-nav">
               <ul class="nav-list">
-                <li><a href="#" class="nav-link">
+                <li><a href="#about" class="nav-link">
                   <span>About Us</span>
                   <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
                 </a></li>
-                <li><a href="#" class="nav-link">
+                <li><a href="#competition-section" class="nav-link">
                   <span>Schedule</span>
                   <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
                 </a></li>
-                <li><a href="#" class="nav-link">
+                <li><a href="#sponsors-section" class="nav-link">
                   <span>Sponsors</span>
                   <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
                 </a></li>

@@ -19,6 +19,11 @@
       type="text/css"
       href="{% static 'core/styles.css' %}"
     />
+    <link
+			rel="icon"
+			type="image/x-icon"
+			href="{% static 'core/favicon.ico' %}"
+		/>
     <link rel="stylesheet" href="{% static 'core/combined.css' %}" />
     <link
       rel="stylesheet"
@@ -254,7 +259,7 @@
     </div>
     <div class="event-container">
       <h1 class="event-title">{{ event.name }}</h1>
-      <p class="event-subtitle">{{ event.type }}</p>
+      <p class="event-subtitle">{{ event.event_type }}</p>
       <div class="event-details">
         <div class="left-info">
           <p class="event-date">
@@ -354,8 +359,7 @@
           </div>
           
           <div class="pagination-arrows">
-            <div class="pagination" id="carousel-pagination"></div>
-            <div class="nav-arrows">
+            <div class="nav-arrows" style="margin-left:auto;">
               <button class="nav-btn left" id="prev-btn">←</button>
               <button class="nav-btn right" id="next-btn">→</button>
             </div>

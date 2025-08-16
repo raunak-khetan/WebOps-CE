@@ -13,32 +13,24 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Environment mode
-PROD = os.environ.get('prod') == 'true'
-
+# Environment mode - Fixed logic
+PROD = os.environ.get('prod', 'false').lower() == 'true'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-p7$fp5yp9ib89q2wrgzmy#%3%ao9sxagkr=2@q@=c4$joyj4vy"
-
-# SECURITY WARNING: keep the secret key used in production secret!
-PROD=not os.environ.get('prod')
 SECRET_KEY = 'django-insecure-)zfwsh_jx=vqympmk#pj_q-%t2_14-m+iq@_#)1_j9zg#q^#@q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not os.environ.get('prod')
+DEBUG = not PROD
 
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -81,18 +73,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "cityelimination.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 if PROD:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -101,6 +85,13 @@ else:
             'PASSWORD': os.environ.get('db_password'),
             'HOST': os.environ.get('db_host'),
             'PORT': os.environ.get('db_port')
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
@@ -122,44 +113,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-# Static files 
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-
-# Setup Media
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-# Minio Storage
+# Storage Configuration
 if PROD:
     # Production - MinIO storage
     DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
     STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
-
+    
     MINIO_STORAGE_ENDPOINT = os.environ.get('minio_endpoint')
     MINIO_STORAGE_ACCESS_KEY = os.environ.get('minio_access')
     MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
     MINIO_STORAGE_USE_HTTPS = True
-
+    
     MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce25media'
     MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
     MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce25static'
@@ -170,14 +148,7 @@ else:
     STATIC_ROOT = BASE_DIR / "staticfiles"
     MEDIA_ROOT = BASE_DIR / "media"
 
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'no-reply@alcheringa.in'
-# EMAIL_HOST_PASSWORD = 'snxxfiyloiykjtdv'
-
+# Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
@@ -185,6 +156,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "raunakkhetan470@gmail.com"
 EMAIL_HOST_PASSWORD = "jksl jodn ahxc mzxq"
 
+# Other Settings
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 

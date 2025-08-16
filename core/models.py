@@ -20,8 +20,8 @@ class City(models.Model):
 
 class Event(models.Model):
     EVENT_TYPE_CHOICES = [
-        ('solo', 'Solo'),
-        ('team', 'Team'),
+        ('Solo', 'Solo'),
+        ('Team', 'Team'),
     ]
 
     name = models.CharField(max_length=200)
