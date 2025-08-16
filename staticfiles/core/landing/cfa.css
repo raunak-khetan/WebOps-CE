@@ -80,7 +80,7 @@
   
   .shape1 { top: 0; left: 190px; width: 200px; height: 120px; }
   .shape2 { top: 0; right: 170px; width: 200px; height: 120px; }
-  .shape3 { top: -10px; right: 0; width: 120px; height: 120px; }
+  .shape3 { top: 0px; right: 0; width: 120px; height: 120px; }
   .shape4 { right: 0; top: 35%; transform: translateY(-50%); width: 150px; height: 200px; }
   .shape5 { bottom: 0; right: 0; width: 150px; height: 120px; }
   .shape6 { bottom: 0; left: 400px; width: 150px; height: 120px; }
@@ -121,7 +121,7 @@
     
     .shape1 { top: 0; left: 10px; }
     .shape2 { top: 0; right: 10px; }
-    .shape3 { top: 5px; right: 0; }
+    .shape3 { display: hidden; }
     .shape4 { right: 0; top: 40%; }
     .shape8 { left: 0; bottom: 40%; top: auto; }
   }

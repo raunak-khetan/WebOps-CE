@@ -139,22 +139,30 @@ body {
 .hero {
     text-align: center;
     margin-top: 4rem;
+    padding-top: 3rem;        /* Reduced padding */
+    padding-bottom: 3rem;
+    min-height: 45vh;         /* Smaller height on larger screens */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .hero-line {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem; /* was 1.2rem before */
+    gap: 1.5rem;
     margin-bottom: 0.3rem;
     flex-wrap: wrap;
 }
+
 .hero-line.compact {
-    gap: 0.4rem; /* Tighter spacing for middle line only */
+    gap: 0.4rem;
     margin-left: 6rem;
 }
+
 .hero-line:last-child {
-    gap: 0.8rem; /* bottom line, reduced gap */
+    gap: 0.8rem;
 }
 
 .hero-word {
@@ -163,6 +171,7 @@ body {
     font-weight: bold;
     color: white;
 }
+
 .hero-line.compact .hero-word {
     transform: translateX(16px);
 }
@@ -170,7 +179,9 @@ body {
 .hero-shape {
     width: clamp(2.5rem, 6vw, 4.5rem);
     height: auto;
+    animation: floatRotate 4s ease-in-out infinite;
 }
+
 @keyframes floatRotate {
     0%, 100% {
       transform: translateY(0) rotate(0deg);
@@ -178,13 +189,42 @@ body {
     50% {
       transform: translateY(-8px) rotate(5deg);
     }
-  }
-  
-  .hero-shape {
-    animation: floatRotate 4s ease-in-out infinite;
-  }
-  
-    
+}
+
+/* Larger screens */
+@media (min-width: 1024px) {
+    .hero {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+        min-height: 55vh;  /* Slightly smaller height */
+    }
+    .hero-word {
+        font-size: clamp(3rem, 5vw, 6rem);
+    }
+    .hero-shape {
+        width: clamp(3rem, 5vw, 5rem);
+    }
+    .hero-line.compact {
+        margin-left: 10rem; /* Slightly less margin */
+        gap: 0.8rem;        /* Slightly wider gap */
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+    .hero {
+        min-height: 65vh;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+    .hero-word {
+        font-size: 6rem;
+    }
+    .hero-shape {
+        width: 5rem;
+    }
+}
+
 /* Stats Section */
 .stats {
     display: flex;

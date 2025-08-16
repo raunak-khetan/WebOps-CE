@@ -308,16 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
-    // Add register button functionality
-    const registerBtn = document.querySelector('.register-btn');
-    if (registerBtn) {
-        registerBtn.addEventListener('click', () => {
-            // Add your registration logic here
-            alert('Registration functionality will be implemented here!');
-        });
-    }
-    
     // Add social media link functionality
     const socialLinks = document.querySelectorAll('.social-link');
     socialLinks.forEach(link => {
