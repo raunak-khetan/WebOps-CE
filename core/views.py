@@ -74,9 +74,26 @@ def detailspage(request, city_name, event_name):
     city = get_object_or_404(City, name=city_name)
     event = get_object_or_404(Event, name=event_name)
 
+    competitions = []
+    cities = City.objects.prefetch_related('events').all()
+    
+    for city_item in cities:
+        for event_item in city_item.events.all():
+            competitions.append({
+                "city": city_item.name,
+                "title": event_item.name,
+                "subtitle": event_item.description,
+                "date": city_item.time.strftime("%a, %d %b, %Y") if city_item.time else "No date",
+                "venue": city_item.venue,
+                "image": city_item.image.url if city_item.image else '',
+                "type": event_item.event_type.capitalize() if event_item.event_type else "N/A"
+            })
+
     return render(request, 'core/register.html', {
         'event': event,
         'city': city,
+        'competitions': competitions,  # Pass competitions for cards
+        'cities': cities,
     })
 
 
@@ -217,30 +234,5 @@ def cfa_step3(request):
 
     return render(request, 'core/cfa_step3.html')
 
-
-
-def comp_page(request):
-    print("comp_page view called")  # DEBUG
-
-    competitions = []
-
-    cities = City.objects.prefetch_related('events').all()
-    print(f"Fetched {cities.count()} cities")  # DEBUG
-
-    for city in cities:
-        print(f"City: {city.name}, Events: {city.events.count()}")  # DEBUG
-        for event in city.events.all():
-            competitions.append({
-                "city": city.name,
-                "title": event.name,
-                "subtitle": event.description,
-                "date": city.time.strftime("%a, %d.%m.") if city.time else "No date",
-                "venue": city.venue,
-                "image": city.image.url if city.image else '',
-                "type": event.event_type.capitalize() if event.event_type else "N/A"
-            })
-
-    print(f"Competitions list length: {len(competitions)}")  # DEBUG
-    return render(request, 'core/comp_page.html', {"cities": cities})
 
 

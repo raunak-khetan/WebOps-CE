@@ -292,3 +292,68 @@ function resetAutoSlide() {
 
 // Initialize
 showSlide(slideIndex);
+
+//ashish start upcoming events
+
+ document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.carousel');
+    const leftArrow = document.querySelector('.nav-btn.left');
+    const rightArrow = document.querySelector('.nav-btn.right');
+    const pagination = document.querySelector('.pagination');
+    const cards = document.querySelectorAll('.competition-card');
+
+    if (!carousel || cards.length === 0) return;
+
+    const cardStyle = window.getComputedStyle(cards[0]);
+    const gap = parseInt(cardStyle.marginRight || 20);
+    const cardWidth = cards[0].offsetWidth + gap;
+    const carouselWidth = carousel.clientWidth;
+
+    const visibleCards = Math.floor(carouselWidth / cardWidth);
+    const totalPages = Math.ceil(cards.length / visibleCards);
+    let currentPage = 0;
+
+    // Clear any previous dots (important if this re-runs)
+    pagination.innerHTML = '';
+
+    // Generate pagination dots
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        currentPage = i;
+        scrollToPage();
+      });
+      pagination.appendChild(dot);
+    }
+
+    const updateDots = () => {
+      document.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentPage);
+      });
+    };
+
+    function scrollToPage() {
+      carousel.scrollTo({
+        left: currentPage * cardWidth * visibleCards,
+        behavior: 'smooth'
+      });
+      updateDots();
+    }
+
+    leftArrow.addEventListener('click', () => {
+      if (currentPage > 0) {
+        currentPage--;
+        scrollToPage();
+      }
+    });
+
+    rightArrow.addEventListener('click', () => {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        scrollToPage();
+      }
+    });
+  });
+//ashish end upcoming events

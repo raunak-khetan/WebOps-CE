@@ -38,6 +38,7 @@
             font-style: normal;
         }
     </style>
+    <title >Alcheringa</title>
 </head>
 <body>
 
@@ -209,7 +210,8 @@
           {% for event in city.events.all %}
             <article class="comp-card">
               <div class="card-media">
-                <img src="{% static 'core/asset/hero.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                <img src="{{ city.image.url }}" alt="{{ event.name }} " class="comp-img"/>
+                <span class="badge">{{ event.event_type|upper }}</span>
                 <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
               </div>
               <div class="card-body">
@@ -228,7 +230,7 @@
                 <div class="card-actions">
                   <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
                   <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
-                  <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Register</a>
+                  <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Details</a>
                 </div>
               </div>
             </article>
@@ -244,7 +246,8 @@
           {% for event in city.events.all %}
             <article class="comp-card">
               <div class="card-media">
-                <img src="{% static 'core/asset/hero.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                <img src="{{ city.image.url }}" alt="{{ event.name }} " class="comp-img"/>
+                <span class="badge">{{ event.event_type|upper }}</span>
                 <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
               </div>
               <div class="card-body">
@@ -263,7 +266,7 @@
                 <div class="card-actions">
                   <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
                   <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
-                  <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Register</a>
+                  <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Details</a>
                 </div>
               </div>
             </article>
