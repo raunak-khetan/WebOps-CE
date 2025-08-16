@@ -389,11 +389,6 @@ body {
 /* Participate section removed */
 
 /* registrtion form*/
-
-/* Minimal layout for the registration page; uses existing theme colors */
-body {
-  background: #161616;
-}
 .page-wrap {
   display: flex;
   flex-direction: row;
@@ -1751,6 +1746,167 @@ html {
     background: linear-gradient(-90deg, rgba(26, 26, 26, 0.8) 0%, transparent 100%);
 }
 
+.carousel-container {
+        position: relative;
+        width: 100%;
+        margin-top: 24px;
+      }
+
+      .section-title {
+        font-family: 'Saotorpes', sans-serif;
+        font-size: 2.5rem;
+        color: #D4FF00;
+        text-align: center;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .carousel {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 20px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scroll-padding: 0 20px;
+      }
+
+      .carousel::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Override the grid layout for carousel */
+      .carousel .comp-card {
+        min-width: 280px;
+        max-width: 280px;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        margin: 0; /* Remove any default margins */
+      }
+
+      /* Ensure badges are positioned correctly */
+      .carousel .badge-type {
+        top: 40px;
+      }
+
+      .pagination-arrows {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding: 0 20px;
+        width: 100%;
+      }
+
+      .pagination {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-start;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        background-color: #444;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
+
+      .dot.active {
+        background-color: #bdf522;
+      }
+
+      .nav-arrows {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .nav-btn {
+        background: #222;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background 0.3s;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-btn.right {
+        background: #bdf522;
+        color: #000;
+      }
+
+      .nav-btn:hover {
+        background: #bdf522;
+        color: #000;
+      }
+
+      .nav-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .carousel {
+          gap: 16px;
+          scroll-padding: 0 16px;
+        }
+
+        .carousel .comp-card {
+          min-width: 240px;
+          max-width: 240px;
+        }
+
+        .section-title {
+          font-size: 2rem;
+          margin-bottom: 30px;
+        }
+
+        .pagination-arrows {
+          padding: 0 16px;
+        }
+
+        .nav-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .carousel {
+          gap: 12px;
+          scroll-padding: 0 12px;
+        }
+
+        .carousel .comp-card {
+          min-width: 200px;
+          max-width: 200px;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+          margin-bottom: 24px;
+        }
+      }
+
+.city-competitions{
+  margin-top: 15px;
+}
 
 		/* dropdown */
 

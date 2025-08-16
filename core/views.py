@@ -203,34 +203,72 @@ def cfa_register_step1(request):
 
 def cfa_step2_view(request):
     if request.method == 'POST':
-        college_name = request.POST.get('college_name')
-
         # Get existing CFA object
         cfa_id = request.session.get('cfa_id')
         if cfa_id:
-            cfa = CFARegistration.objects.get(id=cfa_id)
-            cfa.college_name = college_name
-            cfa.save()
-
-        # Redirect to step 3
-        return redirect('cfa_step3')
+            try:
+                cfa = CFARegistration.objects.get(id=cfa_id)
+                
+                # Update Step 2 fields
+                cfa.college_name = request.POST.get('college_name', '')
+                cfa.college_designation = request.POST.get('college_designation', '')
+                cfa.fest_name = request.POST.get('fest_name', '')
+                cfa.fest_address = request.POST.get('fest_address', '')
+                cfa.fest_dates = request.POST.get('fest_dates', '')
+                cfa.number_of_days = request.POST.get('number_of_days', '')
+                cfa.expected_footfall = request.POST.get('expected_footfall', '')
+                cfa.social_links = request.POST.get('social_links', '')
+                
+                cfa.save()
+                
+                # Redirect to step 3
+                return redirect('cfa_step3')
+            except CFARegistration.DoesNotExist:
+                # If CFA object doesn't exist, redirect back to step 1
+                return redirect('cfa_step1')
+        else:
+            # If no CFA ID in session, redirect back to step 1
+            return redirect('cfa_step1')
 
     return render(request, 'core/cfa_step2.html')
 
 
 def cfa_step3(request):
     if request.method == 'POST':
-        # Handle form submission here
-        # You can access fields using request.POST.get('field_name')
-        team_size = request.POST.get('team_size')
-        fest_address = request.POST.get('fest_address')
-        expectations = request.POST.get('expectations')
-        competitions = request.POST.get('competitions')
-
-        # Optionally, save the data or process it...
-
-        # For now, redirect to a thank you or confirmation page
-        return render(request, 'core/thank_you.html')  # or use redirect()
+        # Get existing CFA object
+        cfa_id = request.session.get('cfa_id')
+        if cfa_id:
+            try:
+                cfa = CFARegistration.objects.get(id=cfa_id)
+                
+                # Update Step 3 fields
+                cfa.accommodation_required = request.POST.get('accommodation') == 'yes'
+                cfa.event_preferences = request.POST.get('expectations', '')
+                
+                # Save additional fields that might be useful
+                # You can add these to the model if needed
+                team_size = request.POST.get('team_size', '')
+                competitions = request.POST.get('competitions', '')
+                
+                # Combine additional info into event_preferences if needed
+                additional_info = f"Team Size: {team_size}\nCompetitions: {competitions}\n\nExpectations: {request.POST.get('expectations', '')}"
+                cfa.event_preferences = additional_info
+                
+                cfa.save()
+                
+                # Clear the session
+                if 'cfa_id' in request.session:
+                    del request.session['cfa_id']
+                
+                # Redirect to thank you page
+                return render(request, 'core/thank_you.html')
+                
+            except CFARegistration.DoesNotExist:
+                # If CFA object doesn't exist, redirect back to step 1
+                return redirect('cfa_step1')
+        else:
+            # If no CFA ID in session, redirect back to step 1
+            return redirect('cfa_step1')
 
     return render(request, 'core/cfa_step3.html')
 

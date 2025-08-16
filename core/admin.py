@@ -52,6 +52,26 @@ class TeamMemberAdmin(admin.ModelAdmin):
 
 @admin.register(CFARegistration)
 class CFARegistrationAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'email', 'phone_number', 'college_name', 'submitted_at')
-    search_fields = ('full_name', 'email', 'college_name')
-    list_filter = ('college_designation', 'accommodation_required')
+    list_display = ('full_name', 'email', 'phone_number', 'college_name', 'fest_name', 'submitted_at')
+    search_fields = ('full_name', 'email', 'college_name', 'fest_name')
+    list_filter = ('college_designation', 'accommodation_required', 'submitted_at')
+    readonly_fields = ('submitted_at',)
+    
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('full_name', 'age', 'email', 'phone_number', 'alternate_phone', 'college_id_card_link')
+        }),
+        ('College Information', {
+            'fields': ('college_name', 'college_designation')
+        }),
+        ('Fest Information', {
+            'fields': ('fest_name', 'fest_address', 'fest_dates', 'number_of_days', 'expected_footfall', 'social_links')
+        }),
+        ('Additional Details', {
+            'fields': ('accommodation_required', 'event_preferences')
+        }),
+        ('Timestamps', {
+            'fields': ('submitted_at',),
+            'classes': ('collapse',)
+        }),
+    )
