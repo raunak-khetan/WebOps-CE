@@ -1,5 +1,5 @@
 FROM python:3.11-slim
-RUN apt-get update \
+RUN apt-get update && apt-get upgrade -y \
     # dependencies for building Python packages
     && apt-get install -y build-essential \
     # psycopg2 dependencies
