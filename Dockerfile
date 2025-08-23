@@ -1,26 +1,31 @@
 FROM python:3.11-slim
-RUN apt-get update && apt-get upgrade -y \
-    # dependencies for building Python packages
-    && apt-get install -y build-essential \
-    # psycopg2 dependencies
-    && apt-get install -y libpq-dev \
-    # Translations dependencies
-    && apt-get install -y gettext \
-    && apt-get install -y git \
-    && apt-get install -y libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info \
-    # cleaning up unused files
-    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-    && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /usr/src/app
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    gettext \
+    git \
+    libcairo2 \
+    libpango1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf2.0-0 \
+    libffi-dev \
+    shared-mime-info \
+ && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /usr/src/app
-USER root
-COPY ./requirements.txt /requirements.txt
 
-RUN pip install --no-cache-dir -r /requirements.txt
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /usr/src/app
+# Copy project files
+COPY . .
 
+# Expose port
 EXPOSE 80
 
+# Run the application
 CMD ["sh", "./runserver.sh"]
