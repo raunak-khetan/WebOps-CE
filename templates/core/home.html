@@ -288,15 +288,16 @@
   <!-- ashish start -->
    <div class="cfa-container">
     <!-- Shapes -->
+     <div class="shapes-wrapper layout-a">
     <img src="{% static 'core/landing/shape1.svg' %}" class="shape shape1" />
     <img src="{% static 'core/landing/shape2.svg' %}" class="shape shape2" />
     <img src="{% static 'core/landing/shape3.svg' %}" class="shape shape3" />
     <img src="{% static 'core/landing/shape4.svg' %}" class="shape shape4" />
-    <img src="{% static 'core/ing/shape5.svg' %}" class="shape shape5" />
+    <img src="{% static 'core/landing/shape5.svg' %}" class="shape shape5" />
     <img src="{% static 'core/landing/shape6.svg' %}" class="shape shape6" />
     <img src="{% static 'core/landing/shape7.svg' %}" class="shape shape7" />
     <img src="{% static 'core/landing/shape8.svg' %}" class="shape shape8" />
-
+    </div>
     <!-- Main Content -->
     <div class="cfa-content">
       <h1>PARTICIPATE IN CFA</h1>
@@ -310,6 +311,17 @@
 
     </div>
   </div>
+  <script>
+    const wrapper = document.querySelector('.shapes-wrapper');
+    let isLayoutA = true;
+  
+    setInterval(() => {
+      wrapper.classList.toggle('layout-a');
+      wrapper.classList.toggle('layout-b');
+      isLayoutA = !isLayoutA;
+    }, 2000); // 2 seconds
+  </script>
+  
   <!-- ashish end -->
   
   <!--sanchit start-->

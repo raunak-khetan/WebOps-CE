@@ -269,5 +269,9 @@ def cfa_step3(request):
 
     return render(request, 'core/cfa_step3.html')
 
+def landing_page(request):
+    return render(request, 'core/landing.html')
 
 
+def test_view(request):
+    return HttpResponse("Site is working!")
