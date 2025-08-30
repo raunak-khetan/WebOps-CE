@@ -116,17 +116,21 @@
                 <img src="{% static 'core/landing/Vector.svg' %}" alt="Yellow Shape" class="about-vector">
                 
                 <!-- Main image -->
+
+
                 <div class="about-carousel">
-                    <img src="{% static 'core/landing/about-image.png' %}" class="about-slide active">
-                    <img src="{% static 'core/landing/about-image2.png' %}" class="about-slide">
-                    
-                  </div>
-                  <div class="slider-controls">
+                  {% for image in about_images %}
+                      <img src="{{ image.image.url }}" class="about-slide {% if forloop.first %}active{% endif %}">
+                  {% endfor %}
+              </div>
+              
+              <div class="slider-controls">
                   <div class="about-dots">
-                    <span class="dot active" data-index="0"></span>
-                    <span class="dot" data-index="1"></span>
-                    <!-- Add more dots if more slides -->
+                      {% for image in about_images %}
+                          <span class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+                      {% endfor %}
                   </div>
+              
                   
                   
                 

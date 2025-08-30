@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import City, Event, Head, Team, TeamMember
 from .models import CFARegistration
-
+from .models import AboutImage
 
 class TeamMemberInline(admin.TabularInline):
     model = TeamMember
@@ -121,3 +121,9 @@ class CFARegistrationAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+#bug fixes...
+@admin.register(AboutImage)
+class AboutImageAdmin(admin.ModelAdmin):
+    list_display = ['id', 'order', 'image']
+    ordering = ['order']
