@@ -11,7 +11,7 @@ from .forms import CFARegistrationStep1Form
 from .models import CFARegistration
 from .models import City, Event
 from django.http import HttpResponse
-
+from .models import AboutImage
 
 
 def city_list(request):
@@ -269,5 +269,16 @@ def cfa_step3(request):
 
     return render(request, 'core/cfa_step3.html')
 
+def landing_page(request):
+    return render(request, 'core/landing.html')
 
 
+def test_view(request):
+    return HttpResponse("Site is working!")
+
+
+#bug fixes...
+def home(request):
+    about_images = AboutImage.objects.all().order_by('order')
+    print("DEBUG: Found", about_images.count(), "AboutImage(s)")
+    return render(request, 'core/home.html', {'about_images': about_images})
