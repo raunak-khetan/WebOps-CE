@@ -1,320 +1,237 @@
-  <!--raunak start -->
-  {%load static%}
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <title>Register - {{ event.name }}</title>
-    <script>window.CSRF_TOKEN = '{{ csrf_token }}';</script>
-    {% csrf_token %}
-    <!-- The csrf_token above is for JS access only; the form itself includes its own token -->
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script src="https://kit.fontawesome.com/2cdfdf2a91.js" crossorigin="anonymous"></script>
-     <link rel="stylesheet" type="text/css" href="{% static 'core/styles.css' %}">
-     <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
-      <link rel="stylesheet" href="{% static 'core/landing/landing.css' %}">
+<!--raunak start -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Register - {{ event.name }}</title>
+  <script>window.CSRF_TOKEN = '{{ csrf_token }}';</script>
+  {% csrf_token %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://kit.fontawesome.com/2cdfdf2a91.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'core/styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+  <link rel="stylesheet" href="{% static 'core/landing/landing.css' %}">
   <link rel="stylesheet" href="{% static 'core/landing/cfa.css' %}" />
-      <link rel="icon" type="image/x-icon" href="{% static 'core/favicon.ico' %}">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-      <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-      <link rel="stylesheet" type="text/css" href="{% static 'core/register.css' %}">
-  </head>
-  <html>
-    <body>
+  <link rel="icon" type="image/x-icon" href="{% static 'core/favicon.ico' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'core/register.css' %}">
+</head>
+<body>
 
-        <header class="navbar">
-        <div class="navbar-header">
-          <div class="navbar-left">
-            <img src="{% static 'core/landing/logo.png' %}" class="logo" alt="Logo" />
-            <span>ALCHERINGA</span>
-          </div>
-      
-          <div class="hamburger">&#9776;</div>
-        </div>
-      
-        <div class="navbar-right" id="nav-menu">
-          <a href="#about">About Alcher</a>
-          <img src="{% static 'core/landing/search.svg' %}" class="search-icon" alt="Search" />
-          <input type="text" id="navbar-search" placeholder="Search..." style="display: none;" />
-        </div>
-      </header>
-
-      
-    
-  <div class="page-wrap">
-    <main>
-      <form method="post" action="{% url 'registrationpage' city.name event.name %}" novalidate>
-        {% csrf_token %}
-
-    {% if form.non_field_errors %}
-    <div class="form-errors">
-      <ul>
-      {% for error in form.non_field_errors %}
-        <li style="color: red;">{{ error }}</li>
-      {% endfor %}
-      </ul>
+<header class="navbar">
+  <div class="navbar-header">
+    <div class="navbar-left">
+      <img src="{% static 'core/landing/logo.png' %}" class="logo" alt="Logo" />
+      <span>ALCHERINGA</span>
     </div>
-    {% endif %}
+    <div class="hamburger">&#9776;</div>
+  </div>
+  <div class="navbar-right" id="nav-menu">
+    <a href="#about">About Alcher</a>
+    <img src="{% static 'core/landing/search.svg' %}" class="search-icon" alt="Search" />
+    <input type="text" id="navbar-search" placeholder="Search..." style="display: none;" />
+  </div>
+</header>
 
-        {% if event.event_type == 'team' %}
-        <div class="card">
-          <h2 class="section-title">Team Details</h2>
-          <div class="grid-2">
-            <div class="field">
-              <label>Team Name</label>
-              {{ team_name_form.team_name }}
-            </div>
-            <div class="field">
-              <label>Team Size</label>
-              <input  id="team-size" type="number" value="1" min="1" max="{{ max_participants }}" disabled>
-            </div>
-          </div>
-       
-        {% endif %}
+<div class="page-wrap">
+  <main>
+    <form method="post" action="{% url 'registrationpage' city.name event.name %}" novalidate>
+      {% csrf_token %}
+     
 
-        <div class="card">
-          <h2 class="section-title">Member Details</h2>
-          <div class="member-card">
-            <h3 style="margin:0 0 8px; font-size:14px; color:#BDF522;">Member 1</h3>
-            <div class="field"> <label>Name</label> {{ form.name }} </div>
-            {% if form.name.errors %}
-            <div class="field-error" style="color: red;">{{ form.name.errors }}</div>
-            {% endif %}
-            <div class="field"> <label>Email</label> {{ form.email }} </div>
-            {% if form.email.errors %}
-            <div class="field-error" style="color: red;">{{ form.email.errors }}</div>
-            {% endif %}
-            <div class="field"> <label>Phone number</label> {{ form.phone_no }} </div>
-            {% if form.phone_no.errors %}
-            <div class="field-error" style="color: red;">{{ form.phone_no.errors }}</div>
-            {% endif %}
-            <div class="field gender">
-              <label>Gender</label>
-              <div class="gender-group">
-                {% for radio in form.gender %}
-                <label class="gender-box">
-                  {{ radio.tag }}
-                  <span>{{ radio.choice_label }}</span>
-                </label>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="field"> <label>College/Institute Name</label> {{ form.institute_name }} </div>
-            {% if form.institute_name.errors %}
-            <div class="field-error" style="color: red;">{{ form.institute_name.errors }}</div>
-            {% endif %}
-            <div class="field"> <label>Course Enrolled</label> {{ form.program_enrolled }} </div>
-            {% if form.program_enrolled.errors %}
-            <div class="field-error" style="color: red;">{{ form.program_enrolled.errors }}</div>
-            {% endif %}
-            <div class="field disability">
-            {% if form.is_disabled.errors %}
-            <div class="field-error" style="color: red;">{{ form.is_disabled.errors }}</div>
-            {% endif %}
-              <label>Are you a person with disability (PwD)?</label>
-              <div class="disability-group">
-                {% for radio in form.is_disabled %}
-                <label class="disability-box">
-                  {{ radio.tag }}
-                  <span>{{ radio.choice_label }}</span>
-                </label>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="field year">
-            {% if form.year_of_passing.errors %}
-            <div class="field-error" style="color: red;">{{ form.year_of_passing.errors }}</div>
-            {% endif %}
-            {% if team_name_form and team_name_form.team_name.errors %}
-            <div class="field-error" style="color: red;">{{ team_name_form.team_name.errors }}</div>
-            {% endif %}
-            {% if member_formset and member_formset.management_form.errors %}
-            <div class="field-error" style="color: red;">{{ member_formset.management_form.errors }}</div>
-            {% endif %}
-              <label>Graduating Year</label>
-              <div class="year-group">
-                {% for radio in form.year_of_passing %}
-                <label class="year-box">
-                  {{ radio.tag }}
-                  <span>{{ radio.choice_label }}</span>
-                </label>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-
-          {% if event.event_type == 'team' %}
-            {{ member_formset.management_form }}
-            <div id="members-container">
-              {% for mform in member_formset %}
-              <div class="member-card" data-member-index="{{ forloop.counter }}">
-                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-                  <h3 style="margin:0; font-size:14px; color:#BDF522;">Member {{ forloop.counter|add:1 }}</h3>
-                  <button type="button" class="btn btn-danger" data-remove>Remove</button>
-                </div>
-                <div class="field"> <label>Name</label> {{ mform.name }} </div>
-                {% if mform.name.errors %}
-                <div class="field-error" style="color: red;">{{ mform.name.errors }}</div>
-                {% endif %}
-                <div class="field"> <label>Email</label> {{ mform.email }} </div>
-                {% if mform.email.errors %}
-                <div class="field-error" style="color: red;">{{ mform.email.errors }}</div>
-                {% endif %}
-                <div class="field"> <label>Phone number</label> {{ mform.phone_no }} </div>
-                {% if mform.phone_no.errors %}
-                <div class="field-error" style="color: red;">{{ mform.phone_no.errors }}</div>
-                {% endif %}
-                <div class="field gender">
-                  <label>Gender</label>
-                  <div class="gender-group">
-                    {% for radio in mform.gender %}
-                    <label class="gender-box">
-                      {{ radio.tag }}
-                      <span>{{ radio.choice_label }}</span>
-                    </label>
-                    {% endfor %}
-                  </div>
-                </div>
-                <div class="field"> <label>College/Institute Name</label> {{ mform.institute_name }} </div>
-                {% if mform.institute_name.errors %}
-                <div class="field-error" style="color: red;">{{ mform.institute_name.errors }}</div>
-                {% endif %}
-                <div class="field"> <label>Course Enrolled</label> {{ mform.program_enrolled }} </div>
-                {% if mform.program_enrolled.errors %}
-                <div class="field-error" style="color: red;">{{ mform.program_enrolled.errors }}</div>
-                {% endif %}
-                {% if mform.is_disabled.errors %}
-                <div class="field-error" style="color: red;">{{ mform.is_disabled.errors }}</div>
-                {% endif %}
-                {% if mform.year_of_passing.errors %}
-                <div class="field-error" style="color: red;">{{ mform.year_of_passing.errors }}</div>
-                {% endif %}
-                <div class="field disability">
-                  <label>PwD</label>
-                  <div class="disability-group">
-                    {% for radio in mform.is_disabled %}
-                    <label class="disability-box">
-                      {{ radio.tag }}
-                      <span>{{ radio.choice_label }}</span>
-                    </label>
-                    {% endfor %}
-                  </div>
-                </div>
-                <div class="field year">
-                  <label>Graduating Year</label>
-                  <div class="year-group">
-                    {% for radio in mform.year_of_passing %}
-                    <label class="year-box">
-                      {{ radio.tag }}
-                      <span>{{ radio.choice_label }}</span>
-                    </label>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-
-            <template id="empty-member-template">
-              <div class="member-card" data-member-index="__NUM__">
-                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-                  <h3 style="margin:0; font-size:14px; color:#BDF522;">Member __NUM__</h3>
-                  <button type="button" class="btn btn-danger" data-remove>Remove</button>
-                </div>
-                <div class="field"> <label>Name</label> {{ member_formset.empty_form.name.as_widget|safe }} </div>
-                <div class="field"> <label>Email</label> {{ member_formset.empty_form.email.as_widget|safe }} </div>
-                <div class="field"> <label>Phone number</label> {{ member_formset.empty_form.phone_no.as_widget|safe }} </div>
-                 <div class="field gender">
-                   <label>Gender</label>
-                   <div class="gender-group">
-                     {% for radio in member_formset.empty_form.gender %}
-                     <label class="gender-box">
-                       {{ radio.tag }}
-                       <span>{{ radio.choice_label }}</span>
-                     </label>
-                     {% endfor %}
-                   </div>
-                 </div>
-                <div class="field"> <label>College/Institute Name</label> {{ member_formset.empty_form.institute_name.as_widget|safe }} </div>
-                <div class="field"> <label>Course Enrolled</label> {{ member_formset.empty_form.program_enrolled.as_widget|safe }} </div>
-                 <div class="field disability">
-                   <label>PwD</label>
-                   <div class="disability-group">
-                     {% for radio in member_formset.empty_form.is_disabled %}
-                     <label class="disability-box">
-                       {{ radio.tag }}
-                       <span>{{ radio.choice_label }}</span>
-                     </label>
-                     {% endfor %}
-                   </div>
-                 </div>
-                 <div class="field year">
-                   <label>Graduating Year</label>
-                   <div class="year-group">
-                     {% for radio in member_formset.empty_form.year_of_passing %}
-                     <label class="year-box">
-                       {{ radio.tag }}
-                       <span>{{ radio.choice_label }}</span>
-                     </label>
-                     {% endfor %}
-                   </div>
-                 </div>
-              </div>
-            </template>
-
-            <div class="actions">
-              <button id="add-member" type="button" class="register-btn">+ Add Member</button>
-              <button type="submit" class="register-btn">Register</button>
-            </div>
-          {% else %}
-            <div class="actions" style="justify-content:flex-end;">
-              <button type="submit" class="register-btn">Register</button>
-            </div>
-          {% endif %}
-        </div>
-      </form>
-    </main>
-
-    <aside class="sidebar">
-      <div class="card">
-        <h3 class="section-title" style="margin-bottom:6px;">{{ event.name }}</h3>
-        <ul class="meta">
-          <li>  
-            <div class="meta-icon">
-                <svg class="register-img" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#BDF522" class="bi bi-calendar4" viewBox="0 0 16 16">
-               <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-               </div>
-                <div class="meta-about"><div class="info">Date</div>
-            </svg>{{ city.time|date:'l, d F Y' }}</div>
-          
-          </li>
-          <li>
-            
-             <div class="meta-icon"> 
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#BDF522" class="bi bi-geo-alt" viewBox="0 0 16 16">
-              <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-              <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-              </svg>
-              </div>
-              <div class="meta-about"><div class="info">Venue</div>
-            </svg>{{ city.venue }}</div>
-            
-          </li>
-          <div class="meta-city">
-          <li>
-            <span>{{ city.name }}</span>
-          </li>
-        </div>
+      {% if form.non_field_errors %}
+      <div class="form-errors">
+        <ul>
+          {% for error in form.non_field_errors %}
+            <li style="color: red;">{{ error }}</li>
+          {% endfor %}
         </ul>
       </div>
-    </aside>
-  </div>
-   </div>
+      {% endif %}
 
-  {% if event.event_type == 'team' %}
-    
-  {% endif %}
-  <script src="{% static 'core/script.js' %}"></script>
+      {% if event.event_type == 'team' %}
+      <div class="card">
+        <h2 class="section-title">TEAM DETAILS</h2>
+        <div class="grid-2">
+          <div class="field">
+            <label>Team Name</label>
+            {{ team_name_form.team_name }}
+          </div>
+          <div class="field">
+            <label>Team Size</label>
+            <input id="team-size" type="number" value="1" min="1" max="{{ max_participants }}" disabled>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="card">
+        <h2 class="section-title">MEMBER DETAILS</h2>
+
+        <!-- Leader (always MEMBER 1) -->
+        <div class="member-card">
+          <h3 class="member-heading">MEMBER 1</h3>
+          <div class="field">
+            <label>Name</label>
+            {{ form.name }}
+          </div>
+          
+          
+          <div class="field"><label>Email</label> {{ form.email.as_widget }}</div>
+          <div class="field"><label>Phone number</label> {{ form.phone_no.as_widget }}</div>
+
+          <div class="field gender">
+            <label>Gender</label>
+            <div class="gender-group">
+              {% for radio in form.gender %}
+              <label class="gender-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="field"><label>College/Institute Name</label> {{ form.institute_name.as_widget }}</div>
+          <div class="field"><label>Course Enrolled</label> {{ form.program_enrolled.as_widget }}</div>
+
+          <div class="field disability">
+            <label>Are you a person with disability (PwD)?</label>
+            <div class="disability-group">
+              {% for radio in form.is_disabled %}
+              <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="field year">
+            <label>Graduating Year</label>
+            <div class="year-group">
+              {% for radio in form.year_of_passing %}
+              <label class="year-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Members -->
+        {% if event.event_type == 'team' %}
+          {{ member_formset.management_form }}
+          <div id="members-container">
+            {% for mform in member_formset %}
+            <div class="member-card" data-member-index="{{ forloop.counter }}">
+              <div class="member-header">
+                <h3>MEMBER {{ forloop.counter|add:1 }}</h3>
+                <button type="button" class="btn btn-danger" data-remove>Remove</button>
+              </div>
+              <div class="field"><label>Name</label> {{ mform.name}}</div>
+              <div class="field"><label>Email</label> {{ mform.email }}</div>
+              <div class="field"><label>Phone number</label> {{ mform.phone_no }}</div>
+
+              <div class="field gender">
+                <label>Gender</label>
+                <div class="gender-group">
+                  {% for radio in mform.gender %}
+                  <label class="gender-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="field"><label>College/Institute Name</label> {{ mform.institute_name}}</div>
+              <div class="field"><label>Course Enrolled</label> {{ mform.program_enrolled }}</div>
+
+              <div class="field disability">
+                <label>PwD</label>
+                <div class="disability-group">
+                  {% for radio in mform.is_disabled %}
+                  <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="field year">
+                <label>Graduating Year</label>
+                <div class="year-group">
+                  {% for radio in mform.year_of_passing %}
+                  <label class="year-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <template id="empty-member-template">
+            <div class="member-card" data-member-index="__NUM__">
+              <div class="member-header">
+                <h3>MEMBER __NUM__</h3>
+                <button type="button" class="btn btn-danger" data-remove>Remove</button>
+              </div>
+              <div class="field"><label>Name</label> {{ member_formset.empty_form.name|safe }}</div>
+              <div class="field"><label>Email</label> {{ member_formset.empty_form.email|safe }}</div>
+              <div class="field"><label>Phone number</label> {{ member_formset.empty_form.phone_no|safe }}</div>
+              <div class="field gender">
+                <label>Gender</label>
+                <div class="gender-group">
+                  {% for radio in member_formset.empty_form.gender %}
+                  <label class="gender-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="field"><label>College/Institute Name</label> {{ member_formset.empty_form.institute_name.as_widget|safe }}</div>
+              <div class="field"><label>Course Enrolled</label> {{ member_formset.empty_form.program_enrolled.as_widget|safe }}</div>
+              <div class="field disability">
+                <label>PwD</label>
+                <div class="disability-group">
+                  {% for radio in member_formset.empty_form.is_disabled %}
+                  <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="field year">
+                <label>Graduating Year</label>
+                <div class="year-group">
+                  {% for radio in member_formset.empty_form.year_of_passing %}
+                  <label class="year-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <div class="actions">
+            <button id="add-member" type="button" class="register-btn">+ Add Member</button>
+            <button type="submit" class="register-btn">Register</button>
+          </div>
+        {% else %}
+          <div class="actions" style="justify-content:flex-end;">
+            <button type="submit" class="register-btn">Register</button>
+          </div>
+        {% endif %}
+      </div>
+    </form>
+  </main>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="card">
+      <h3 class="section-title">{{ event.name }}</h3>
+      <ul class="meta">
+        <li>
+          <div class="meta-icon">📅</div>
+          <div class="meta-about"><div class="info">Date</div>{{ city.time|date:'l, d F Y' }}</div>
+        </li>
+        <li>
+          <div class="meta-icon">📍</div>
+          <div class="meta-about"><div class="info">Venue</div>{{ city.venue }}</div>
+        </li>
+        <div class="meta-city"><li><span>{{ city.name }}</span></li></div>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<script src="{% static 'core/script.js' %}"></script>
 </body>
 </html>
 <!--raunak end -->

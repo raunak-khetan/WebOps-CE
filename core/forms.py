@@ -12,14 +12,13 @@ class RegistrationForm(forms.ModelForm):
         fields = ['name', 'gender', 'phone_no', 'email', 'program_enrolled', 'institute_name', 'year_of_passing', 'is_disabled']
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            # Render gender as radio buttons; no placeholder option
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
             'gender': forms.RadioSelect(attrs={'class': 'form-control'}),
-            'phone_no': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'program_enrolled' : forms.TextInput(attrs={'class': 'form-control'}),
-            'institute_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'year_of_passing': forms.NumberInput(attrs={'class': 'form-control'}),
+            'phone_no': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}),
+            'program_enrolled' : forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Program Enrolled'}),
+            'institute_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Institute Name'}),
+            'year_of_passing': forms.NumberInput(attrs={'class': 'form-control'}),  # radio → no placeholder
             'is_disabled': forms.RadioSelect(attrs={}),
         }
         
@@ -47,7 +46,10 @@ class TeamName(forms.ModelForm):
         fields = ['team_name']
 
         widgets = {
-            'team_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}),
+            'team_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Team Name'
+            }),
         }
         
         labels = {
@@ -63,13 +65,12 @@ class MemberForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Full Name'}),
             'phone_no': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Phone Number'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email Address'}),
-            'program_enrolled' : forms.TextInput(attrs={'class': 'form-control'}),
+            'program_enrolled' : forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Program Enrolled'}),
             'gender': forms.RadioSelect(attrs={'class': 'gender-option'}),
             'institute_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Institute Name'}),
-            'year_of_passing': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Year of Passing'}),
+            'year_of_passing': forms.NumberInput(attrs={'class': 'form-control'}),  # radio → no placeholder
             'is_disabled': forms.RadioSelect(attrs={}),
         }
-        
         labels = {
             'name': "Member's Name",
             'phone_no': "Member's Contact Number",

@@ -32,6 +32,9 @@ class Event(models.Model):
 
     deadline = models.DateField(null=True, blank=True)
     event_date = models.DateField(null=True, blank=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='event_set', null=True, blank=True)
+
+
 
     def clean(self):
         if self.event_type == 'team':

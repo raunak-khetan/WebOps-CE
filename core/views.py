@@ -45,17 +45,23 @@ def get_city_events(request, city_name):
 
 def prelimspage(request):
     cities = City.objects.all().prefetch_related('events')
+    about_images = AboutImage.objects.all().order_by('order')
+
     first_reg_url = None
     for c in cities:
         first_event = c.events.first()
         if first_event:
             try:
-                first_reg_url = reverse('registrationpage', args=[
-                                        c.name, first_event.name])
+                first_reg_url = reverse('registrationpage', args=[c.name, first_event.name])
             except Exception:
                 first_reg_url = None
             break
-    return render(request, 'core/home.html', {'cities': cities, 'first_reg_url': first_reg_url})
+
+    return render(request, 'core/home.html', {
+        'cities': cities,
+        'first_reg_url': first_reg_url,
+        'about_images': about_images,  # ✅ Add this line
+    })
 
 
 def citypage(request, city_name):

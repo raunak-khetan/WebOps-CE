@@ -225,6 +225,19 @@
     <section class="city-competitions" id="city-all">
       <div class="cards-grid">
         {% for city in cities %}
+        <section class="city-competitions" id="city-all">
+          <div class="cards-grid">
+        
+            {% for city in cities %}
+              {% for event in city.events.all %}
+                <article class="comp-card">
+                  <!-- your existing card code -->
+                </article>
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </section>
+        
           {% for event in city.events.all %}
             <article class="comp-card">
       
@@ -430,7 +443,10 @@
               SEE YOU AT<br>
               ALCHERINGA!
             </h2>
-            <button class="register-btn">Register</button>
+            <button class="register-btn" onclick="document.getElementById('competition-section').scrollIntoView({ behavior: 'smooth' });">
+              Register
+            </button>
+            
           </div>
   
           <!-- Middle Section - Useful Links -->
