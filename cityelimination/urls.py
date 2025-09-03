@@ -20,6 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from core.sitemaps import StaticViewSitemap
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 sitemaps = {
     'static': StaticViewSitemap,

@@ -205,6 +205,79 @@ body {
   gap: 8px;
 }
 
+.main-message {
+  text-align: left;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main-title {
+  font-size: 32px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.register-btn {
+  align-self: flex-start; /* aligns the button with text */
+}
+
+.city-competitions {
+  background-color: #1a1a1a; /* Dark background like the event detail page */
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 90%;
+  margin: 40px auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  border: 1px solid #2e2e2e; /* Optional: subtle border */
+}
+
+.city-competitions .section-title {
+  font-size: 2rem;
+  color: #bdf522;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Style each card within the carousel */
+.carousel .comp-card {
+  background-color:#000000;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.carousel .comp-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Optional: Make carousel container more responsive */
+.carousel-container {
+  overflow: hidden;
+  padding: 10px;
+}
+.carousel .comp-card .register-btn {
+  background-color: #2e2e2e;  /* Dark grey background */
+  color:#bdf522;               /* White text */
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.carousel .comp-card .register-btn:hover {
+  background-color: #444; /* Slightly lighter grey on hover */
+}
+
+
+
 @media (max-width: 768px) {
   .event-container {
     padding: 0 15px;

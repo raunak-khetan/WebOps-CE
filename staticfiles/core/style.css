@@ -367,6 +367,7 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-top: auto; /* push footer to bottom */
+  
 }
 
 .is-hidden {
@@ -383,11 +384,32 @@ body {
 .card-actions .register-btn {
   padding: 8px 18px;
   border-radius: 12px;
+  border: 1px solid #bdf522;
+  color: #fff;
+  background: #222;
+  box-shadow: inset 0 0 0 1px rgba(189, 245, 34, 0.25);
+  
+  /* Add this line to shift it slightly upwards */
+  position: relative;
+  top: -6px; /* adjust this value as needed (e.g., -4px, -8px) */
+}
+
+
+
+
+.register-btn {
+  padding: 8px 18px;
+  border-radius: 12px;
   border: 2px solid #bdf522;
   color: #fff;
-  background:transparent;
+  background: transparent;
   box-shadow: inset 0 0 0 1px rgba(189, 245, 34, 0.25);
+  
+  /* Add these lines ↓ */
+  margin-left: auto;
+  align-self: center;
 }
+
 
 /* Participate section removed */
 
@@ -751,6 +773,218 @@ ul.meta {
   color: #bdf522;
   background: #181818;
 }
+
+/* Global */
+body {
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Card Layouts */
+.card {
+  background-color: #111;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px #333;
+}
+
+.section-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #BDF522;
+  text-align: center;
+}
+
+.field {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #ccc;
+}
+
+.field input,
+.field select,
+.field textarea {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.gender-group,
+.disability-group,
+.year-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gender-box,
+.disability-box,
+.year-box {
+  display: flex;
+  align-items: center;
+  background-color: #222;
+  border: 1px solid #555;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.gender-box input,
+.disability-box input,
+.year-box input {
+  margin-right: 5px;
+}
+
+.register-btn {
+  background-color: #BDF522;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  color: black;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn-danger {
+  background-color: red;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.member-card {
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  background-color: #1a1a1a;
+}
+
+/* making changes form here- */
+/* Container fields */
+
+
+/* Input, Select, and Radio Fields */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Gender, PwD, Year Radio Groups */
+.gender-group,
+.disability-group,
+.year-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Radio buttons custom look */
+.gender-box,
+.disability-box,
+.year-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+}
+
+.gender-box:hover,
+.disability-box:hover,
+.year-box:hover {
+  background-color: #333;
+}
+
+/* Highlight selected radio */
+.gender-box input[type="radio"]:checked + span,
+.disability-box input[type="radio"]:checked + span,
+.year-box input[type="radio"]:checked + span {
+  font-weight: bold;
+  color: #BDF522;
+}
+
+/* Buttons */
+.register-btn,
+button[type="button"] {
+  background-color: #ccff00;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register-btn:hover,
+button[type="button"]:hover {
+  background-color: #b4eb00;
+}
+
+/* Error Styles */
+.field-error {
+  font-size: 13px;
+  color: #ff4d4d;
+  margin-top: -10px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+/* Labels */
+label {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 14px;
+}
+.member-card .field label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #BDF522;
+}
+
+.member-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #BDF522;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 /* Responsive */
 /* Tablet adjustments */
 @media (max-width: 1024px) {
@@ -1220,17 +1454,13 @@ ul.meta {
 }
 
 .alcher-blocks .title {
-    font-family: 'Sao Torpes', serif;
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 400;
+    color: #FFF;
+    font-family: "Sao Torpes", serif;
+    font-size: 560px;
     font-style: normal;
-    text-align: center;
-    margin-bottom: 60px;
-    margin-top: -20px;
-    letter-spacing: 0%;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
     line-height: 120%;
+    text-align: center;
 }
 
 .alcher-blocks .slider-container {
@@ -2243,3 +2473,40 @@ html {
 }
 
 /*sanchit end*/
+input::placeholder {
+  color: #ccc !important;
+}
+/* Make placeholder text visible on dark backgrounds */
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #bbb;        /* light gray color */
+  opacity: 1;         /* ensure full opacity */
+}
+
+/* For better cross-browser support */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+select::-webkit-input-placeholder {
+  color: #bbb;
+  opacity: 1;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder,
+select::-moz-placeholder {
+  color: #bbb;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+select:-ms-input-placeholder {
+  color: #bbb;
+  opacity: 1;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #bbb !important;
+  opacity: 1 !important;
+}
