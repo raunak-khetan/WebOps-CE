@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,14 +78,7 @@ WSGI_APPLICATION = "cityelimination.wsgi.application"
 
 if PROD:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('db_name'),
-            'USER': os.environ.get('db_user'),
-            'PASSWORD': os.environ.get('db_password'),
-            'HOST': os.environ.get('db_host'),
-            'PORT': os.environ.get('db_port')
-        }
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
     }
 else:
     DATABASES = {
@@ -138,9 +131,9 @@ if PROD:
     MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
     MINIO_STORAGE_USE_HTTPS = True
     
-    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce25media'
+    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce6media'
     MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-    MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce25static'
+    MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce26static'
     MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 else:
     # Development - local storage
@@ -153,8 +146,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "raunakkhetan470@gmail.com"
-EMAIL_HOST_PASSWORD = "jksl jodn ahxc mzxq"
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # Other Settings
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -163,8 +156,8 @@ SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 # CSRF Trusted Origins
 if PROD:
     CSRF_TRUSTED_ORIGINS = [
-        'https://prelims.alcheringa.in',
-        'https://testprelims.alcheringa.in'
+        'https://prelims.alcheringa.co.in',
+        'https://ceportal.alcheringa.co.in'
     ]
 else:
     CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']

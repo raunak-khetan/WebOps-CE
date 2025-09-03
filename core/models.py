@@ -32,6 +32,9 @@ class Event(models.Model):
 
     deadline = models.DateField(null=True, blank=True)
     event_date = models.DateField(null=True, blank=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='event_set', null=True, blank=True)
+
+
 
     def clean(self):
         if self.event_type == 'team':
@@ -147,3 +150,12 @@ class CFARegistration(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+#bug fixes...
+class AboutImage(models.Model):
+    image = models.ImageField(upload_to='about_images/')
+    order = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"About Image {self.id} (Order: {self.order})"
