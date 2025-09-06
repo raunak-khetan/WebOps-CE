@@ -119,8 +119,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const addBtn = document.getElementById("add-member");
   const teamSizeInput = document.getElementById("team-size");
 
-  // Only run on register page where these elements exist
-  if (!membersContainer || !addBtn || !teamSizeInput) return;
+  console.log("Register script running. Elements found:", {
+    membersContainer: !!membersContainer,
+    addBtn: !!addBtn,
+    teamSizeInput: !!teamSizeInput
+  });
+
+  // Only run on register page where these elements exist (team events only)
+  if (!membersContainer || !addBtn || !teamSizeInput) {
+    console.log("Register script exiting - missing required elements (not a team event or elements not found)");
+    return;
+  }
 
   // Detect Django formset management inputs without needing a prefix from template
   const totalFormsInput = document.querySelector('input[name$="-TOTAL_FORMS"]');
@@ -156,14 +165,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const formIndex = Number(totalFormsInput?.value || 0);
     const html = tmpl
       .replaceAll("__NUM__", formIndex + 2)
-      .replaceAll("__prefix__", String(formIndex))
-      .replaceAll("__name__", String(formIndex));
+      .replaceAll("__prefix__", String(formIndex));
 
     const wrapper = document.createElement("div");
     wrapper.innerHTML = html.trim();
     const card = wrapper.firstElementChild;
 
-    // Ensure field ids/names are updated from empty_form
+    // Update field names and IDs to use the correct form index
     card.querySelectorAll("[name]").forEach((el) => {
       if (el.name.includes("-__prefix__-")) {
         el.name = el.name.replace("-__prefix__-", `-${formIndex}-`);

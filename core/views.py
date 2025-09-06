@@ -180,7 +180,8 @@ def registrationpage(request, city_name, event_name):
             form = RegistrationForm()
 
     return render(request, 'core/register_form.html', {
-        'form': form if event.event_type == 'solo' else team_form,
+        'form': form,
+        'team_form': team_form,
         'team_name_form': team_name_form,
         'event': event,
         'city': city,
