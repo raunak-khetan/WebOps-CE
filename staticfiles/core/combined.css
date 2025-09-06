@@ -31,9 +31,9 @@
 
 /* ===== BLOCK STRUCTURE ===== */
 .alcher-blocks .highway-block {
-    background-color: #000000;
+    background-color: #111;
     padding: 100px 0;
-    border-bottom: 2px solid #333333;
+   
     width: 1392px;
     max-width: 100%;
     margin: 0 auto;
@@ -227,6 +227,14 @@
     filter: brightness(0) invert(1);
     object-fit: contain;
 }
+/* This is the section just above the footer */
+.alcher-blocks #sponsors-section,
+.alcher-blocks .sponsors-block {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 
 /* ===== FOOTER SECTION ===== */
 .alcher-blocks .footer {
@@ -242,7 +250,9 @@
 
 .alcher-blocks .footer-grid {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* just to be safe */
+    align-items: stretch;
+    justify-content: space-between;
     gap: 2rem;
     margin-bottom: 3rem;
 }
@@ -279,6 +289,7 @@
     width: fit-content;
     height: fit-content;
     min-height: 48px;
+    margin-left: -0px;
 }
 
 .alcher-blocks .register-btn:hover {
@@ -286,8 +297,9 @@
 }
 
 .alcher-blocks .section-title {
+    margin-left: -120px; 
     font-family: 'Lexend', sans-serif;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 400;
     color: #BDF522;
     margin-bottom: 1rem;
@@ -341,11 +353,14 @@
     gap: 0.75rem;
 }
 
+/* Force middle and right sections to push content to bottom */
 .alcher-blocks .section-container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* spread header and nav/contacts */
     height: 100%;
 }
+
 
 .alcher-blocks .nav-list {
     list-style: none;
@@ -377,10 +392,7 @@
 }
 
 /* Footer Bottom */
-.alcher-blocks .footer-bottom {
-    border-top: 1px solid #333333;
-    padding-top: 2rem;
-}
+
 
 .alcher-blocks .bottom-content {
     display: flex;
@@ -426,6 +438,7 @@
     font-size: 0.875rem;
     color: #cccccc;
 }
+
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (min-width: 1024px) {
@@ -626,3 +639,4 @@ html {
     right: 0;
     background: linear-gradient(-90deg, rgba(26, 26, 26, 0.8) 0%, transparent 100%);
 }
+
