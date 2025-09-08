@@ -23,15 +23,18 @@
 }
 
 .alcher-blocks body {
-    background-color: #000000;
+    background-color: #161616;
     font-family: 'Arial Black', 'Helvetica', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 /* ===== BLOCK STRUCTURE ===== */
+.alcher-blocks {
+    background-color: #161616;
+}
 .alcher-blocks .highway-block {
-    background-color: #111;
+    background-color: #161616;
     padding: 100px 0;
    
     width: 1392px;
@@ -43,14 +46,15 @@
 }
 
 .alcher-blocks .sponsors-block {
-    background-color: #000000;
+    background-color: #161616;
     padding: 60px 0;
     border-bottom: 2px solid #333333;
 }
 
 .alcher-blocks .footer-block {
-    background-color: #000000;
-    padding: 120px 0 60px 0;
+    background-color: #202020;
+    padding: 60px 0 60px 0;
+    margin-top: 40px;
 }
 
 /* ===== HIGHWAY SECTION ===== */
@@ -64,7 +68,7 @@
 .alcher-blocks .title {
     font-family: 'Sao Torpes', serif;
     color: #ffffff;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 400;
     font-style: normal;
     text-align: center;
@@ -191,7 +195,7 @@
 
 .alcher-blocks .sponsors-title {
     font-family: 'Sao Torpes', serif;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 400;
     font-style: normal;
     color: #BDF522;
@@ -232,13 +236,13 @@
 .alcher-blocks .sponsors-block {
     border-bottom: none !important;
     margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 40px !important;
 }
 
 
 /* ===== FOOTER SECTION ===== */
 .alcher-blocks .footer {
-    background-color: #000000;
+    background-color: #202020;
     color: #ffffff;
 }
 

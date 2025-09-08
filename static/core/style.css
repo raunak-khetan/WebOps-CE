@@ -1454,17 +1454,13 @@ label {
 }
 
 .alcher-blocks .title {
-    font-family: 'Sao Torpes', serif;
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 400;
+    color: #FFF;
+    font-family: "Sao Torpes", serif;
+    font-size: 51000px;
     font-style: normal;
-    text-align: center;
-    margin-bottom: 60px;
-    margin-top: -20px;
-    letter-spacing: 0%;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
     line-height: 120%;
+    text-align: center;
 }
 
 .alcher-blocks .slider-container {
