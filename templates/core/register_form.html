@@ -76,40 +76,85 @@
           <h3 class="member-heading">MEMBER 1</h3>
           <div class="field">
             <label>Name</label>
-            {{ form.name }}
+            {% if event.event_type == 'team' %}
+              {{ team_form.name }}
+            {% else %}
+              {{ form.name }}
+            {% endif %}
           </div>
-          
-          
-          <div class="field"><label>Email</label> {{ form.email.as_widget }}</div>
-          <div class="field"><label>Phone number</label> {{ form.phone_no.as_widget }}</div>
+
+          <div class="field"><label>Email</label>
+            {% if event.event_type == 'team' %}
+              {{ team_form.email.as_widget }}
+            {% else %}
+              {{ form.email.as_widget }}
+            {% endif %}
+          </div>
+          <div class="field"><label>Phone number</label>
+            {% if event.event_type == 'team' %}
+              {{ team_form.phone_no.as_widget }}
+            {% else %}
+              {{ form.phone_no.as_widget }}
+            {% endif %}
+          </div>
 
           <div class="field gender">
             <label>Gender</label>
             <div class="gender-group">
-              {% for radio in form.gender %}
-              <label class="gender-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
-              {% endfor %}
+              {% if event.event_type == 'team' %}
+                {% for radio in team_form.gender %}
+                  <label class="gender-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                {% endfor %}
+              {% else %}
+                {% for radio in form.gender %}
+                  <label class="gender-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                {% endfor %}
+              {% endif %}
             </div>
           </div>
 
-          <div class="field"><label>College/Institute Name</label> {{ form.institute_name.as_widget }}</div>
-          <div class="field"><label>Course Enrolled</label> {{ form.program_enrolled.as_widget }}</div>
+          <div class="field"><label>College/Institute Name</label>
+            {% if event.event_type == 'team' %}
+              {{ team_form.institute_name.as_widget }}
+            {% else %}
+              {{ form.institute_name.as_widget }}
+            {% endif %}
+          </div>
+          <div class="field"><label>Course Enrolled</label>
+            {% if event.event_type == 'team' %}
+              {{ team_form.program_enrolled.as_widget }}
+            {% else %}
+              {{ form.program_enrolled.as_widget }}
+            {% endif %}
+          </div>
 
           <div class="field disability">
             <label>Are you a person with disability (PwD)?</label>
             <div class="disability-group">
-              {% for radio in form.is_disabled %}
-              <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
-              {% endfor %}
+              {% if event.event_type == 'team' %}
+                {% for radio in team_form.is_disabled %}
+                  <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                {% endfor %}
+              {% else %}
+                {% for radio in form.is_disabled %}
+                  <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                {% endfor %}
+              {% endif %}
             </div>
           </div>
 
           <div class="field year">
             <label>Graduating Year</label>
             <div class="year-group">
-              {% for radio in form.year_of_passing %}
-              <label class="year-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
-              {% endfor %}
+              {% if event.event_type == 'team' %}
+                {% for radio in team_form.year_of_passing %}
+                  <label class="year-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                {% endfor %}
+              {% else %}
+                {% for radio in form.year_of_passing %}
+                  <label class="year-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
+                {% endfor %}
+              {% endif %}
             </div>
           </div>
         </div>
@@ -122,7 +167,9 @@
             <div class="member-card" data-member-index="{{ forloop.counter }}">
               <div class="member-header">
                 <h3>MEMBER {{ forloop.counter|add:1 }}</h3>
-                <button type="button" class="btn btn-danger" data-remove>Remove</button>
+                <button type="button" class="remove-member-btn" data-remove>
+                  <i class="fas fa-trash"></i> Remove
+                </button>
               </div>
               <div class="field"><label>Name</label> {{ mform.name}}</div>
               <div class="field"><label>Email</label> {{ mform.email }}</div>
@@ -165,7 +212,9 @@
             <div class="member-card" data-member-index="__NUM__">
               <div class="member-header">
                 <h3>MEMBER __NUM__</h3>
-                <button type="button" class="btn btn-danger" data-remove>Remove</button>
+                <button type="button" class="remove-member-btn" data-remove>
+                  <i class="fas fa-trash"></i> Remove
+                </button>
               </div>
               <div class="field"><label>Name</label> {{ member_formset.empty_form.name|safe }}</div>
               <div class="field"><label>Email</label> {{ member_formset.empty_form.email|safe }}</div>
@@ -200,7 +249,9 @@
           </template>
 
           <div class="actions">
-            <button id="add-member" type="button" class="register-btn">+ Add Member</button>
+            <button id="add-member" type="button" class="add-member-btn">
+              <i class="fas fa-plus"></i> Add Member
+            </button>
             <button type="submit" class="register-btn">Register</button>
           </div>
         {% else %}
