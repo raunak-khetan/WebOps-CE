@@ -644,3 +644,56 @@ html {
     background: linear-gradient(-90deg, rgba(26, 26, 26, 0.8) 0%, transparent 100%);
 }
 
+/*Thank You page styling*/
+body.thank-you {
+	font-family: 'Lexend', sans-serif !important;
+	background-color: #f9fafc;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+	flex-direction: column;
+	text-align: center;
+}
+
+body.thank-you h1 {
+	font-size: 2.5rem;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 0.5rem;
+}
+
+body.thank-you p {
+	font-size: 1.2rem;
+	color: #555;
+	margin-bottom: 2rem;
+}
+
+body.thank-you .btn {
+	background-color: rgba(189, 245, 34, 1);
+	color: white;
+	padding: 12px 28px;
+	border: none;
+	border-radius: 8px;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	text-decoration: none;
+	display: inline-block;
+}
+
+body.thank-you .btn:hover {
+	background-color: rgba(189, 245, 34, 1)5;
+	transform: translateY(-2px);
+}
+
+/* Ensure footer is visible on this page layout */
+body.thank-you .footer-block {
+	width: 100%;
+	margin-top: 64px;
+}
+
+
+

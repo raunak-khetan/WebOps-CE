@@ -332,11 +332,18 @@ body {
 }
 
 .card-title {
-  margin: 0 0 18px; /* add more space before date/venue */
+  margin: 0 0 9px; /* add more space before date/venue */
   font-size: 20px;
   color: #bdf522;
   font-family: Sao Torpes;
   line-height: 120%;
+}
+
+.card-event-type{
+  margin: 0 0 9px;
+  font-family: Lexend;
+  color:#FFFFFF99;
+
 }
 
 .card-desc {
