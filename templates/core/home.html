@@ -204,12 +204,14 @@
     <div class="competition-header">
       <h2 class="heading">FIND COMPETITIONS IN</h2>
       <div class="city-select">
-        <span class="location-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
-          <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-          <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/></span>
-          <span class="location">Choose a location</span>
+        <span class="location-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
+            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+          </svg>
+        </span>
+        <span class="location">Choose a location</span>
         <button id="competitionsCityButton" class="city-button" type="button" aria-haspopup="listbox" aria-expanded="false">
-          
           <img src="{% static 'core/asset/icon.png' %}" alt="arrow" class="" /> 
         </button>
         <ul id="competitionsCityList" class="city-dropdown" role="listbox" aria-labelledby="competitionsCityButton" hidden>
@@ -221,85 +223,134 @@
       </div>
     </div>
 
-    <!-- All competitions aggregated grid -->
+    <!-- All competitions aggregated view (default) -->
     <section class="city-competitions" id="city-all">
       <div class="cards-grid">
         {% for city in cities %}
-        <section class="city-competitions" id="city-all">
-          <div class="cards-grid">
-        
-            {% for city in cities %}
-              {% for event in city.events.all %}
-                <article class="comp-card">
-                  <!-- your existing card code -->
-                </article>
-              {% endfor %}
-            {% endfor %}
-          </div>
-        </section>
-        
           {% for event in city.events.all %}
             <article class="comp-card">
-      
               <div class="card-media">
-                <img src="{{ city.image.url }}" alt="{{ event.name }} " class="comp-img"/>
-                
+                {% if event.image %}
+                  <!-- Use the event's specific image if available -->
+                  <img
+                    src="{{ event.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% elif city.image %}
+                  <!-- Fallback to city image if event image is not available -->
+                  <img
+                    src="{{ city.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% else %}
+                  <!-- Final fallback to a default static image -->
+                  <img
+                    src="{% static 'core/asset/CompetitionPhoto.png' %}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% endif %}
                 <span class="badge">{{ event.event_type|upper }}</span>
-                <span class="badge badge-type">{% if event.event_type == 'Team' %}Group{% else %}Solo{% endif %}</span>
+                <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
               </div>
               <div class="card-body">
                 <h3 class="card-title">{{ event.name }}</h3>
+                <p class="card-event-type">{{event.event_type}}</p>
                 <ul class="card-details">
-                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-calendar4" viewBox="0 0 16 16">
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-                  </svg></span> <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span></li>
+                  <li>
+                    <span class="detail-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-calendar4" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                      </svg>
+                    </span> 
+                    <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span>
+                  </li>
                   {% if city.venue %}
-                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                  </svg></span> <span class="detail-value">{{ city.venue }}</span></li>
+                  <li>
+                    <span class="detail-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                      </svg>
+                    </span> 
+                    <span class="detail-value">{{ city.venue }}, {{city.name}}</span>
+                  </li>
                   {% endif %}
                 </ul>
                 <div class="card-actions">
-                  <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
-                  <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comps-img"/>
+                  <img src="{% static 'core/asset/star2.png' %}" alt="decoration" class="style-img"/>
+                  <img src="{% static 'core/asset/flower2.png' %}" alt="decoration" class="comps-img"/>
                   <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Details</a>
                 </div>
               </div>
-              
             </article>
           {% endfor %}
         {% endfor %}
       </div>
     </section>
 
+    <!-- Individual city sections (hidden by default) -->
     {% for city in cities %}
       <section class="city-competitions is-hidden" id="city-{{ city.name|slugify }}">
-        
         <div class="cards-grid">
           {% for event in city.events.all %}
             <article class="comp-card">
               <div class="card-media">
-                <img src="{{ city.image.url }}" alt="{{ event.name }} " class="comp-img"/>
+                <div class="event-banner">
+                {% if event.image %}
+                  <!-- Use the event's specific image if available -->
+                  <img
+                    src="{{ event.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% elif city.image %}
+                  <!-- Fallback to city image if event image is not available -->
+                  <img
+                    src="{{ city.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% else %}
+                  <!-- Final fallback to a default static image -->
+                  <img
+                    src="{% static 'core/asset/CompetitionPhoto.png' %}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% endif %}
                 <span class="badge">{{ event.event_type|upper }}</span>
                 <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
               </div>
               <div class="card-body">
                 <h3 class="card-title">{{ event.name }}</h3>
+                <p class="card-event-type">{{event.event_type}}</p>
                 <ul class="card-details">
-                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-calendar4" viewBox="0 0 16 16">
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-                  </svg></span> <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span></li>
+                  <li>
+                    <span class="detail-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-calendar4" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                      </svg>
+                    </span> 
+                    <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span>
+                  </li>
                   {% if city.venue %}
-                  <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                  </svg></span> <span class="detail-value">{{ city.venue }}</span></li>
+                  <li>
+                    <span class="detail-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                      </svg>
+                    </span> 
+                    <span class="detail-value">{{ city.venue }}, {{city.name}}</span>
+                  </li>
                   {% endif %}
                 </ul>
                 <div class="card-actions">
-                  <img src="{% static 'core/asset/star2.png' %}" alt="{{ event.name }} " class="style-img"/>
-                  <img src="{% static 'core/asset/flower2.png' %}" alt="{{ event.name }} " class="comp-img"/>
+                  <img src="{% static 'core/asset/star2.png' %}" alt="decoration" class="style-img"/>
+                  <img src="{% static 'core/asset/flower2.png' %}" alt="decoration" class="comps-img"/>
                   <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Details</a>
                 </div>
               </div>

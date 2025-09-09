@@ -250,10 +250,25 @@
 
     <div class="top-section">
       <div class="event-banner">
-        <img
-          src="{%static 'core/asset/CompetitionPhoto.png' %}"
-          alt="{{ event.name }}"
-        />
+        {% if event.image %}
+          <!-- Use the event's specific image if available -->
+          <img
+            src="{{ event.image.url }}"
+            alt="{{ event.name }}"
+          />
+        {% elif city.image %}
+          <!-- Fallback to city image if event image is not available -->
+          <img
+            src="{{ city.image.url }}"
+            alt="{{ event.name }}"
+          />
+        {% else %}
+          <!-- Final fallback to a default static image -->
+          <img
+            src="{% static 'core/asset/CompetitionPhoto.png' %}"
+            alt="{{ event.name }}"
+          />
+        {% endif %}
       </div>
     </div>
     <div class="event-container">

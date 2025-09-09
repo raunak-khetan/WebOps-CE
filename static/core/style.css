@@ -332,11 +332,18 @@ body {
 }
 
 .card-title {
-  margin: 0 0 18px; /* add more space before date/venue */
+  margin: 0 0 9px; /* add more space before date/venue */
   font-size: 20px;
   color: #bdf522;
   font-family: Sao Torpes;
   line-height: 120%;
+}
+
+.card-event-type{
+  margin: 0 0 9px;
+  font-family: Lexend;
+  color:#FFFFFF99;
+
 }
 
 .card-desc {
@@ -637,6 +644,7 @@ ul.meta {
   display: inline-flex;
   align-items: center;
   position: relative;
+  padding:0;
 }
 .field.year .year-box input[type="radio"] {
   position: absolute;
@@ -645,7 +653,7 @@ ul.meta {
 .field.year .year-box span {
   display: inline-block;
   padding: 10px 22px;
-  border: 2px solid #444;
+  border: 1px solid #444;
   border-radius: 8px;
   background: #232323;
   color: #fff;
@@ -682,7 +690,7 @@ ul.meta {
   align-items: center;
   gap: 8px;
   padding: 10px 22px;
-  border: 2px solid #444;
+  border: 1px solid #444;
   border-radius: 8px;
   background: #232323;
   color: #fff;
@@ -718,6 +726,7 @@ ul.meta {
   display: inline-flex;
   align-items: center;
   position: relative;
+  padding:0;
 }
 .field.gender .gender-box input[type="radio"] {
   position: absolute;
@@ -726,7 +735,7 @@ ul.meta {
 .field.gender .gender-box span {
   display: inline-block;
   padding: 10px 22px;
-  border: 2px solid #444;
+  border: 1px solid #444;
   border-radius: 8px;
 
   color: #fff;
@@ -752,6 +761,7 @@ ul.meta {
   display: inline-flex;
   align-items: center;
   position: relative;
+  padding:0;
 }
 .field.disability .disability-box input[type="radio"] {
   position: absolute;
@@ -760,7 +770,7 @@ ul.meta {
 .field.disability .disability-box span {
   display: inline-block;
   padding: 10px 22px;
-  border: 2px solid #444;
+  border: 1px solid #444;
   border-radius: 8px;
   background: #232323;
   color: #fff;

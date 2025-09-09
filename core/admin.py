@@ -28,15 +28,23 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'event_type', 'min_participants', 'max_participants', 'deadline', 'event_date')
-    list_filter = ('event_type', 'deadline', 'event_date')
-    search_fields = ('name', 'description')
+    list_display = ('name', 'event_type', 'city', 'min_participants', 'max_participants', 'deadline', 'event_date')
+    
+    list_filter = ('event_type', 'city', 'deadline', 'event_date')
+    
+    search_fields = ('name', 'description', 'city__name')
+    
     fieldsets = (
-        (None, {
-            'fields': ('name', 'event_type', 'description')
+        ('Basic Information', {
+            'fields': ('name', 'event_type', 'description', 'city')
         }),
-        ('Participants', {
-            'fields': ('min_participants', 'max_participants')
+        ('Visual Content', {
+            'fields': ('image',),
+            'description': 'Upload an image to represent this event'
+        }),
+        ('Participant Requirements', {
+            'fields': ('min_participants', 'max_participants'),
+            'description': 'Leave blank for solo events'
         }),
         ('Important Dates', {
             'fields': ('deadline', 'event_date')

@@ -9,7 +9,7 @@ class City(models.Model):
     name = models.CharField(max_length=100, unique=True)
     events = models.ManyToManyField('Event', related_name='cities')
     venue = models.CharField(max_length=100, default="None")
-    time = models.DateField(default=now)
+    time = models.DateField(null=True, blank=True)
     guidelines = models.TextField(default="None")
     image = models.ImageField(
         upload_to="image_uploads/city_pic/", default='ropar.png')
@@ -34,7 +34,9 @@ class Event(models.Model):
     event_date = models.DateField(null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='event_set', null=True, blank=True)
 
-
+    image = models.ImageField(
+        upload_to="image_uploads/event_pic/", default='ropar.png',null=True, blank=True,help_text="Upload an image representing this event"
+    )
 
     def clean(self):
         if self.event_type == 'team':

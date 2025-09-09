@@ -54,7 +54,7 @@
 
       {% if event.event_type == 'team' %}
       <div class="card">
-        <h2 class="section-title">TEAM DETAILS</h2>
+        <h2 class="section-title">Team Details</h2>
         <div class="grid-2">
           <div class="field">
             <label>Team Name</label>
@@ -69,11 +69,11 @@
       {% endif %}
 
       <div class="card">
-        <h2 class="section-title">MEMBER DETAILS</h2>
+        <h2 class="section-title">Member Details</h2>
 
         <!-- Leader (always MEMBER 1) -->
         <div class="member-card">
-          <h3 class="member-heading">MEMBER 1</h3>
+          <h3 class="member-heading">Member 1</h3>
           <div class="field">
             <label>Name</label>
             {% if event.event_type == 'team' %}
@@ -166,7 +166,7 @@
             {% for mform in member_formset %}
             <div class="member-card" data-member-index="{{ forloop.counter }}">
               <div class="member-header">
-                <h3>MEMBER {{ forloop.counter|add:1 }}</h3>
+                <h3>Member {{ forloop.counter|add:1 }}</h3>
                 <button type="button" class="remove-member-btn" data-remove>
                   <i class="fas fa-trash"></i> Remove
                 </button>
