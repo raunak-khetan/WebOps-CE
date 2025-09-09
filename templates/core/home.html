@@ -230,7 +230,28 @@
           {% for event in city.events.all %}
             <article class="comp-card">
               <div class="card-media">
-                <img src="{{ city.image.url }}" alt="{{ event.name }}" class="comp-img"/>
+                {% if event.image %}
+                  <!-- Use the event's specific image if available -->
+                  <img
+                    src="{{ event.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% elif city.image %}
+                  <!-- Fallback to city image if event image is not available -->
+                  <img
+                    src="{{ city.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% else %}
+                  <!-- Final fallback to a default static image -->
+                  <img
+                    src="{% static 'core/asset/CompetitionPhoto.png' %}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% endif %}
                 <span class="badge">{{ event.event_type|upper }}</span>
                 <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
               </div>
@@ -277,7 +298,29 @@
           {% for event in city.events.all %}
             <article class="comp-card">
               <div class="card-media">
-                <img src="{{ city.image.url }}" alt="{{ event.name }}" class="comp-img"/>
+                <div class="event-banner">
+                {% if event.image %}
+                  <!-- Use the event's specific image if available -->
+                  <img
+                    src="{{ event.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% elif city.image %}
+                  <!-- Fallback to city image if event image is not available -->
+                  <img
+                    src="{{ city.image.url }}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% else %}
+                  <!-- Final fallback to a default static image -->
+                  <img
+                    src="{% static 'core/asset/CompetitionPhoto.png' %}"
+                    alt="{{ event.name }}"
+                    class="comp-img"
+                  />
+                {% endif %}
                 <span class="badge">{{ event.event_type|upper }}</span>
                 <span class="badge badge-type">{% if event.event_type == 'team' %}Group{% else %}Solo{% endif %}</span>
               </div>
