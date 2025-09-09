@@ -134,7 +134,7 @@
 
                 <div class="about-carousel">
                   {% for image in about_images %}
-                      <img src="{{ image.image.url }}" class="about-slide {% if forloop.first %}active{% endif %}">
+                      <img src="{{ image.image.url }}" class="about-image-wrapper" {% if forloop.first %}active{% endif %}">
                   {% endfor %}
               </div>
               
@@ -417,28 +417,34 @@
           <div class="slider-wrapper">
             <div class="slide-track" id="slideTrack">
               <div class="slide yellow-border">
-                <img src="https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Music Studio" loading="lazy">
-              </div>
-              <div class="slide purple-border">
-                <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Breakfast Bowl" loading="lazy">
-              </div>
-              <div class="slide pink-border">
-                <img src="https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Live Music" loading="lazy">
-              </div>
-              <div class="slide green-border">
-                <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Friends Having Fun" loading="lazy">
-              </div>
-              <div class="slide orange-border">
-                <img src="https://images.pexels.com/photos/1983046/pexels-photo-1983046.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Concert Crowd" loading="lazy">
+                <img src="{% static 'core/asset/slider1.png' %}" alt="Music Studio" loading="lazy">
               </div>
               <div class="slide yellow-border">
-                <img src="https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Festival Atmosphere" loading="lazy">
+                <img src="{% static 'core/asset/slider2.png' %}" alt="Music Studio" loading="lazy">
               </div>
-              <div class="slide purple-border">
-                <img src="https://images.pexels.com/photos/1267697/pexels-photo-1267697.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Creative Workspace" loading="lazy">
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider3.png' %}" alt="Music Studio" loading="lazy">
               </div>
-              <div class="slide pink-border">
-                <img src="https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Urban Lifestyle" loading="lazy">
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider4.png' %}" alt="Music Studio" loading="lazy">
+              </div>
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider5.png' %}" alt="Music Studio" loading="lazy">
+              </div>
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider6.png' %}" alt="Music Studio" loading="lazy">
+              </div>
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider7.png' %}" alt="Music Studio" loading="lazy">
+              </div>
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider8.png' %}" alt="Music Studio" loading="lazy">
+              </div>
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider9.png' %}" alt="Music Studio" loading="lazy">
+              </div>
+              <div class="slide yellow-border">
+                <img src="{% static 'core/asset/slider10.png' %}" alt="Music Studio" loading="lazy">
               </div>
             </div>
           </div>
@@ -482,99 +488,112 @@
     </section>
   
     <!-- Footer Block -->
-    <section class="footer-block">
-      <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <!-- Left Section - Main Message -->
-          <div class="main-message">
-            <h2 class="main-title">
-              THE JOURNEY<br>
-              CONTINUES,<br>
-              SEE YOU AT<br>
-              ALCHERINGA!
-            </h2>
-            <button class="register-btn" onclick="document.getElementById('competition-section').scrollIntoView({ behavior: 'smooth' });">
-              Register
-            </button>
-            
-          </div>
-  
-          <!-- Middle Section - Useful Links -->
-          <div class="section-container">
-            <h3 class="section-title">Useful Links</h3>
-            <nav class="links-nav">
-              <ul class="nav-list">
-                <li><a href="#about" class="nav-link">
-                  <span>About Us</span>
-                  <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
-                </a></li>
-                <li><a href="#competition-section" class="nav-link">
-                  <span>Schedule</span>
-                  <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
-                </a></li>
-                <li><a href="#sponsors-section" class="nav-link">
-                  <span>Sponsors</span>
-                  <img src="{% static 'core/asset/arrow-up-right.svg' %}" alt="External link" class="external-icon">
-                </a></li>
-              </ul>
-            </nav>
-          </div>
-  
-          <!-- Right Section - Contact -->
-          <div class="section-container">
-            <h3 class="section-title">Contact Us</h3>
-            <div class="contacts">
-              <ul class="contact-list">
-                <li class="contact-item">
-                  <div class="contact-name">Shashank Daga</div>
-                  <div class="contact-phone">+91 8240950055</div>
-                </li>
-                <li class="contact-item">
-                  <div class="contact-name">Khushi Gupta</div>
-                  <div class="contact-phone">+91 9864875424</div>
-                </li>
-              </ul>
-            </div>
+<section class="footer-block">
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Left Section - Main Message -->
+        <div class="main-message">
+          <h2 class="main-title">
+            THE JOURNEY<br>
+            CONTINUES,<br>
+            SEE YOU AT<br>
+            ALCHERINGA!
+          </h2>
+          <button class="register-btn" onclick="document.getElementById('competition-section').scrollIntoView({ behavior: 'smooth' });">
+            Register
+          </button>
+        </div>
+
+        <!-- Middle Section - Useful Links -->
+        <div class="section-container">
+          <h3 class="section-title">Useful Links</h3>
+          <nav class="links-nav">
+            <ul class="nav-list">
+              <li><a href="#about" class="nav-link">
+                <span>About Us</span>
+                <img src="{% static 'core/asset/arrow-up-right.png' %}" alt="External link" class="external-icon">
+              </a></li>
+              <li><a href="#competition-section" class="nav-link">
+                <span>Schedule</span>
+                <img src="{% static 'core/asset/arrow-up-right.png' %}" alt="External link" class="external-icon">
+              </a></li>
+              <li><a href="#sponsors-section" class="nav-link">
+                <span>Sponsors</span>
+                <img src="{% static 'core/asset/arrow-up-right.png' %}" alt="External link" class="external-icon">
+              </a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Right Section - Contact -->
+        <div class="section-container">
+          <h3 class="section-title">Contact Us</h3>
+          <div class="contacts">
+            <ul class="contact-list">
+              <li class="contact-item">
+                <div class="contact-name">SUDHANSHU RAJ</div>
+                <div class="contact-detail">
+                  <img src="{% static 'core/asset/phone.png' %}" alt="Phone" class="contact-icon">
+                  <div class="contact-phone">+91 82929 67325</div>
+                </div>
+                <div class="contact-detail">
+                  <img src="{% static 'core/asset/mail.png' %}" alt="Email" class="contact-icon">
+                  <div class="contact-phone">Shashank@alcheringa.in</div>
+                </div>
+              </li>
+              <li class="contact-item">
+                <div class="contact-name">SIDHARTH SHUKLA</div>
+                <div class="contact-detail">
+                  <img src="{% static 'core/asset/phone.png' %}" alt="Phone" class="contact-icon">
+                  <div class="contact-phone">+91 73546 47811</div>
+                </div>
+                <div class="contact-detail">
+                  <img src="{% static 'core/asset/mail.png' %}" alt="Email" class="contact-icon">
+                  <div class="contact-phone">Khushi@alcheringa.in</div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-  
-        <!-- Bottom Section -->
-        <div class="footer-bottom">
-          <div class="bottom-content">
-            <!-- Copyright -->
-            <div class="copyright">
-              © 2025 Alcheringa, IIT Guwahati. All rights reserved.
-            </div>
-  
-            <!-- Social Links -->
-            <div class="social-links">
-              <a href="#" class="social-link" aria-label="Instagram">
-                <img src="{% static 'core/asset/insta.svg' %}" alt="Instagram" class="social-icon">
-              </a>
-              <a href="#" class="social-link" aria-label="YouTube">
-                <img src="{% static 'core/asset/youtube.svg' %}" alt="Youtube" class="social-icon">
-              </a>
-              <a href="#" class="social-link" aria-label="LinkedIn">
-                <img src="{% static 'core/asset/linkedin.svg' %}" alt="LinkedIn" class="social-icon">
-              </a>
-              <a href="#" class="social-link" aria-label="X">
-                <img src="{% static 'core/asset/x.svg' %}" alt="X" class="social-icon">
-              </a>
-              <a href="#" class="social-link" aria-label="Facebook">
-                <img src="{% static 'core/asset/facebook.svg' %}" alt="Facebook" class="social-icon">
-              </a>
-            </div>
-  
-            <!-- Credits -->
-            <div class="credits">
-              Website by Team Alcher
-            </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="footer-bottom">
+        <div class="bottom-content">
+          <!-- Copyright -->
+          <div class="copyright">
+            © 2025 Alcheringa, IIT Guwahati. All rights reserved.
+          </div>
+
+          <!-- Social Links -->
+          <div class="social-links">
+            <a href="https://www.instagram.com/alcheringaiitg/" class="social-link" aria-label="Instagram">
+              <img src="{% static 'core/asset/insta.svg' %}" alt="Instagram" class="social-icon">
+            </a>
+            <a href="https://www.youtube.com/channel/UCQfsLKaY4a1Mx75hnaZDoxw" class="social-link" aria-label="YouTube">
+              <img src="{% static 'core/asset/youtube.svg' %}" alt="Youtube" class="social-icon">
+            </a>
+            <a href="https://www.linkedin.com/company/alcheringaiitguwahati/" class="social-link" aria-label="LinkedIn">
+              <img src="{% static 'core/asset/linkedin.svg' %}" alt="LinkedIn" class="social-icon">
+            </a>
+            <a href="https://x.com/alcheringaiitg" class="social-link" aria-label="X">
+              <img src="{% static 'core/asset/x.svg' %}" alt="X" class="social-icon">
+            </a>
+            <a href="https://www.facebook.com/alcheringaiitg" class="social-link" aria-label="Facebook">
+              <img src="{% static 'core/asset/facebook.svg' %}" alt="Facebook" class="social-icon">
+            </a>
+          </div>
+
+          <!-- Credits -->
+          <div class="credits">
+            Website by Team Alcher
           </div>
         </div>
-           </div>
-     </footer>
-    </section>
+      </div>
+    </div>
+  </footer>
+</section>
   
 
 <!-- Alcher Blocks JS -->
