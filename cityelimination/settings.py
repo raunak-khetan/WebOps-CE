@@ -129,7 +129,7 @@ if PROD:
     MINIO_STORAGE_ENDPOINT = os.environ.get('minio_endpoint')
     MINIO_STORAGE_ACCESS_KEY = os.environ.get('minio_access')
     MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
-    MINIO_STORAGE_USE_HTTPS = False
+    MINIO_STORAGE_USE_HTTPS = True
     
     MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce26media'
     MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
@@ -157,7 +157,26 @@ SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 if PROD:
     CSRF_TRUSTED_ORIGINS = [
         'https://prelims.alcheringa.co.in',
+        'http://prelims.alcheringa.co.in',
+        'http://ceportal.alcheringa.co.in',
         'https://ceportal.alcheringa.co.in'
     ]
 else:
     CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'minio_storage': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
