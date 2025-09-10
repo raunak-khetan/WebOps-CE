@@ -76,7 +76,7 @@ WSGI_APPLICATION = "cityelimination.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if PROD:
+if not PROD:
     DATABASES = {
         'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
     }
@@ -117,17 +117,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Added / in static
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-
-# Setup Media
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# Storage Configuration
+if PROD:
+    # Production - MinIO storage
+    DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
+    STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+    
+    MINIO_STORAGE_ENDPOINT = os.environ.get('minio_endpoint')
+    MINIO_STORAGE_ACCESS_KEY = os.environ.get('minio_access')
+    MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
+    MINIO_STORAGE_USE_HTTPS = True
+    
+    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce25media'
+    MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+    MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce25static'
+    MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+else:
+    # Development - local storage
+    STATICFILES_DIRS = [BASE_DIR / "static"]
+    STATIC_ROOT = BASE_DIR / "staticfiles"
+    MEDIA_ROOT = BASE_DIR / "media"
 
 # Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
