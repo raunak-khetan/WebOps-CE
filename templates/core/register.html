@@ -54,7 +54,11 @@
         font-family: "Saotorpes";
         src: url("{% static 'core/fonts/SaoTorpes.otf' %}") format("opentype");
       }
-
+      * , body{
+        padding:0;
+        margin:0;
+        box-sizing:border-box;
+      }
       /* Carousel Styles for Competitions */
       .carousel-container {
         position: relative;
@@ -234,21 +238,10 @@
 
       <div class="navbar-right" id="nav-menu">
         <a href="#about">About Alcher</a>
-        <img
-          src="{% static 'core/landing/search.svg' %}"
-          class="search-icon"
-          alt="Search"
-        />
-        <input
-          type="text"
-          id="navbar-search"
-          placeholder="Search..."
-          style="display: none"
-        />
       </div>
     </header>
 
-    <div class="top-section">
+    <div class="top-section" id="top-section">
       <div class="event-banner">
         {% if event.image %}
           <!-- Use the event's specific image if available -->
@@ -284,7 +277,7 @@
             {{ city.venue }}
           </p>
 
-          <h3 class="about-the-event">About the Event</h3>
+          <h3 class="about-the-event" id="about-the-event">About the Event</h3>
           <p class="event-description">{{ event.description }}</p>
         </div>
         <div class="right-info">
@@ -353,7 +346,7 @@
                 </div>
                 <div class="card-body">
                   <h3 class="card-title">{{ competition.title }}</h3>
-                  <p class="event-subtitle">{{ competition.subtitle }}</p>
+                  <p class="event-subtitle">{{ competition.type }}</p>
                   <ul class="card-details">
                     <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-calendar4" viewBox="0 0 16 16">
                       <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
@@ -362,7 +355,7 @@
                     <li><span class="detail-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-geo-alt" viewBox="0 0 16 16">
                       <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
                       <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg></span> <span class="detail-value">{{ competition.venue }}</span></li>
+                    </svg></span> <span class="detail-value">{{ competition.venue }}, {{competition.city}}</span></li>
                     {% endif %}
                   </ul>
                   <div class="card-actions">
@@ -407,8 +400,8 @@
                 <nav class="links-nav">
                   <ul class="nav-list">
                     <li>
-                      <a href="#" class="nav-link">
-                        <span>About Us</span>
+                      <a href="#top-section" class="nav-link">
+                        <span>About the event</span>
                         <img
                           src="{% static 'core/asset/arrow-up-right.svg' %}"
                           alt="External link"
@@ -417,18 +410,8 @@
                       </a>
                     </li>
                     <li>
-                      <a href="#" class="nav-link">
-                        <span>Schedule</span>
-                        <img
-                          src="{% static 'core/asset/arrow-up-right.svg' %}"
-                          alt="External link"
-                          class="external-icon"
-                        />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" class="nav-link">
-                        <span>Sponsors</span>
+                      <a href="#city-all" class="nav-link">
+                        <span>Upcoming Events</span>
                         <img
                           src="{% static 'core/asset/arrow-up-right.svg' %}"
                           alt="External link"
@@ -446,12 +429,12 @@
                 <div class="contacts">
                   <ul class="contact-list">
                     <li class="contact-item">
-                      <div class="contact-name">Sudhanshu Raj</div>
-                      <div class="contact-phone">+91 82929 67325</div>
+                      <div class="contact-name">Shashank Daga</div>
+                      <div class="contact-phone">+91 82409 50055</div>
                     </li>
                     <li class="contact-item">
-                      <div class="contact-name">Sidharth Shukla</div>
-                      <div class="contact-phone">+91 73546 47811</div>
+                      <div class="contact-name">Khushi Gupta</div>
+                      <div class="contact-phone">+91 98648 75424</div>
                     </li>
                   </ul>
                 </div>
@@ -468,35 +451,35 @@
 
                 <!-- Social Links -->
                 <div class="social-links">
-                  <a href="#" class="social-link" aria-label="Instagram">
+                  <a href="https://www.instagram.com/alcheringaiitg/" class="social-link" aria-label="Instagram">
                     <img
                       src="{% static 'core/asset/insta.svg' %}"
                       alt="Instagram"
                       class="social-icon"
                     />
                   </a>
-                  <a href="#" class="social-link" aria-label="YouTube">
+                  <a href="https://www.youtube.com/channel/UCQfsLKaY4a1Mx75hnaZDoxw" class="social-link" aria-label="YouTube">
                     <img
                       src="{% static 'core/asset/youtube.svg' %}"
                       alt="Youtube"
                       class="social-icon"
                     />
                   </a>
-                  <a href="#" class="social-link" aria-label="LinkedIn">
+                  <a href="https://www.linkedin.com/company/alcheringaiitguwahati/" class="social-link" aria-label="LinkedIn">
                     <img
                       src="{% static 'core/asset/linkedin.svg' %}"
                       alt="LinkedIn"
                       class="social-icon"
                     />
                   </a>
-                  <a href="#" class="social-link" aria-label="X">
+                  <a href="https://x.com/alcheringaiitg" class="social-link" aria-label="X">
                     <img
                       src="{% static 'core/asset/x.svg' %}"
                       alt="X"
                       class="social-icon"
                     />
                   </a>
-                  <a href="#" class="social-link" aria-label="Facebook">
+                  <a href="https://www.facebook.com/alcheringaiitg" class="social-link" aria-label="Facebook">
                     <img
                       src="{% static 'core/asset/facebook.svg' %}"
                       alt="Facebook"
@@ -506,7 +489,7 @@
                 </div>
 
                 <!-- Credits -->
-                <div class="credits">Website by Team Alcher</div>
+                <div class="credits">Website by Team Alcheringa</div>
               </div>
             </div>
           </div>

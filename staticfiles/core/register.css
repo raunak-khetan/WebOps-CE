@@ -24,7 +24,7 @@ body {
 .top-section {
   height: 428px;
   width: 100%;
-  background-color: #373737;
+  background-color: #141414;
   position: relative; 
 }
 
@@ -188,43 +188,55 @@ body {
 }
 
 /* Add Member Button - matches the design from image */
-.add-member-btn {
-  background: #2A2A2A;
-  color: #BDF522;
-  border: none;
-  border-radius: 8px;
-  padding: 16px 24px;
-  font-family: "Lexend";
-  font-weight: 500;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
+.add-member-btn,
+button[type="button"].add-member-btn {
+  background: #2A2A2A !important;
+  color: #BDF522 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 16px 24px !important;
+  font-family: "Lexend" !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.3s ease !important;
+  height: 56px !important;
+  width: 161px !important;
+}
+
+.add-member-btn:hover,
+button[type="button"].add-member-btn:hover {
+  background: #3A3A3A !important;
+  color: #BDF522 !important;
 }
 
 
 
 /* Remove Member Button - red color, positioned on right */
-.remove-member-btn {
-  background-color: #ff3b3b;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-family: "Lexend";
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.3s ease;
+.remove-member-btn,
+button[type="button"].remove-member-btn {
+  background-color: #ff3b3b !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 8px 16px !important;
+  font-family: "Lexend" !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
 }
 
-.remove-member-btn:hover {
-  background-color: #ff5252;
+.remove-member-btn:hover,
+button[type="button"].remove-member-btn:hover {
+  background-color: #ff5252 !important;
+  color: #ffffff !important;
 }
 
 .remove-member-btn i {
@@ -335,8 +347,8 @@ body {
   background-color: #2e2e2e;  /* Dark grey background */
   color:#bdf522;               /* White text */
   padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: bold;
+  border-radius: 6px;
+  font-weight: lighter;
   text-decoration: none;
   display: inline-block;
   margin-top: 15px;

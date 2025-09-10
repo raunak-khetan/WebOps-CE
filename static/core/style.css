@@ -301,7 +301,7 @@ body {
 .comp-card .card-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   display: block;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
@@ -310,10 +310,11 @@ body {
 
 .badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 18px;
+  right: 20px;
   left: auto;
   background: #161616;
+  text-align: center;
   color: white;
   font-size: 12px;
   padding: 6px 10px;
@@ -390,8 +391,7 @@ body {
 /* Register button in card */
 .card-actions .register-btn {
   padding: 8px 18px;
-  border-radius: 12px;
-  border: 1px solid #bdf522;
+  border-radius: 6px;
   color: #fff;
   background: #222;
   box-shadow: inset 0 0 0 1px rgba(189, 245, 34, 0.25);
@@ -406,8 +406,7 @@ body {
 
 .register-btn {
   padding: 8px 18px;
-  border-radius: 12px;
-  border: 2px solid #bdf522;
+  border-radius: 6px;
   color: #fff;
   background: transparent;
   box-shadow: inset 0 0 0 1px rgba(189, 245, 34, 0.25);
@@ -2070,6 +2069,7 @@ html {
       /* Ensure badges are positioned correctly */
       .carousel .badge-type {
         top: 40px;
+        text-align: center;
       }
 
       .pagination-arrows {

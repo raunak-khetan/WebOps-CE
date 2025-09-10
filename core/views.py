@@ -85,13 +85,26 @@ def detailspage(request, city_name, event_name):
     
     for city_item in cities:
         for event_item in city_item.events.all():
+            # Implement the image fallback hierarchy
+            image_url = ''
+            if event_item.image:
+                # First priority: Use the event's specific image
+                image_url = event_item.image.url
+            elif city_item.image:
+                # Second priority: Fall back to the city's image
+                image_url = city_item.image.url
+            else:
+                # Final fallback: Use a default static image
+                # Note: We'll handle the static URL construction in the template
+                image_url = 'static/core/assets/CompetitionPhoto.jpg'
+            
             competitions.append({
                 "city": city_item.name,
                 "title": event_item.name,
                 "subtitle": event_item.description,
                 "date": city_item.time.strftime("%a, %d %b, %Y") if city_item.time else "No date",
                 "venue": city_item.venue,
-                "image": city_item.image.url if city_item.image else '',
+                "image": image_url,  # Now uses the fallback hierarchy
                 "type": event_item.event_type.capitalize() if event_item.event_type else "N/A"
             })
 
