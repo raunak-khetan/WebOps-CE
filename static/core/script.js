@@ -1,5 +1,6 @@
 // raunak start
 //home.html script
+console.log("🔥 About Section JS Loaded");
 
 document.addEventListener("DOMContentLoaded", function () {
   // Hero slider
@@ -81,18 +82,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateVisibleCity(value) {
-    const targetId = value || "all";
-    if (targetId === "all") {
-      sections.forEach((sec) => sec.classList.add("is-hidden"));
-      if (allSection) allSection.classList.remove("is-hidden");
-      return;
-    }
+    const targetId = value || "city-all";
+  
     sections.forEach((sec) => {
-      if (sec.id === targetId) sec.classList.remove("is-hidden");
-      else sec.classList.add("is-hidden");
+      if (sec.id === targetId) {
+        sec.classList.remove("is-hidden");
+      } else {
+        sec.classList.add("is-hidden");
+      }
     });
-    if (allSection) allSection.classList.add("is-hidden");
+  
+    if (allSection && targetId !== "city-all") {
+      allSection.classList.add("is-hidden");
+    } else if (allSection && targetId === "city-all") {
+      allSection.classList.remove("is-hidden");
+    }
   }
+  
 
   if (button && list) {
     button.addEventListener("click", () => showList(list.hidden));
@@ -109,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
       updateVisibleCity(value);
     });
     // Initialize
-    updateVisibleCity("all");
+    updateVisibleCity("city-all");
   }
 });
 
@@ -241,8 +247,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
 let slideIndex = 0;
 const slides = document.querySelectorAll(".about-slide");
+
 const dots = document.querySelectorAll(".dot");
 const totalSlides = slides.length;
 const prevBtn = document.querySelector(".about-prev");

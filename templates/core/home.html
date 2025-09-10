@@ -133,10 +133,10 @@
 
                 <div class="about-carousel">
                   {% for image in about_images %}
-                      <img src="{{ image.image.url }}" class="about-image-wrapper" {% if forloop.first %}active{% endif %}">
+                    <img src="{{ image.image.url }}" class="about-slide {% if forloop.first %}active{% endif %}">
                   {% endfor %}
-              </div>
-              
+                </div>
+                
               <div class="slider-controls">
                   <div class="about-dots">
                       {% for image in about_images %}
@@ -166,6 +166,7 @@
         </div>
     </section>
 
+    
 <!-- ashish end -->
 
 <!-- raunak start -->
@@ -227,8 +228,10 @@
       <div class="cards-grid">
         {% for city in cities %}
           {% for event in city.events.all %}
+
             <article class="comp-card">
               <div class="card-media">
+        
                 {% if event.image %}
                   <!-- Use the event's specific image if available -->
                   <img
@@ -264,7 +267,7 @@
                         <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
                       </svg>
                     </span> 
-                    <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span>
+                    <span class="detail-value">{{ event.event_date|date:'D, d M, Y' }}</span>
                   </li>
                   {% if city.venue %}
                   <li>
@@ -274,7 +277,7 @@
                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                       </svg>
                     </span> 
-                    <span class="detail-value">{{ city.venue }}, {{city.name}}</span>
+                    <span class="detail-value">{{ event.city.venue }}, {{event.city.name}}</span>
                   </li>
                   {% endif %}
                 </ul>
@@ -295,8 +298,11 @@
       <section class="city-competitions is-hidden" id="city-{{ city.name|slugify }}">
         <div class="cards-grid">
           {% for event in city.events.all %}
+
             <article class="comp-card">
               <div class="card-media">
+           
+
                 <div class="event-banner">
                 {% if event.image %}
                   <!-- Use the event's specific image if available -->
@@ -333,7 +339,7 @@
                         <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
                       </svg>
                     </span> 
-                    <span class="detail-value">{{ city.time|date:'D, d M, Y' }}</span>
+                    <span class="detail-value">{{ event.event_date|date:'D, d M, Y' }}</span>
                   </li>
                   {% if city.venue %}
                   <li>
@@ -343,7 +349,7 @@
                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                       </svg>
                     </span> 
-                    <span class="detail-value">{{ city.venue }}, {{city.name}}</span>
+                    <span class="detail-value">{{ event.city.venue }}, {{event.city.name}}</span>
                   </li>
                   {% endif %}
                 </ul>

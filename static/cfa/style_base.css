@@ -302,3 +302,30 @@
     }
   }
   
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 15px 20px;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .steps-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .form-grid {
+      grid-template-columns: 1fr !important;
+    }
+  
+    .form-group {
+      width: 100%;
+      display: block;
+    }
+  
+    .form-container {
+      padding: 30px 20px;
+    }
+   
+  }
+  

@@ -8,19 +8,23 @@ class TeamMemberInline(admin.TabularInline):
     extra = 1  # Number of extra empty forms to show by default
     raw_id_fields = ('head',)  # Use raw_id fields for large databases
 
+class EventInline(admin.TabularInline):
+    model = Event
+    extra = 1
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ('name', 'venue', 'time', 'state')
     search_fields = ('name', 'venue', 'state')
     list_filter = ('state', 'time')
-    filter_horizontal = ('events',)
+    inlines = [EventInline]   # <-- Now events will appear under each city in admin
+
     fieldsets = (
         (None, {
             'fields': ('name', 'venue', 'state', 'time', 'image')
         }),
         ('Details', {
-            'fields': ('guidelines', 'events'),
+            'fields': ('guidelines',),
             'classes': ('collapse',)
         }),
     )
