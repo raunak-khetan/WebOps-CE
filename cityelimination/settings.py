@@ -154,7 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 
 # CSRF Trusted Origins
-if PROD:
+if not PROD:
     CSRF_TRUSTED_ORIGINS = [
         'https://prelims.alcheringa.co.in',
         'http://prelims.alcheringa.co.in',
