@@ -129,9 +129,9 @@ if PROD:
     MINIO_STORAGE_ENDPOINT = os.environ.get('minio_endpoint')
     MINIO_STORAGE_ACCESS_KEY = os.environ.get('minio_access')
     MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
-    MINIO_STORAGE_USE_HTTPS = True
+    MINIO_STORAGE_USE_HTTPS = False
     
-    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce6media'
+    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce26media'
     MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
     MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce26static'
     MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
