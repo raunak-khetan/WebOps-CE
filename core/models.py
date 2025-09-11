@@ -7,7 +7,7 @@ from django.utils.timezone import now
 YEAR_CHOICES = [(y, str(y)) for y in range(2025, 2032)]  # 2025..2031
 class City(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    #events = models.ManyToManyField('Event', related_name='cities')
+    events = models.ManyToManyField('Event', related_name='cities')
     venue = models.CharField(max_length=100, default="None")
     time = models.DateField(null=True, blank=True)
     guidelines = models.TextField(default="None")
@@ -32,7 +32,6 @@ class Event(models.Model):
 
     deadline = models.DateField(null=True, blank=True)
     event_date = models.DateField(null=True, blank=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='events', null=True, blank=True)
 
     image = models.ImageField(
         upload_to="image_uploads/event_pic/", default='ropar.png',null=True, blank=True,help_text="Upload an image representing this event"

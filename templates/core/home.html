@@ -215,7 +215,7 @@
           <img src="{% static 'core/asset/icon.png' %}" alt="arrow" class="" /> 
         </button>
         <ul id="competitionsCityList" class="city-dropdown" role="listbox" aria-labelledby="competitionsCityButton" hidden>
-          <li role="option" data-value="all" class="is-active">All</li>
+          <li role="option" data-value="city-all" class="is-active">All</li>
           {% for city in cities %}
           <li role="option" data-value="city-{{ city.name|slugify }}">{{ city.name }}</li>
           {% endfor %}
@@ -277,7 +277,7 @@
                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                       </svg>
                     </span> 
-                    <span class="detail-value">{{ event.city.venue }}, {{event.city.name}}</span>
+                    <span class="detail-value">{{ city.venue }}, {{city.name}}</span>
                   </li>
                   {% endif %}
                 </ul>
@@ -301,12 +301,9 @@
 
             <article class="comp-card">
               <div class="card-media">
-<<<<<<< HEAD
-=======
            
 
-                <div class="event-banner">
->>>>>>> ashish-branch
+                
                 {% if event.image %}
                   <!-- Use the event's specific image if available -->
                   <img
@@ -352,7 +349,7 @@
                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                       </svg>
                     </span> 
-                    <span class="detail-value">{{ event.city.venue }}, {{event.city.name}}</span>
+                    <span class="detail-value">{{ city.venue }}, {{city.name}}</span>
                   </li>
                   {% endif %}
                 </ul>
@@ -467,7 +464,7 @@
         
         <div class="sponsors-grid">
           <!-- First Row -->
-          <div class="sponsor-logo">
+          <!-- <div class="sponsor-logo">
             <img src="{% static 'core/asset/starbucks.svg' %}" alt="Starbucks" class="logo-image">
           </div>
           
@@ -477,17 +474,17 @@
           
           <div class="sponsor-logo">
             <img src="{% static 'core/asset/redbull.svg' %}" alt="Red Bull" class="logo-image">
-          </div>
+          </div> -->
           
           <!-- Second Row -->
-          
+<!--           
           <div class="sponsor-logo">
             <img src="{% static 'core/asset/adidas.svg' %}" alt="Adidas" class="logo-image">
           </div>
           
           <div class="sponsor-logo">
             <img src="{% static 'core/asset/unilever.svg' %}" alt="Unilever" class="logo-image">
-          </div>
+          </div> -->
         </div>
       </div>
     </section>

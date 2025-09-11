@@ -109,7 +109,7 @@ body {
 .image-1 {
   border: 4px solid #bdf522;
   border-radius: 16px;
-  width: 466px;
+  width: 566px;
   height: 530px;
   position: relative;
   overflow: hidden;
@@ -391,7 +391,7 @@ body {
 }
 
 .is-hidden {
-  display: none;
+  display: none !important;
 }
 
 .style-img {

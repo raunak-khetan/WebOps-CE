@@ -47,7 +47,7 @@ body {
 .event-banner img {
   width: 100%;
   height: auto;
-  aspect-ratio: 710/473;
+  aspect-ratio: 5/4;
   border-radius: 10px;
   display: block;
   object-fit: cover;
@@ -122,6 +122,16 @@ body {
   padding-bottom: 17px;
 }
 .event-description {
+  font-family: "Lexend";
+  font-weight: 400;
+  font-size: 18px;
+  color: #ffffff99;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+.event-guidelines {
   font-family: "Lexend";
   font-weight: 400;
   font-size: 18px;
