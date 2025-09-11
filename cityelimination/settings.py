@@ -131,9 +131,9 @@ if PROD:
     MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
     MINIO_STORAGE_USE_HTTPS = True
     
-    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce6media'
+    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alcherce25media'
     MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-    MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce26static'
+    MINIO_STORAGE_STATIC_BUCKET_NAME = 'alcherce25static'
     MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 else:
     # Development - local storage
@@ -154,10 +154,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 
 # CSRF Trusted Origins
-if PROD:
+if not PROD:
     CSRF_TRUSTED_ORIGINS = [
         'https://prelims.alcheringa.co.in',
+        'http://prelims.alcheringa.co.in',
+        'http://ceportal.alcheringa.co.in',
         'https://ceportal.alcheringa.co.in'
     ]
 else:
     CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'minio_storage': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

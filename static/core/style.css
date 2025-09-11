@@ -225,6 +225,7 @@ body {
   gap: 8px;
 }
 
+/* City filter button style fix */
 .city-select .city-button {
   background: transparent;
   color: #bdf522;
@@ -233,10 +234,18 @@ body {
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
+
 .city-select .city-button:focus {
   outline: 2px solid #bdf522;
   outline-offset: 2px;
+}
+.city-select .city-button:hover,
+.city-select .city-button:active {
+  background: #202020;
+  color: #bdf522
+  ;
 }
 .city-select .city-dropdown {
   position: absolute;
