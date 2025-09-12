@@ -22,9 +22,9 @@ body {
   overflow-x: hidden;
 }
 .top-section {
-  height: 428px;
+  height: 600px;
   width: 100%;
-  background-color: #141414;
+  background-color: #373737;
   position: relative; 
 }
 
