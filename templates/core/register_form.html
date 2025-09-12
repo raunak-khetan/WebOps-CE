@@ -134,22 +134,7 @@
               {{ form.program_enrolled.as_widget }}
             {% endif %}
           </div>
-
-          <div class="field disability">
-            <label>Are you a person with disability (PwD)?</label>
-            <div class="disability-group">
-              {% if event.event_type == 'team' %}
-                {% for radio in team_form.is_disabled %}
-                  <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
-                {% endfor %}
-              {% else %}
-                {% for radio in form.is_disabled %}
-                  <label class="disability-box">{{ radio.tag }} <span>{{ radio.choice_label }}</span></label>
-                {% endfor %}
-              {% endif %}
-            </div>
-          </div>
-
+          
           <div class="field year">
             <label>Graduating Year</label>
             <div class="year-group">
