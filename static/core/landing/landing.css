@@ -304,7 +304,7 @@ body {
 
 /* About Section */
 .about-section {
-    min-height: 100vh;
+    min-height: 80vh;
     padding-left: 4rem;
   padding-right: 4rem;
     display: flex;
@@ -462,7 +462,6 @@ body {
 
 .about-container {
     padding-top: 2rem;
-    padding-bottom: 2rem;
 }
 .about-carousel {
     position: relative;
