@@ -308,10 +308,20 @@
             </div>
             <div class="info-text">
               <span class="info-label">Team Size</span>
-              <span class="info-value"
-                >{{ event.min_participants }}-{{ event.max_participants }}
-                members</span
-              >
+            
+              {% if event.event_type == 'solo' %}
+                <span class="info-value">1 member</span>
+              {% else %}
+                {% if event.min_participants and event.max_participants %}
+                  <span class="info-value">{{ event.min_participants }}-{{ event.max_participants }} members</span>
+                {% elif event.min_participants and not event.max_participants %}
+                  <span class="info-value">{{ event.min_participants }}-Any members</span>
+                {% elif event.max_participants and not event.min_participants %}
+                  <span class="info-value">1-{{ event.max_participants }} members</span>
+                {% else %}
+                  <span class="info-value">Any</span>
+                {% endif %}
+              {% endif %}
             </div>
           </div>
 

@@ -39,12 +39,18 @@ class Event(models.Model):
 
     def clean(self):
         if self.event_type == 'team':
-            if self.min_participants is None or self.max_participants is None:
-                raise ValidationError("Min and Max participants are required for team events.")
-            
-            if self.min_participants > self.max_participants:
+            # Require minimum participants; allow max to be None to indicate no limit
+            if self.min_participants is None:
+                raise ValidationError("Min participants is required for team events.")
+
+            # If max is provided, ensure it is not less than min
+            if (
+                self.max_participants is not None
+                and self.min_participants is not None
+                and self.min_participants > self.max_participants
+            ):
                 raise ValidationError("Min participants cannot be greater than Max participants.")
-        
+
         elif self.event_type == 'solo':
             if self.min_participants or self.max_participants:
                 raise ValidationError("Min and Max participants should be empty for solo events.")
