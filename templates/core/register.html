@@ -325,16 +325,6 @@
             </div>
           </div>
 
-          <div class="info-box">
-            <div class="info-icon">
-              <img src="{%static 'core/asset/clock.png' %}" alt="clock" />
-            </div>
-            <div class="info-text">
-              <span class="info-label">Registration Deadline</span>
-              <span class="info-value">{{ event.deadline }}</span>
-            </div>
-          </div>
-
           <a
             href="{% url 'registrationpage' city.name event.name %}"
             class="register-btn"
