@@ -12,7 +12,7 @@ class City(models.Model):
     time = models.DateField(null=True, blank=True)
     guidelines = models.TextField(default="None")
     image = models.ImageField(
-        upload_to="image_uploads/city_pic/", default='ropar.png')
+        upload_to="image_uploads/city_pic/",null=True)
     state = models.CharField(max_length=100,default='None')
 
     def __str__(self):
@@ -34,7 +34,7 @@ class Event(models.Model):
     event_date = models.DateField(null=True, blank=True)
 
     image = models.ImageField(
-        upload_to="image_uploads/event_pic/", default='ropar.png',null=True, blank=True,help_text="Upload an image representing this event"
+        upload_to="image_uploads/event_pic/",null=True, blank=True,help_text="Upload an image representing this event"
     )
 
     def clean(self):
