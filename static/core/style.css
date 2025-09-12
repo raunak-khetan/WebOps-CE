@@ -102,7 +102,7 @@ body {
 }
 .flower {
   position: absolute;
-  right: 130px;
+  right: 3.5vw;
   top: 180px;
 }
 
@@ -1040,8 +1040,9 @@ label {
     height: 440px;
   }
   .flower {
-    right: 60px;
+    right: 40px;
     top: 140px;
+    width:80px;
   }
   .cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1147,9 +1148,9 @@ label {
     height: 120px;
   }
   .flower {
-    right: 40px;
+    right: 30px;
     top: 120px;
-    width: 140px;
+    width: 90px;
   }
   /* Show event summary above the form on medium screens */
   .page-wrap {
@@ -1234,7 +1235,7 @@ label {
   }
   .flower {
     right: 12px;
-    top: 80px;
+    top: 150px;
     width: 100px;
   }
   .image-nav {
