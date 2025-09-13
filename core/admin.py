@@ -66,7 +66,7 @@ class CityAdmin(ImportExportModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'venue', 'state', 'time', 'image')
+            'fields': ('name', 'venue', 'state', 'time', 'image','collab')
         }),
         ('Details', {
             'fields': ('guidelines',),
