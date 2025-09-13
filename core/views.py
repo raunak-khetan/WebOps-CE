@@ -105,7 +105,8 @@ def detailspage(request, city_name, event_name):
                 "date": city_item.time.strftime("%a, %d %b, %Y") if city_item.time else "No date",
                 "venue": city_item.venue,
                 "image": image_url,  # Now uses the fallback hierarchy
-                "type": event_item.event_type.capitalize() if event_item.event_type else "N/A"
+                "type": event_item.event_type.capitalize() if event_item.event_type else "N/A",
+                "collab": city_item.collab
             })
 
     return render(request, 'core/register.html', {
