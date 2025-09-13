@@ -9,7 +9,7 @@ from .models import AboutImage
 class CityResource(resources.ModelResource):
     class Meta:
         model = City
-        fields = ('id', 'name', 'venue', 'state', 'time', 'guidelines')
+        fields = ('id', 'name', 'venue', 'state', 'time', 'guidelines','collab')
 
 class EventResource(resources.ModelResource):
     class Meta:
@@ -59,7 +59,7 @@ class EventInline(admin.TabularInline):
 @admin.register(City)
 class CityAdmin(ImportExportModelAdmin):
     resource_class = CityResource
-    list_display = ('name', 'venue', 'time', 'state')
+    list_display = ('name', 'venue', 'time', 'state', 'collab')
     search_fields = ('name', 'venue', 'state')
     list_filter = ('state', 'time')
     inlines = [EventInline]
