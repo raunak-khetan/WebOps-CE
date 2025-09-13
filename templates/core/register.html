@@ -369,7 +369,7 @@
                   <div class="card-actions">
                     <img src="{% static 'core/asset/star2.png' %}" alt="{{ competition.title }}" class="style-img"/>
                     <img src="{% static 'core/asset/flower2.png' %}" alt="{{ competition.title }}" class="comp-img"/>
-                    {% if not city.collab %}
+                    {% if not competition.city.collab %}
                     <a class="register-btn" href="{% url 'detailspage' competition.city competition.title %}">Details</a>
                     {% endif %}
                   </div>
