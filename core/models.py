@@ -14,6 +14,7 @@ class City(models.Model):
     image = models.ImageField(
         upload_to="image_uploads/city_pic/",null=True)
     state = models.CharField(max_length=100,default='None')
+    collab = models.BooleanField(null=True,default=False)
 
     def __str__(self):
         return self.name

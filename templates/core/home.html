@@ -292,7 +292,9 @@
                 <div class="card-actions">
                   <img src="{% static 'core/asset/star2.png' %}" alt="decoration" class="style-img"/>
                   <img src="{% static 'core/asset/flower2.png' %}" alt="decoration" class="comps-img"/>
+                  {% if not city.collab %}
                   <a class="register-btn" href="{% url 'detailspage' city.name event.name %}">Details</a>
+                  {% endif %}
                 </div>
               </div>
             </article>
