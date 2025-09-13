@@ -314,9 +314,9 @@
                 {% if event.min_participants and event.max_participants %}
                   <span class="info-value">{{ event.min_participants }}-{{ event.max_participants }} members</span>
                 {% elif event.min_participants and not event.max_participants %}
-                  <span class="info-value">{{ event.min_participants }}-Any members</span>
+                  <span class="info-value">Minimum :{{ event.min_participants }}</span>
                 {% elif event.max_participants and not event.min_participants %}
-                  <span class="info-value">1-{{ event.max_participants }} members</span>
+                  <span class="info-value">Maximum {{ event.max_participants }} members</span>
                 {% else %}
                   <span class="info-value">Any</span>
                 {% endif %}
