@@ -1992,13 +1992,12 @@ label {
     
     .alcher-blocks .sponsors-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(6, 1fr);
         gap: 0.75rem;
     }
     
     .alcher-blocks .sponsor-logo {
-        width: 120px;
-        height: 70px;
+        width: 220px;
+        height: 140px;
     }
 }
 
