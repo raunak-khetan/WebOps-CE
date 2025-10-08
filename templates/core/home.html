@@ -237,25 +237,22 @@
         {% for city in cities %}
           {% for event in city.events.all %}
 
-            <article class="comp-card">
+            <article class="comp-card" data-index="{{ forloop.counter }}">
               <div class="card-media">
         
                 {% if event.image %}
-                  <!-- Use the event's specific image if available -->
                   <img
                     src="{{ event.image.url }}"
                     alt="{{ event.name }}"
                     class="comp-img"
                   />
                 {% elif city.image %}
-                  <!-- Fallback to city image if event image is not available -->
                   <img
                     src="{{ city.image.url }}"
                     alt="{{ event.name }}"
                     class="comp-img"
                   />
                 {% else %}
-                  <!-- Final fallback to a default static image -->
                   <img
                     src="{% static 'core/asset/CompetitionPhoto.png' %}"
                     alt="{{ event.name }}"
@@ -301,6 +298,9 @@
           {% endfor %}
         {% endfor %}
       </div>
+      <div class="load-more-container" style="text-align: center; margin: 2rem 0;">
+        <button id="loadMoreAll" class="load-more-btn" style="display: none;">Show More</button>
+      </div>
     </section>
 
     <!-- Individual city sections (hidden by default) -->
@@ -309,27 +309,21 @@
         <div class="cards-grid">
           {% for event in city.events.all %}
 
-            <article class="comp-card">
+            <article class="comp-card" data-index="{{ forloop.counter }}">
               <div class="card-media">
-           
-
-                
                 {% if event.image %}
-                  <!-- Use the event's specific image if available -->
                   <img
                     src="{{ event.image.url }}"
                     alt="{{ event.name }}"
                     class="comp-img"
                   />
                 {% elif city.image %}
-                  <!-- Fallback to city image if event image is not available -->
                   <img
                     src="{{ city.image.url }}"
                     alt="{{ event.name }}"
                     class="comp-img"
                   />
                 {% else %}
-                  <!-- Final fallback to a default static image -->
                   <img
                     src="{% static 'core/asset/CompetitionPhoto.png' %}"
                     alt="{{ event.name }}"
@@ -376,9 +370,120 @@
             <p>No competitions found for {{ city.name }}.</p>
           {% endfor %}
         </div>
+        <div class="load-more-container" style="text-align: center; margin: 2rem 0;">
+          <button id="loadMore-{{ city.name|slugify }}" class="load-more-btn" style="display: none;">Show More</button>
+        </div>
       </section>
     {% endfor %}
   </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const ITEMS_PER_PAGE = 10;
+  
+  // Initialize load more functionality for each section
+  function initLoadMore(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+    
+    const cards = section.querySelectorAll('.comp-card');
+    const loadMoreBtn = section.querySelector('.load-more-btn');
+    
+    if (cards.length <= ITEMS_PER_PAGE) {
+      // Don't show button if items are less than or equal to page size
+      return;
+    }
+    
+    let currentlyVisible = ITEMS_PER_PAGE;
+    
+    // Hide all cards beyond the first page
+    cards.forEach((card, index) => {
+      if (index >= ITEMS_PER_PAGE) {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Show the load more button
+    loadMoreBtn.style.display = 'inline-block';
+    
+    // Handle load more click
+    loadMoreBtn.addEventListener('click', function() {
+      const nextVisible = currentlyVisible + ITEMS_PER_PAGE;
+      
+      // Show next batch of cards
+      for (let i = currentlyVisible; i < nextVisible && i < cards.length; i++) {
+        cards[i].style.display = 'block';
+      }
+      
+      currentlyVisible = nextVisible;
+      
+      // Hide button if all cards are visible
+      if (currentlyVisible >= cards.length) {
+        loadMoreBtn.style.display = 'none';
+      }
+    });
+  }
+  
+  // Initialize for the "All" section
+  initLoadMore('city-all');
+  
+  // Initialize for each city section
+  {% for city in cities %}
+  initLoadMore('city-{{ city.name|slugify }}');
+  {% endfor %}
+  
+  // Handle city filter changes - reinitialize visibility when switching cities
+  const cityButton = document.getElementById('competitionsCityButton');
+  const cityList = document.getElementById('competitionsCityList');
+  
+  if (cityList) {
+    cityList.addEventListener('click', function(e) {
+      if (e.target.tagName === 'LI') {
+        const selectedCity = e.target.getAttribute('data-value');
+        
+        // Hide all sections
+        document.querySelectorAll('.city-competitions').forEach(section => {
+          section.classList.add('is-hidden');
+        });
+        
+        // Show selected section
+        const targetSection = document.getElementById(selectedCity);
+        if (targetSection) {
+          targetSection.classList.remove('is-hidden');
+        }
+      }
+    });
+  }
+});
+</script>
+
+<style>
+.load-more-btn {
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.load-more-btn:active {
+  transform: translateY(0);
+}
+
+.is-hidden {
+  display: none !important;
+}
+</style>
   
   <script src="{% static 'core/script.js' %}"></script>
 
