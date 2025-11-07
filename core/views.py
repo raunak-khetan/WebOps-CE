@@ -12,6 +12,9 @@ from .models import CFARegistration
 from .models import City, Event
 from django.http import HttpResponse
 from .models import AboutImage
+from django.db.models import Prefetch, Case, When, Value, IntegerField, F, ExpressionWrapper, DateField
+from django.utils import timezone
+from datetime import timedelta
 
 
 def city_list(request):
@@ -44,7 +47,41 @@ def get_city_events(request, city_name):
 
 
 def prelimspage(request):
-    cities = City.objects.all().prefetch_related('events')
+    # Sort events by event_date (if available), then by name as fallback
+    # For events, prioritize future dates (nearest first), then past dates (most recent first)
+    today = timezone.now().date()
+    events_prefetch = Prefetch(
+        'events',
+        queryset=Event.objects.annotate(
+            date_priority=Case(
+                When(event_date__gte=today, then=Value(0)),  # Future dates first
+                When(event_date__lt=today, then=Value(1)),   # Past dates second
+                When(event_date__isnull=True, then=Value(2)), # Null dates last
+                default=Value(2),
+                output_field=IntegerField()
+            )
+        ).order_by('date_priority', 'event_date', 'name')
+    )
+    # Sort cities by nearest competition date
+    # Future dates first (ascending = nearest first), then past dates (descending = most recent first)
+    # We'll sort in Python to handle the conditional ordering properly
+    cities_queryset = City.objects.prefetch_related(events_prefetch).annotate(
+        date_priority=Case(
+            When(time__gte=today, then=Value(0)),  # Future dates first
+            When(time__lt=today, then=Value(1)),   # Past dates second
+            When(time__isnull=True, then=Value(2)), # Null dates last
+            default=Value(2),
+            output_field=IntegerField()
+        )
+    )
+    
+    # Sort: future dates ascending (nearest first), past dates descending (most recent first)
+    cities_list = list(cities_queryset)
+    future_cities = sorted([c for c in cities_list if c.date_priority == 0], key=lambda c: (c.time or timezone.now().date() + timedelta(days=365*100), c.name))
+    past_cities = sorted([c for c in cities_list if c.date_priority == 1], key=lambda c: (-c.time.toordinal() if c.time else 0, c.name))
+    null_cities = sorted([c for c in cities_list if c.date_priority == 2], key=lambda c: c.name)
+    cities = future_cities + past_cities + null_cities
+    
     about_images = AboutImage.objects.all().order_by('order')
 
     first_reg_url = None
